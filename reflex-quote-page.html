@@ -142,6 +142,10 @@ form .row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .field textarea{min-height:130px;resize:vertical}
 .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 1px var(--teal)}
 .formnote{font-family:var(--m);font-size:12px;color:var(--muted);margin-top:14px;line-height:1.7}
+.formstatus{font-family:var(--m);font-size:13px;color:var(--muted);margin-top:16px;line-height:1.6;display:none}
+.formstatus.ok{color:var(--teal)}
+.formstatus.err{color:var(--amber)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .aside{border:1px solid var(--line);background:var(--surface);padding:30px;border-radius:4px;align-self:start}
 .aside h3{font-size:1.15rem;font-weight:700;margin-bottom:14px}
 .aside .nap{font-family:var(--m);font-size:13px;line-height:2;color:var(--ink)}
@@ -160,7 +164,7 @@ form .row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   </nav>
 </div></header>
 
-<section class="draft"><div class="wrap"><b>DRAFT</b> &nbsp;&mdash;&nbsp; This form is not connected yet. Wire the &lt;form&gt; action to an email/form service (Formspree, Netlify Forms, or a backend) before publishing &mdash; see the comment in the markup. Until then, the phone and email on the right are the working contact methods.</div></section>
+<section class="draft"><div class="wrap"><b>SETUP</b> &nbsp;&mdash;&nbsp; This form sends via EmailJS but needs your three keys to go live: paste your Public Key, Service ID, and Template ID into the &lt;script&gt; at the bottom of this file, and set the EmailJS template&rsquo;s &ldquo;To&rdquo; address to info@reflextechnologies.com. Until then it shows a fallback message; phone and email on the right always work.</div></section>
 
 <section class="hero">
   <div class="hero-in">
@@ -172,8 +176,8 @@ form .row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 
 <section class="formwrap"><div class="wrap">
   <div class="grid">
-    <!-- TODO: set action to your form endpoint and remove onsubmit. e.g. action="https://formspree.io/f/XXXX" method="post" -->
-    <form action="#" method="post" onsubmit="alert('Demo only — connect this form to a backend before publishing.'); return false;">
+    <form id="quoteForm" novalidate>
+      <div class="hp" aria-hidden="true"><label>Leave this field empty<input type="text" name="_hp" tabindex="-1" autocomplete="off"></label></div>
       <div class="row">
         <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" required></div>
         <div class="field"><label for="org">Organization (optional)</label><input id="org" name="organization" type="text"></div>
@@ -208,7 +212,8 @@ form .row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
         </select>
       </div>
       <div class="field"><label for="message">Anything else</label><textarea id="message" name="message" placeholder="Tell us about the project, deadlines, or anything unusual about the material."></textarea></div>
-      <button class="btn btn-p" type="submit">Send request</button>
+      <button id="sendBtn" class="btn btn-p" type="submit">Send request</button>
+      <p id="formStatus" class="formstatus" role="status" aria-live="polite"></p>
       <p class="formnote">We read every request and reply personally. Prefer to talk it through? Call us at 818-859-7770.</p>
     </form>
 
@@ -228,5 +233,82 @@ form .row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
     <div class="social"><a href="#">LinkedIn</a><a href="#">Facebook</a></div>
   </div>
 </div></footer>
+
+<!--
+  EmailJS setup (https://www.emailjs.com) — three steps to make this form live:
+  1) Create a free account, then under "Email Services" connect the inbox that will
+     send the mail (Gmail, Outlook, etc.). Copy its Service ID.
+  2) Under "Email Templates" create a template. Set its "To Email" to
+     info@reflextechnologies.com and use these variables in the body so you receive
+     every field: {{name}} {{organization}} {{email}} {{phone}} {{media}}
+     {{formats}} {{quantity}} {{condition}} {{message}}. Copy its Template ID.
+  3) Under "Account" copy your Public Key.
+  Paste all three into the constants below. Tip: set the template's "Reply-To" to
+  {{email}} so you can reply straight to the customer.
+-->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+(function () {
+  // ===== Paste your EmailJS keys here =====
+  var EMAILJS_PUBLIC_KEY  = "YOUR_PUBLIC_KEY";
+  var EMAILJS_SERVICE_ID  = "YOUR_SERVICE_ID";
+  var EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+  // ========================================
+
+  var form   = document.getElementById("quoteForm");
+  var statusEl = document.getElementById("formStatus");
+  var btn    = document.getElementById("sendBtn");
+  var configured = EMAILJS_PUBLIC_KEY.indexOf("YOUR_") !== 0 &&
+                   EMAILJS_SERVICE_ID.indexOf("YOUR_") !== 0 &&
+                   EMAILJS_TEMPLATE_ID.indexOf("YOUR_") !== 0;
+
+  if (configured && window.emailjs) {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  }
+
+  function setStatus(msg, kind) {
+    statusEl.textContent = msg;
+    statusEl.className = "formstatus" + (kind ? " " + kind : "");
+    statusEl.style.display = msg ? "block" : "none";
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Honeypot: bots fill hidden fields, humans don't.
+    if (form.querySelector('[name="_hp"]').value) return;
+
+    // Basic validation (we set novalidate to control the messaging ourselves).
+    // Use form.elements[...] — form.name would collide with the form's own name property.
+    var nameVal  = (form.elements["name"].value || "").trim();
+    var emailVal = (form.elements["email"].value || "").trim();
+    if (!nameVal || !emailVal) {
+      setStatus("Please add your name and email so we can reply.", "err");
+      return;
+    }
+
+    if (!configured) {
+      setStatus("This form isn't connected yet. Please email info@reflextechnologies.com or call 818-859-7770 — we'll get right back to you.", "err");
+      return;
+    }
+
+    btn.disabled = true;
+    setStatus("Sending…", "");
+
+    emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form).then(
+      function () {
+        form.reset();
+        btn.disabled = false;
+        setStatus("Thank you — your request is on its way. We'll reply personally, usually within a business day.", "ok");
+      },
+      function (err) {
+        btn.disabled = false;
+        setStatus("Sorry, something went wrong sending your request. Please email info@reflextechnologies.com or call 818-859-7770.", "err");
+        if (window.console) console.error("EmailJS error:", err);
+      }
+    );
+  });
+})();
+</script>
 
 </body></html>
