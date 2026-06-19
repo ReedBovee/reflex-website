@@ -164,7 +164,7 @@ form .row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   </nav>
 </div></header>
 
-<section class="draft"><div class="wrap"><b>SETUP</b> &nbsp;&mdash;&nbsp; This form sends via EmailJS but needs your three keys to go live: paste your Public Key, Service ID, and Template ID into the &lt;script&gt; at the bottom of this file, and set the EmailJS template&rsquo;s &ldquo;To&rdquo; address to info@reflextechnologies.com. Until then it shows a fallback message; phone and email on the right always work.</div></section>
+<section class="draft"><div class="wrap"><b>SETUP</b>: This form sends via EmailJS but needs your three keys to go live: paste your Public Key, Service ID, and Template ID into the &lt;script&gt; at the bottom of this file, and set the EmailJS template&rsquo;s &ldquo;To&rdquo; address to info@reflextechnologies.com. Until then it shows a fallback message; phone and email on the right always work.</div></section>
 
 <section class="hero">
   <div class="hero-in">
@@ -205,7 +205,7 @@ form .row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
         <label for="condition">Condition</label>
         <select id="condition" name="condition">
           <option value="">Select one</option>
-          <option>Good &mdash; clean and intact</option>
+          <option>Good, clean and intact</option>
           <option>Some damage or fading</option>
           <option>Severely deteriorated</option>
           <option>Unknown</option>
@@ -235,7 +235,7 @@ form .row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 </div></footer>
 
 <!--
-  EmailJS setup (https://www.emailjs.com) — three steps to make this form live:
+  EmailJS setup (https://www.emailjs.com), three steps to make this form live:
   1) Create a free account, then under "Email Services" connect the inbox that will
      send the mail (Gmail, Outlook, etc.). Copy its Service ID.
   2) Under "Email Templates" create a template. Set its "To Email" to
@@ -279,7 +279,7 @@ form .row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
     if (form.querySelector('[name="_hp"]').value) return;
 
     // Basic validation (we set novalidate to control the messaging ourselves).
-    // Use form.elements[...] — form.name would collide with the form's own name property.
+    // Use form.elements[...], form.name would collide with the form's own name property.
     var nameVal  = (form.elements["name"].value || "").trim();
     var emailVal = (form.elements["email"].value || "").trim();
     if (!nameVal || !emailVal) {
@@ -288,7 +288,7 @@ form .row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
     }
 
     if (!configured) {
-      setStatus("This form isn't connected yet. Please email info@reflextechnologies.com or call 818-859-7770 — we'll get right back to you.", "err");
+      setStatus("This form isn't connected yet. Please email info@reflextechnologies.com or call 818-859-7770, we'll get right back to you.", "err");
       return;
     }
 
@@ -299,7 +299,7 @@ form .row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
       function () {
         form.reset();
         btn.disabled = false;
-        setStatus("Thank you — your request is on its way. We'll reply personally, usually within a business day.", "ok");
+        setStatus("Thank you, your request is on its way. We'll reply personally, usually within a business day.", "ok");
       },
       function (err) {
         btn.disabled = false;
