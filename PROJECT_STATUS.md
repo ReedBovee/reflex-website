@@ -52,7 +52,7 @@ new pages copy its CSS, logo, header, and footer.
 | `reflex-stills-page.html` | ✅ Done — Photos, slides & negatives |
 | `reflex-video-audio-page.html` | ✅ Done — Video & audio tape transfer |
 | `reflex-about-page.html` | 🟡 Scaffold — needs real copy |
-| `reflex-our-work-page.html` | 🟡 Scaffold — needs real case studies |
+| `reflex-our-work-page.html` | ✅ Done — 5 real case studies + client roster |
 | `reflex-facility-page.html` | 🟡 Scaffold — needs real copy + photos |
 | `reflex-quote-page.html` | 🟡 Functional, needs EmailJS keys (see §5) |
 
@@ -64,13 +64,16 @@ All 8 pages are cross-linked; every internal link resolves.
 
 1. **Wire the quote form** — paste 3 EmailJS keys (see §5). Highest priority; it's
    the site's main conversion point.
-2. **Fill the scaffold pages** — About, Our Work, Facility. Each has a visible
+2. **Fill the remaining scaffold pages** — About and Facility. Each has a visible
    amber **DRAFT** banner, inline amber `[bracketed placeholders]`, and HTML
    comments at every photo slot. Replace all amber text with real content:
    - About: founding story, team members, a real headline stat.
-   - Our Work: **cleared** case studies + client names only (one real example —
-     MoMA — is already in place; confirm it's OK to publish).
    - Facility: real environmental/equipment specs, hours, and a map embed.
+   - Our Work is **done** — 5 case studies (MoMA, Frank Zappa, Paramount, Gene
+     Kelly, Jim Henson) built from `Case Studies/Reflex Case Studies.pdf`, plus a
+     client roster. Source PDF has 22 total if more are wanted later. Note:
+     Paramount card is deliberately attributed to Paramount (PDF wrote it as Warner
+     Bros.) and kept general — verify film titles before any detail page.
 3. **Swap placeholder images** — every band/thumbnail currently reuses one of the
    three Film-page photos as a stand-in. Search the page for
    `background-image:url('data:image/jpeg;base64,` and the adjacent

@@ -1,1 +1,6 @@
 .claude/
+
+# Internal source material — do NOT publish. Contains all 22 case studies
+# (including unpublished and sensitive ones) and full client details.
+Case Studies/
+__*
