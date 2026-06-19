@@ -54,7 +54,7 @@ new pages copy its CSS, logo, header, and footer.
 | `reflex-about-page.html` | 🟡 Scaffold — needs real copy |
 | `reflex-our-work-page.html` | ✅ Done — 6 case-study cards (each links to a detail page) + roster |
 | `reflex-cs-*.html` (6 pages) | ✅ Done — full case-study detail pages (moma, zappa, paramount, gene-kelly, henson, iam) |
-| `reflex-facility-page.html` | 🟡 Scaffold — needs real copy + photos |
+| `reflex-facility-page.html` | ✅ Done — real copy + map embed (photos still placeholder) |
 | `reflex-quote-page.html` | 🟡 Functional, needs EmailJS keys (see §5) |
 
 All 8 pages are cross-linked; every internal link resolves.
@@ -69,7 +69,12 @@ All 8 pages are cross-linked; every internal link resolves.
    amber **DRAFT** banner, inline amber `[bracketed placeholders]`, and HTML
    comments at every photo slot. Replace all amber text with real content:
    - About: founding story, team members, a real headline stat.
-   - Facility: real environmental/equipment specs, hours, and a map embed.
+   - Facility is **done** — real copy built from the case-studies PDF facts
+     (in-house Reflex scanners 8mm-35mm + HDR, DaVinci Resolve color, cold
+     storage, hand inspection/triage) plus owner-confirmed details: hours
+     Mon-Fri 9-5, drop-off or by appointment, temp + humidity controlled. Map
+     is a no-API-key Google Maps embed of 4100 W Burbank Blvd. Band photos are
+     still Film-page placeholders.
    - Our Work is **done** — 5 case studies (MoMA, Frank Zappa, Paramount, Gene
      Kelly, Jim Henson) built from `Case Studies/Reflex Case Studies.pdf`, plus a
      client roster. Source PDF has 22 total if more are wanted later. Note:
