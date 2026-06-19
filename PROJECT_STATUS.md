@@ -52,7 +52,8 @@ new pages copy its CSS, logo, header, and footer.
 | `reflex-stills-page.html` | ✅ Done — Photos, slides & negatives |
 | `reflex-video-audio-page.html` | ✅ Done — Video & audio tape transfer |
 | `reflex-about-page.html` | 🟡 Scaffold — needs real copy |
-| `reflex-our-work-page.html` | ✅ Done — 5 real case studies + client roster |
+| `reflex-our-work-page.html` | ✅ Done — 6 case-study cards (each links to a detail page) + roster |
+| `reflex-cs-*.html` (6 pages) | ✅ Done — full case-study detail pages (moma, zappa, paramount, gene-kelly, henson, iam) |
 | `reflex-facility-page.html` | 🟡 Scaffold — needs real copy + photos |
 | `reflex-quote-page.html` | 🟡 Functional, needs EmailJS keys (see §5) |
 
