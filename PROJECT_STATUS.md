@@ -51,7 +51,6 @@ new pages copy its CSS, logo, header, and footer.
 | `reflex-film-page.html` | ✅ Done — Film service page (the template reference) |
 | `reflex-stills-page.html` | ✅ Done — Photos, slides & negatives |
 | `reflex-video-audio-page.html` | ✅ Done — Video & audio tape transfer |
-| `reflex-about-page.html` | 🟡 Scaffold — needs real copy |
 | `reflex-our-work-page.html` | ✅ Done — 6 case-study cards (each links to a detail page) + roster |
 | `reflex-cs-*.html` (6 pages) | ✅ Done — full case-study detail pages (moma, zappa, paramount, gene-kelly, henson, iam) |
 | `reflex-facility-page.html` | ✅ Done — real copy + map embed (photos still placeholder) |
@@ -65,10 +64,9 @@ All 8 pages are cross-linked; every internal link resolves.
 
 1. **Wire the quote form** — paste 3 EmailJS keys (see §5). Highest priority; it's
    the site's main conversion point.
-2. **Fill the remaining scaffold pages** — About and Facility. Each has a visible
+2. **Fill the remaining scaffold pages** — Facility. Each has a visible
    amber **DRAFT** banner, inline amber `[bracketed placeholders]`, and HTML
    comments at every photo slot. Replace all amber text with real content:
-   - About: founding story, team members, a real headline stat.
    - Facility is **done** — real copy built from the case-studies PDF facts
      (in-house Reflex scanners 8mm-35mm + HDR, DaVinci Resolve color, cold
      storage, hand inspection/triage) plus owner-confirmed details: hours
@@ -136,7 +134,7 @@ disabled-while-sending state, and an accessible success/error status line.
   comments at image slots. Strip all of these before publishing.
 - **Images**: real photos are base64 JPEGs inline; new slots reuse them as
   placeholders via `style="background-image:url('data:image/jpeg;base64,…')"`.
-- **Cross-links**: nav order is Film, Video & Audio, Stills, Our Work, About,
+- **Cross-links**: nav order is Film, Video & Audio, Stills, Our Work,
   Facility; the active page carries `aria-current="page"`. "Request a quote"
   buttons → `reflex-quote-page.html`.
 - **Editing tip**: the HTML files are large because of embedded base64 images, so

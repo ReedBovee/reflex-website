@@ -12,7 +12,6 @@ serve the folder with any static server.
 - `reflex-film-page.html` — Film scanning & restoration (style/template reference)
 - `reflex-stills-page.html` — Photos, slides & negatives
 - `reflex-video-audio-page.html` — Video & audio tape transfer
-- `reflex-about-page.html` — About *(scaffold)*
 - `reflex-our-work-page.html` — Our Work *(scaffold)*
 - `reflex-facility-page.html` — Facility *(scaffold)*
 - `reflex-quote-page.html` — Request a quote (EmailJS form)
