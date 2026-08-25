@@ -1,0 +1,1025 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Film tools | Reflex</title>
+<meta name="description" content="Free film tools: footage and run-time calculator, scan-storage estimator, feet-and-frames converter, gauge guide, Kodak edge-code dating, and reel capacity.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#0c0e10; --surface:#14181b; --line:rgba(255,255,255,.09);
+ --ink:#f1f4f4; --muted:#9aa3a5; --teal:#15ebdf; --teal-deep:#0a8f8a; --amber:#e6a24a;
+ --d:'Archivo',system-ui,sans-serif; --b:'Inter',system-ui,sans-serif; --m:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--b);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+a{color:inherit;text-decoration:none}
+.eyebrow{font-family:var(--m);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}
+.btn{font-family:var(--m);font-size:13px;letter-spacing:.04em;padding:13px 22px;border-radius:3px;display:inline-block;transition:.18s;cursor:pointer;border:1px solid transparent}
+.btn-p{background:var(--teal);color:#04201f;font-weight:500}
+.btn-p:hover{background:#51fff8}
+.btn-g{border-color:rgba(255,255,255,.38);color:var(--ink)}
+.btn-g:hover{border-color:var(--teal);color:var(--teal)}
+h1,h2,h3{font-family:var(--d);font-weight:800;line-height:1.05;letter-spacing:-.01em}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:rgba(12,14,16,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.calc-sec,.tool-sec{scroll-margin-top:88px}
+.bar{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:baseline;gap:10px}
+.logo img{height:35px;width:auto;display:block}header .btn{padding:5px 9px}.cta .btn{padding:5px 9px}
+.logo .s{font-family:var(--m);font-weight:400;font-size:11px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase}
+
+nav{display:flex;gap:26px;align-items:center}
+nav a{font-size:14px;color:var(--muted);transition:.15s} nav a:hover{color:var(--ink)}
+.nav-links{display:flex;gap:26px}.nav-links a[aria-current="page"]{color:var(--teal)}
+.navtog{display:none;background:none;border:0;color:var(--ink);cursor:pointer;padding:6px;margin:0;line-height:0}@media(max-width:860px){.navtog{display:inline-flex;align-items:center}nav{position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(12,14,16,.98);border-bottom:1px solid var(--line);padding:6px 0;display:none}header.open nav{display:flex}.nav-links{display:flex;flex-direction:column;gap:0}.nav-links a{padding:15px 24px;font-size:16px}nav>.btn{margin:10px 24px 14px;text-align:center;font-size:15px;padding:13px}}
+
+/* hero */
+.hero{position:relative;min-height:90vh;display:flex;align-items:flex-end;background:url('images/e5bf1e99553e.jpg') center 10%/cover no-repeat}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,rgba(8,10,11,.92) 0%,rgba(8,10,11,.66) 46%,rgba(8,10,11,.3) 68%,rgba(8,10,11,.12) 84%,rgba(8,10,11,.4) 100%)}
+.hero-in{position:relative;z-index:2;padding:0 28px 76px;max-width:1140px;margin:0 auto;width:100%}
+.hero h1{font-size:clamp(2.4rem,6vw,4.6rem);max-width:16ch;margin:18px 0 22px}.hero-tool{min-height:90vh;background-size:cover;background-position:center}
+.hero-tool .hero-in{padding-bottom:calc(24px + 27vh - 22px)}
+.hero p{font-size:clamp(1rem,1.6vw,1.22rem);color:#d6dcdc;max-width:60ch;margin-bottom:30px}
+.hero .btns{display:flex;gap:14px;flex-wrap:wrap}
+.fade{opacity:0;transform:translateY(14px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+.fade.d1{animation-delay:.08s}.fade.d2{animation-delay:.18s}.fade.d3{animation-delay:.28s}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* thesis */
+.thesis{border-bottom:1px solid var(--line)}
+.thesis .wrap{padding:64px 28px}
+.thesis p{font-family:var(--d);font-weight:600;font-size:clamp(1.4rem,3vw,2.1rem);line-height:1.25;letter-spacing:-.01em;max-width:24ch}
+.thesis .lead{color:var(--muted)} .thesis .hl{color:var(--ink)}
+
+/* services */
+.svc{padding:72px 0;border-bottom:1px solid var(--line)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:34px}
+@media(max-width:760px){.grid3{grid-template-columns:1fr}}
+.card{background:var(--bg);padding:30px 28px}
+.card .n{font-family:var(--m);font-size:12px;color:var(--teal);letter-spacing:.1em}
+.card h3{font-size:1.45rem;font-weight:700;margin:14px 0 10px}
+.card p{color:var(--muted);font-size:.96rem}
+.card .go{font-family:var(--m);font-size:12px;color:var(--ink);margin-top:18px;display:inline-block;border-bottom:1px solid var(--teal);padding-bottom:2px}
+.sec-head .eyebrow{display:block;margin-bottom:14px}
+.sec-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem)}
+
+/* split bands */
+.band{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;border-bottom:1px solid var(--line)}
+.band.rev .media{order:2}
+@media(max-width:820px){.band{grid-template-columns:1fr}.band.rev .media{order:0}}
+.band .media{position:relative;min-height:440px;background-size:cover;background-position:center}
+.band .media.r169{aspect-ratio:16/9;min-height:0;align-self:center;margin:24px}
+.band .media.framed{background-size:contain;background-repeat:no-repeat;background-color:#0c0e10}
+.band .media .tag{position:absolute;left:18px;bottom:16px;font-family:var(--m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(8,10,11,.6);padding:6px 11px;border:1px solid rgba(255,255,255,.18)}
+.band .copy{padding:64px 56px;display:flex;flex-direction:column;justify-content:center}
+@media(max-width:820px){.band .copy{padding:48px 28px}}
+.band h2{font-size:clamp(1.8rem,3.4vw,2.6rem);margin:14px 0 18px}
+.band p{color:var(--muted);font-size:1.04rem;max-width:46ch}
+.band .hl{color:var(--teal)}
+.band .go{font-family:var(--m);font-size:12px;color:var(--ink);margin-top:24px;border-bottom:1px solid var(--teal);padding-bottom:3px;align-self:flex-start}
+
+/* proof */
+.proof{padding:80px 0;border-bottom:1px solid var(--line)}
+.roster{display:flex;flex-wrap:wrap;gap:10px 14px;margin:26px 0 50px}
+.roster span{font-family:var(--m);font-size:13px;color:var(--muted);border:1px solid var(--line);padding:8px 14px;border-radius:2px}
+.quote{font-family:var(--d);font-weight:600;font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.25;letter-spacing:-.01em;max-width:20ch;border-left:2px solid var(--teal);padding-left:24px}
+.quote .by{font-family:var(--b);font-weight:400;font-size:.95rem;color:var(--muted);margin-top:16px;border:0;padding:0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:54px}
+@media(max-width:680px){.stats{grid-template-columns:1fr}}
+.stat{background:var(--bg);padding:26px}
+.stat .k{font-family:var(--d);font-weight:800;font-size:1.7rem}
+.stat .l{font-family:var(--m);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+
+/* cta */
+.cta{padding:96px 0;text-align:center;background:radial-gradient(120% 140% at 50% 0%, rgba(21,235,223,.08), transparent 60%)}
+.cta h2{font-size:clamp(2rem,4vw,3rem);max-width:18ch;margin:0 auto 16px}
+.cta p{color:var(--muted);margin:44px 0 12px}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:46px 0;color:var(--muted);font-size:.9rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px;align-items:center}
+footer .nap{font-family:var(--m);font-size:13px;line-height:1.9;color:#cdd3d4}
+footer a:hover{color:var(--teal)}
+footer .footcol{display:flex;flex-direction:column;gap:14px}
+footer .social{font-family:var(--m);font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:flex;gap:20px}
+footer .social a{color:var(--muted);text-decoration:none}
+@media(prefers-reduced-motion:reduce){.fade{animation:none;opacity:1;transform:none}html{scroll-behavior:auto}}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+
+/* film page additions */
+.intro{padding:72px 0;border-bottom:1px solid var(--line)}
+.intro p{font-size:clamp(1.05rem,1.6vw,1.22rem);color:#c9d0d1;max-width:64ch;line-height:1.65}
+.specs{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:34px}
+@media(max-width:760px){.specs{grid-template-columns:1fr}}
+.spec{background:var(--bg);padding:28px}
+.spec .n{font-family:var(--m);font-size:12px;color:var(--teal);letter-spacing:.1em}
+.spec h3{font-size:1.18rem;font-weight:700;margin:12px 0 8px}
+.spec p{color:var(--muted);font-size:.97rem}
+.band .copy p + p{margin-top:16px}
+.casestudy{padding:80px 0;border-bottom:1px solid var(--line)}
+.casestudy p{color:var(--muted);max-width:62ch;margin-top:10px;font-size:1.06rem}
+.link{font-family:var(--m);font-size:12px;color:var(--ink);margin-top:22px;display:inline-block;border-bottom:1px solid var(--teal);padding-bottom:3px}
+.faq{padding:80px 0;border-bottom:1px solid var(--line)}
+.faq .sec-head{margin-bottom:10px}
+.faq .qa{border-top:1px solid var(--line);padding:26px 0}
+.faq .qa:last-of-type{border-bottom:1px solid var(--line)}
+.faq h3{font-size:1.1rem;font-weight:700;margin-bottom:10px}
+.faq .qa p{color:var(--muted);max-width:74ch}
+
+.nav-dd{position:relative}
+.nav-dd>.nav-dd-btn{font-family:inherit;font-size:14px;color:var(--muted);background:none;border:0;cursor:pointer;padding:0;transition:.15s}
+.nav-dd>.nav-dd-btn:hover{color:var(--ink)}
+.nav-dd-btn .caret{font-size:.7em;transition:transform .2s}
+.nav-dd.open .nav-dd-btn .caret{transform:rotate(180deg)}
+.nav-dd-menu{position:absolute;top:calc(100% + 14px);right:0;min-width:242px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px;display:none;flex-direction:column;gap:2px;z-index:40;box-shadow:0 16px 40px rgba(0,0,0,.45)}
+.nav-dd.open .nav-dd-menu,.nav-dd:hover .nav-dd-menu{display:flex}
+.nav-dd-menu a{padding:11px 13px;border-radius:8px;white-space:nowrap}
+.nav-dd-menu a:hover{background:rgba(255,255,255,.06)}
+.tool-title{font-family:var(--d);font-weight:700;font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
+.tool-sub{color:var(--muted);max-width:64ch;margin:0 0 22px}
+</style>
+<style>
+.calc-hero{padding:140px 0 34px;border-bottom:1px solid var(--line)}
+.calc-hero h1{font-family:var(--d);font-weight:800;font-size:clamp(2rem,5vw,3.2rem);margin:14px 0 14px;letter-spacing:-.01em}
+.calc-hero p{color:var(--muted);max-width:60ch;font-size:1.05rem}
+.calc-sec{padding:44px 0 110px}
+.calc-wrap{max-width:820px}
+.calc{display:grid;gap:24px;background:var(--surface);border:1px solid var(--line);padding:34px;border-radius:16px}
+.calc .row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:620px){.calc .row{grid-template-columns:1fr}}
+.calc label{display:block;font-family:var(--m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.calc select,.calc input{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--ink);padding:13px 14px;font-family:var(--b);font-size:1rem;border-radius:9px;outline:none}
+.calc select:focus,.calc input:focus{border-color:var(--teal)}
+.stepwrap{position:relative}
+.stepwrap input{padding-right:40px}
+.stepwrap input[type=number]{-moz-appearance:textfield;appearance:textfield}
+.stepwrap input[type=number]::-webkit-outer-spin-button,.stepwrap input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.stepper{position:absolute;top:1px;right:1px;bottom:1px;width:32px;display:flex;flex-direction:column;border-left:1px solid var(--line);border-radius:0 8px 8px 0;overflow:hidden}
+.stepper button{flex:1;display:flex;align-items:center;justify-content:center;background:transparent;border:0;color:var(--muted);font-size:9px;line-height:1;cursor:pointer;padding:0;-webkit-user-select:none;user-select:none;touch-action:none;transition:background .12s,color .12s}
+.stepper button:first-child{border-bottom:1px solid var(--line)}
+.stepper button:hover{background:rgba(21,235,223,.09);color:var(--teal)}
+.stepper button:active{background:rgba(21,235,223,.18);color:var(--teal)}
+.calc .amount{display:grid;grid-template-columns:2fr 1.2fr;gap:12px}
+.results{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:620px){.results{grid-template-columns:1fr}}
+.result{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:20px}
+.result .k{font-family:var(--m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.result .v{font-family:var(--d);font-weight:700;font-size:1.7rem;margin-top:8px;color:var(--ink);word-break:break-word}
+.result.hl{border-color:var(--teal-deep)}
+.result.hl .v{color:var(--teal)}
+.calc-note{font-family:var(--m);font-size:12.5px;color:var(--muted);margin-top:2px}
+.calc-back{font-family:var(--m);font-size:12px;color:var(--ink);margin-top:28px;border-bottom:1px solid var(--teal);padding-bottom:3px;display:inline-block}
+.calc-csv{justify-self:start;background:transparent;border:1px solid var(--line);color:var(--ink);font-family:var(--m);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:11px 18px;border-radius:9px;cursor:pointer;transition:border-color .15s,color .15s}
+.calc-csv:hover{border-color:var(--teal);color:var(--teal)}
+
+.tool-wrap{max-width:1040px}
+.tool-sec{border-top:1px solid var(--line)}
+.calc .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:620px){.calc .row3{grid-template-columns:1fr}}
+.ec-legend{display:flex;flex-wrap:wrap;gap:10px 20px;margin:0 0 22px;padding:0;list-style:none}
+.ec-legend li{font-family:var(--m);font-size:12.5px;color:var(--muted)}
+.ec-legend .sym{color:var(--ink);font-size:1.05rem;margin-right:6px}
+.ec-factory{margin-top:38px;border-top:1px solid var(--line);padding-top:30px}
+.ec-factory h3{font-family:var(--d);font-size:1.2rem;letter-spacing:-.01em;margin:0 0 10px;color:var(--ink)}
+.ec-factory .fac-lead{font-family:var(--b);font-size:.95rem;line-height:1.6;color:var(--muted);margin:0 0 22px;max-width:60ch}
+.fac-grid{display:flex;flex-wrap:wrap;gap:20px 34px}
+.fac-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.fac-word{display:inline-grid;grid-template-columns:repeat(6,1.35ch);grid-template-rows:auto auto;justify-content:start;font-family:var(--m);font-size:1.35rem;line-height:1.05;color:var(--ink)}
+.fac-word .l{grid-row:2;text-align:center}
+.fac-word .d{grid-row:1;text-align:center;height:.6em;font-size:.85em;color:var(--ink);font-weight:700}
+.fac-word .p12{grid-column:1/3}.fac-word .p23{grid-column:2/4}.fac-word .p34{grid-column:3/5}
+.fac-word .p45{grid-column:4/6}.fac-word .p56{grid-column:5/7}
+.fac-loc{font-family:var(--m);font-size:12.5px;letter-spacing:.02em;color:var(--muted);text-align:center}
+.fac-loc strong{color:var(--ink);font-weight:600}
+.ec-tabs{display:flex;gap:4px;margin:0 0 26px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.ec-tab{appearance:none;background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:10px 18px;font-family:var(--d);font-size:1.02rem;font-weight:600;color:var(--muted);cursor:pointer;transition:color .15s,border-color .15s}
+.ec-tab:hover{color:var(--ink)}
+.ec-tab.active{color:var(--teal);border-bottom-color:var(--teal)}
+.ec-panel[hidden]{display:none}
+.ec-soon{display:inline-block;font-family:var(--m);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--amber);border-radius:999px;padding:3px 9px;margin-left:6px;vertical-align:middle;font-weight:600}
+input.fuji-code{font-family:var(--m);font-size:1.35rem;letter-spacing:.18em;text-transform:uppercase}
+.ec-picker{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:2px 0 22px}
+@media(max-width:640px){.ec-picker{grid-template-columns:1fr}}
+.ec-slot-hd{font-family:var(--m);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.ec-opts{display:flex;flex-wrap:wrap;gap:7px}
+.ec-opt{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;background:var(--bg);border:1px solid var(--line);border-radius:10px;cursor:pointer;padding:0;transition:border-color .12s,background .12s}
+.ec-opt:hover{border-color:var(--muted)}
+.ec-opt.active{border-color:var(--teal);background:rgba(21,235,223,.10)}
+.ec-opt svg{width:24px;height:24px;fill:var(--ink)}
+.ec-opt.active svg{fill:var(--teal)}
+.ec-opt.ec-none{width:auto;min-width:44px;padding:0 14px;font-family:var(--m);font-size:12px;color:var(--muted)}
+.ec-opt.ec-none.active{color:var(--teal);border-color:var(--teal);background:rgba(21,235,223,.10)}
+.ec-legend li{display:inline-flex;align-items:center;gap:7px}
+.ec-legend svg.sym{width:20px;height:20px;fill:var(--ink);vertical-align:middle}
+.twrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.ftable{width:100%;border-collapse:collapse;font-size:.95rem;min-width:640px}
+.ftable th,.ftable td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+.ftable th{font-family:var(--m);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.ftable tr:last-child td{border-bottom:0}
+.ftable .g{font-family:var(--d);font-weight:700;color:var(--ink)}
+.ftable td{color:var(--muted)}
+.ftable td.arcell{text-align:center;white-space:nowrap;vertical-align:middle}
+.ftable th.arcell{text-align:center}
+.gtbl th:first-child,.gtbl td:first-child{white-space:nowrap}
+.arbox{display:inline-block;border:2px solid rgba(255,255,255,.85);border-radius:2px;height:48px;background:rgba(255,255,255,.03);vertical-align:middle}
+.gauges{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:0 0 26px}
+@media(max-width:700px){.gauges{display:flex;overflow-x:auto;gap:8px;-webkit-overflow-scrolling:touch;padding-bottom:4px}.gauge{flex:0 0 auto;min-width:64px}}
+.gauge{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 10px;text-align:center}
+.gauge svg{display:block;margin:0 auto 12px}
+.gauge .gn{font-family:var(--d);font-weight:700;font-size:.95rem;line-height:1.2}
+.gauge .gd{font-family:var(--m);font-size:10.5px;color:var(--muted);margin-top:4px}
+.tip{font-family:var(--b);font-size:.98rem;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-left:2px solid var(--teal);border-radius:10px;padding:16px 18px;margin-top:22px}
+.tip strong{color:var(--ink);font-weight:600}
+</style>
+
+<!-- ===== SEO metadata ===== -->
+<link rel="canonical" href="https://reflextechnologies.com/reflex-film-tools">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Reflex Technologies">
+<meta property="og:title" content="Film tools | Reflex Technologies">
+<meta property="og:description" content="Free reference tools for motion-picture film: calculate footage, frames and running time, estimate scan storage, convert feet and frames, identify film gauges, date Kodak stock by edge code, and check reel capacity.">
+<meta property="og:url" content="https://reflextechnologies.com/reflex-film-tools">
+<meta property="og:image" content="https://reflextechnologies.com/og-reflex.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Reflex Technologies, archival film, video, and image digitization in Burbank, California">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://reflextechnologies.com/og-reflex.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": [
+    "LocalBusiness",
+    "ProfessionalService"
+  ],
+  "name": "Reflex Technologies",
+  "description": "Archival digitization of motion picture film, video, audio, and still images in Burbank, California, including film other labs cannot scan.",
+  "url": "https://reflextechnologies.com/",
+  "telephone": "+1-818-859-7770",
+  "@id": "https://reflextechnologies.com/#business",
+  "image": "https://reflextechnologies.com/og-reflex.jpg",
+  "sameAs": [
+    "https://www.linkedin.com/company/90664175/",
+    "https://www.facebook.com/reflexburbank",
+    "https://www.instagram.com/reflexfilmscanning/"
+  ],
+  "email": "info@reflextechnologies.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4100 West Burbank Blvd",
+    "addressLocality": "Burbank",
+    "addressRegion": "CA",
+    "postalCode": "91505",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 34.1668,
+    "longitude": -118.3565
+  },
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Los Angeles"
+    },
+    {
+      "@type": "City",
+      "name": "Burbank"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Greater Los Angeles"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Southern California"
+    }
+  ],
+  "knowsAbout": [
+    "film scanning",
+    "film restoration",
+    "8mm film",
+    "Super 8 film",
+    "16mm film",
+    "35mm film",
+    "65mm film",
+    "videotape transfer",
+    "audio digitization",
+    "photo and negative scanning",
+    "archival digitization"
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "17:00"
+    }
+  ],
+  "priceRange": "$$"
+}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZNM994NKR"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-FZNM994NKR');
+</script>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20rx='20'%20fill='%230c0e10'/%3E%3Ctext%20x='50'%20y='73'%20font-family='Arial,Helvetica,sans-serif'%20font-size='70'%20font-weight='800'%20fill='%2315ebdf'%20text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="images/ad6ba989078a.png">
+<link rel="apple-touch-icon" href="images/a0e48739cca2.png">
+</head><body>
+<header><div class="wrap bar">
+  <a href="/" class="logo"><img src="images/4369af57d541.png" alt="Reflex" width="360" height="101"><span class="s">technologies</span></a>
+  <button class="navtog" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('header');var o=h.classList.toggle('open');this.setAttribute('aria-expanded',o)"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
+  <nav>
+    <div class="nav-links">
+      <a href="/">Home</a><a href="reflex-film-page">Film</a><a href="reflex-video-audio-page">Video &amp; Audio</a><a href="reflex-stills-page">Stills</a><a href="reflex-our-work-page">Our Work</a><a href="reflex-film-tools" aria-current="page">Film Tools</a><a href="reflex-posters">Archivist Posters</a>
+    </div>
+    <a class="btn btn-p" href="reflex-quote-page">Get in touch</a>
+  </nav>
+</div></header>
+
+<section class="hero hero-tool">
+  <div class="hero-in">
+    <span class="eyebrow fade">Reflex tools</span>
+    <h1 class="fade d1">Film tools</h1>
+    <p class="fade d2">Free reference tools for working with motion picture film: calculate footage and running time, estimate the storage a scan will need, identify an unknown gauge, check reel capacity, and date a reel by its Kodak edge code.</p>
+  </div>
+</section>
+
+<section class="calc-sec tool-sec"><div class="wrap tool-wrap">
+  <h2 class="tool-title">Identify your film gauge</h2>
+  <p class="tool-sub">Not sure what you have? Measure the width of the film and match the perforations. The strips below are drawn to scale relative to one another.</p>
+  <div class="gauges">
+    <div class="gauge"><svg width="18" height="96" viewBox="0 0 18 96" role="img" aria-label="Regular 8mm film strip"><rect x="0" y="0" width="18" height="96" rx="2" fill="#545d64" stroke="rgba(255,255,255,.16)"/><rect x="1" y="2.5" width="11" height="91" fill="none" stroke="rgba(255,255,255,.22)"/><line x1="1" y1="8" x2="12" y2="8" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="1" y1="16" x2="12" y2="16" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="1" y1="24" x2="12" y2="24" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="1" y1="32" x2="12" y2="32" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="1" y1="40" x2="12" y2="40" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="1" y1="48" x2="12" y2="48" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="1" y1="56" x2="12" y2="56" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="1" y1="64" x2="12" y2="64" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="1" y1="72" x2="12" y2="72" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="1" y1="80" x2="12" y2="80" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="1" y1="88" x2="12" y2="88" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><rect x="13.2" y="0" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="13.2" y="6.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="13.2" y="14.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="13.2" y="22.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="13.2" y="30.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="13.2" y="38.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="13.2" y="46.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="13.2" y="54.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="13.2" y="62.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="13.2" y="70.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="13.2" y="78.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="13.2" y="86.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="13.2" y="93.6" width="4" height="2.4" rx="0.6" fill="#eef1f3"/></svg><div class="gn">Regular 8mm</div><div class="gd">8 mm wide</div></div>
+    <div class="gauge"><svg width="18" height="96" viewBox="0 0 18 96" role="img" aria-label="Super 8 film strip"><rect x="0" y="0" width="18" height="96" rx="2" fill="#545d64" stroke="rgba(255,255,255,.16)"/><rect x="1" y="2.5" width="13" height="91" fill="none" stroke="rgba(255,255,255,.22)"/><line x1="1" y1="9.6" x2="14" y2="9.6" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="1" y1="19.2" x2="14" y2="19.2" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="1" y1="28.8" x2="14" y2="28.8" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="1" y1="38.4" x2="14" y2="38.4" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="1" y1="48" x2="14" y2="48" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="1" y1="57.6" x2="14" y2="57.6" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="1" y1="67.2" x2="14" y2="67.2" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="1" y1="76.8" x2="14" y2="76.8" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="1" y1="86.4" x2="14" y2="86.4" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><rect x="14.6" y="3.8" width="2.6" height="2.0" rx="0.6" fill="#eef1f3"/><rect x="14.6" y="13.4" width="2.6" height="2.0" rx="0.6" fill="#eef1f3"/><rect x="14.6" y="23" width="2.6" height="2.0" rx="0.6" fill="#eef1f3"/><rect x="14.6" y="32.6" width="2.6" height="2.0" rx="0.6" fill="#eef1f3"/><rect x="14.6" y="42.2" width="2.6" height="2.0" rx="0.6" fill="#eef1f3"/><rect x="14.6" y="51.8" width="2.6" height="2.0" rx="0.6" fill="#eef1f3"/><rect x="14.6" y="61.4" width="2.6" height="2.0" rx="0.6" fill="#eef1f3"/><rect x="14.6" y="71" width="2.6" height="2.0" rx="0.6" fill="#eef1f3"/><rect x="14.6" y="80.6" width="2.6" height="2.0" rx="0.6" fill="#eef1f3"/><rect x="14.6" y="90.2" width="2.6" height="2.0" rx="0.6" fill="#eef1f3"/></svg><div class="gn">Super 8</div><div class="gd">8 mm wide</div></div>
+    <div class="gauge"><svg width="34" height="96" viewBox="0 0 34 96" role="img" aria-label="16mm film strip"><rect x="0" y="0" width="34" height="96" rx="2" fill="#545d64" stroke="rgba(255,255,255,.16)"/><rect x="7" y="2.5" width="20" height="91" fill="none" stroke="rgba(255,255,255,.22)"/><line x1="7" y1="16" x2="27" y2="16" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="7" y1="32" x2="27" y2="32" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="7" y1="48" x2="27" y2="48" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="7" y1="64" x2="27" y2="64" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="7" y1="80" x2="27" y2="80" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><rect x="2" y="0" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="2" y="14.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="2" y="30.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="2" y="46.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="2" y="62.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="2" y="78.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="2" y="93.6" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="28" y="0" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="28" y="14.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="28" y="30.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="28" y="46.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="28" y="62.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="28" y="78.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="28" y="93.6" width="4" height="2.4" rx="0.6" fill="#eef1f3"/></svg><div class="gn">16mm</div><div class="gd">16 mm wide</div></div>
+    <div class="gauge"><svg width="34" height="96" viewBox="0 0 34 96" role="img" aria-label="Super 16 film strip"><rect x="0" y="0" width="34" height="96" rx="2" fill="#545d64" stroke="rgba(255,255,255,.16)"/><rect x="2" y="2.5" width="25" height="91" fill="none" stroke="rgba(255,255,255,.22)"/><line x1="2" y1="16" x2="27" y2="16" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="2" y1="32" x2="27" y2="32" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="2" y1="48" x2="27" y2="48" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="2" y1="64" x2="27" y2="64" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><line x1="2" y1="80" x2="27" y2="80" stroke="rgba(0,0,0,.28)" stroke-width="0.8"/><rect x="28" y="0" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="28" y="14.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="28" y="30.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="28" y="46.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="28" y="62.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="28" y="78.8" width="4" height="2.4" rx="0.6" fill="#eef1f3"/><rect x="28" y="93.6" width="4" height="2.4" rx="0.6" fill="#eef1f3"/></svg><div class="gn">Super 16</div><div class="gd">16 mm wide</div></div>
+    <div class="gauge"><svg width="74" height="96" viewBox="0 0 74 96" role="img" aria-label="35mm film strip"><rect x="0" y="0" width="74" height="96" rx="2" fill="#545d64" stroke="rgba(255,255,255,.16)"/><rect x="12" y="3" width="50" height="90" fill="none" stroke="rgba(255,255,255,.20)"/><line x1="0" y1="48" x2="74" y2="48" stroke="rgba(0,0,0,.30)"/><rect x="2.5" y="3.5" width="5" height="5" rx="1" fill="#eef1f3"/><rect x="2.5" y="15.5" width="5" height="5" rx="1" fill="#eef1f3"/><rect x="2.5" y="27.5" width="5" height="5" rx="1" fill="#eef1f3"/><rect x="2.5" y="39.5" width="5" height="5" rx="1" fill="#eef1f3"/><rect x="2.5" y="51.5" width="5" height="5" rx="1" fill="#eef1f3"/><rect x="2.5" y="63.5" width="5" height="5" rx="1" fill="#eef1f3"/><rect x="2.5" y="75.5" width="5" height="5" rx="1" fill="#eef1f3"/><rect x="2.5" y="87.5" width="5" height="5" rx="1" fill="#eef1f3"/><rect x="66.5" y="3.5" width="5" height="5" rx="1" fill="#eef1f3"/><rect x="66.5" y="15.5" width="5" height="5" rx="1" fill="#eef1f3"/><rect x="66.5" y="27.5" width="5" height="5" rx="1" fill="#eef1f3"/><rect x="66.5" y="39.5" width="5" height="5" rx="1" fill="#eef1f3"/><rect x="66.5" y="51.5" width="5" height="5" rx="1" fill="#eef1f3"/><rect x="66.5" y="63.5" width="5" height="5" rx="1" fill="#eef1f3"/><rect x="66.5" y="75.5" width="5" height="5" rx="1" fill="#eef1f3"/><rect x="66.5" y="87.5" width="5" height="5" rx="1" fill="#eef1f3"/></svg><div class="gn">35mm</div><div class="gd">35 mm wide</div></div>
+  </div>
+  <div class="twrap">
+    <table class="ftable gtbl">
+      <thead><tr><th>Gauge</th><th>Perforations</th><th>About</th></tr></thead>
+      <tbody>
+        <tr><td class="g">Regular 8mm</td><td>One edge, larger holes at the frame lines</td><td>Narrow film with sprocket holes down one side and small, nearly square frames. Kodak introduced it in 1932 as an affordable home format: 16mm stock was exposed down one half, flipped and run through again, then slit down the middle to yield two 8mm strips. It dominated home movies from the 1930s into the 1960s and usually turns up on 3-inch (50 ft) reels.</td></tr>
+        <tr><td class="g">Super 8</td><td>One edge, smaller holes centered on each frame</td><td>The same 8mm width as Regular 8, but with much smaller perforations that freed up room for a frame about 50 percent larger. Kodak launched it in 1965 in an easy-load plastic cartridge, which is often the giveaway. It became the standard home-movie and student format through the 1970s, and many later cartridges carried a magnetic sound stripe.</td></tr>
+        <tr><td class="g">16mm</td><td>One edge (sound) or both edges (silent)</td><td>Twice the width of 8mm, introduced by Kodak in 1923 as a safer, cheaper alternative to 35mm. Silent 16mm has perforations on both edges; a sound print gives up one row for an optical or magnetic track, so perforations on only one edge signal sound. It was long the workhorse of documentary, newsreel, educational, and industrial filmmaking.</td></tr>
+        <tr><td class="g">Super 16</td><td>One edge only</td><td>Standard 16mm stock exposed with a single row of perforations, letting the frame extend into the space the second row would use for a wider image of roughly 1.66. It is a camera origination format rather than a projection one, meant to be blown up to 35mm or finished for widescreen. A single perf row plus a frame reaching almost to the far edge is the tell.</td></tr>
+        <tr><td class="g">35mm</td><td>Both edges, four holes per frame</td><td>The theatrical standard since the birth of cinema, with perforations down both edges, usually four per frame. It is exactly the same width as a 35mm still-photography negative, because motion-picture film came first and the still format borrowed the stock. Its large frame and a century of infrastructure make it the benchmark other gauges are measured against.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div></section>
+
+<section class="calc-sec" id="footage-calculator"><div class="wrap calc-wrap">
+  <h2 class="tool-title">Film footage calculator</h2>
+  <p class="tool-sub">Convert between footage, running time, and frame count for 8mm, Super 8mm, 16mm, 35mm, and 65mm at any frame rate. Pick a film format and frame rate, then type a number into any one of the three boxes below (footage, running time, or frames) and the other two update automatically to show the matching values.</p>
+  <div class="calc">
+    <div class="row">
+      <div>
+        <label for="gauge">Film format</label>
+        <select id="gauge">
+          <option value="r8">Regular 8mm</option>
+          <option value="s8">Super 8mm</option>
+          <option value="16" selected>16mm</option>
+          <option value="352">35mm (2-perf)</option>
+          <option value="353">35mm (3-perf)</option>
+          <option value="35">35mm (4-perf)</option>
+          <option value="65">65mm (5-perf)</option>
+        </select>
+      </div>
+      <div>
+        <label for="fps">Frame rate</label>
+        <select id="fps">
+          <option value="16">16 fps</option>
+          <option value="18">18 fps</option>
+          <option value="24" selected>24 fps</option>
+          <option value="25">25 fps (PAL)</option>
+          <option value="29.97">29.97 fps (NTSC)</option>
+          <option value="custom">Custom&hellip;</option>
+        </select>
+        <input id="fpsCustom" type="number" min="1" step="any" placeholder="Frames per second" inputmode="decimal" style="display:none;margin-top:10px">
+      </div>
+    </div>
+    <div class="row3">
+      <div>
+        <label for="fFeet">Footage (feet)</label>
+        <div class="stepwrap">
+          <input id="fFeet" type="number" min="0" step="any" value="1000" inputmode="decimal">
+          <span class="stepper" data-for="fFeet" data-step="1">
+            <button type="button" class="step-up" aria-label="Add one foot" tabindex="-1">&#9650;</button>
+            <button type="button" class="step-down" aria-label="Subtract one foot" tabindex="-1">&#9660;</button>
+          </span>
+        </div>
+      </div>
+      <div>
+        <label for="fTime">Running time (mm:ss)</label>
+        <div class="stepwrap">
+          <input id="fTime" type="text" inputmode="numeric" placeholder="e.g. 27:47">
+          <span class="stepper" data-for="fTime" data-step="time">
+            <button type="button" class="step-up" aria-label="Add one second" tabindex="-1">&#9650;</button>
+            <button type="button" class="step-down" aria-label="Subtract one second" tabindex="-1">&#9660;</button>
+          </span>
+        </div>
+      </div>
+      <div>
+        <label for="fFrames">Frames</label>
+        <div class="stepwrap">
+          <input id="fFrames" type="number" min="0" step="1" inputmode="numeric" placeholder="e.g. 40000">
+          <span class="stepper" data-for="fFrames" data-step="1">
+            <button type="button" class="step-up" aria-label="Add one frame" tabindex="-1">&#9650;</button>
+            <button type="button" class="step-down" aria-label="Subtract one frame" tabindex="-1">&#9660;</button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <p class="calc-note" id="rate"></p>
+    <button type="button" class="calc-csv" id="dlFootage">Download as CSV</button>
+  </div>
+</div></section>
+
+<section class="calc-sec tool-sec"><div class="wrap tool-wrap">
+  <h2 class="tool-title">Disk storage estimator</h2>
+  <p class="tool-sub">Estimate the storage a film scan will require. Pick a resolution, delivery format, frame rate, and length, and see the total file size, the data rate, and the size per hour of footage.</p>
+  <div class="calc">
+    <div class="row">
+      <div><label for="stRes">Resolution</label>
+        <select id="stRes">
+          <option value="hd">HD (1920 x 1080)</option>
+          <option value="2k">2K (2048 x 1556)</option>
+          <option value="4k" selected>4K (4096 x 3112)</option>
+          <option value="8k">8K (8192 x 6224)</option>
+          <option value="custom">Custom&hellip;</option>
+        </select>
+        <div id="stResCustom" style="display:none;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+          <input id="stResW" type="number" min="1" step="1" placeholder="Width px" inputmode="numeric">
+          <input id="stResH" type="number" min="1" step="1" placeholder="Height px" inputmode="numeric">
+        </div></div>
+      <div><label for="stFmt">Delivery format</label>
+        <select id="stFmt">
+          <option value="dpx10" selected>DPX, 10-bit (uncompressed)</option>
+          <option value="dpx16">DPX, 16-bit (uncompressed)</option>
+          <option value="avi">AVI, 8-bit RGB (uncompressed)</option>
+          <option value="pr4444">ProRes 4444</option>
+          <option value="prhq">ProRes 422 HQ</option>
+          <option value="h264">MP4 viewing copy</option>
+        </select></div>
+    </div>
+    <div class="row">
+      <div><label for="stFps">Frame rate</label>
+        <select id="stFps">
+          <option value="16">16 fps</option>
+          <option value="18">18 fps</option>
+          <option value="24" selected>24 fps</option>
+          <option value="25">25 fps</option>
+          <option value="30">30 fps</option>
+          <option value="custom">Custom&hellip;</option>
+        </select>
+        <input id="stFpsCustom" type="number" min="1" step="any" placeholder="Frames per second" inputmode="decimal" style="display:none;margin-top:10px"></div>
+      <div><label for="stMin">Length (minutes)</label>
+        <div class="stepwrap">
+          <input id="stMin" type="number" min="0" step="1" inputmode="decimal" value="10" placeholder="e.g. 10">
+          <span class="stepper" data-for="stMin" data-step="1">
+            <button type="button" class="step-up" aria-label="Add one minute" tabindex="-1">&#9650;</button>
+            <button type="button" class="step-down" aria-label="Subtract one minute" tabindex="-1">&#9660;</button>
+          </span>
+        </div></div>
+    </div>
+    <div class="row3">
+      <div><label for="stTotal">Total size</label>
+        <input id="stTotal" type="text" readonly></div>
+      <div><label for="stRate">Data rate</label>
+        <input id="stRate" type="text" readonly></div>
+      <div><label for="stHour">Per hour</label>
+        <input id="stHour" type="text" readonly></div>
+    </div>
+    <p class="calc-note" id="stNote"></p>
+    <button type="button" class="calc-csv" id="dlStorage">Download as CSV</button>
+  </div>
+</div></section>
+
+<section class="calc-sec tool-sec"><div class="wrap calc-wrap">
+  <h2 class="tool-title">Timecode &amp; feet+frames converter</h2>
+  <p class="tool-sub">Convert between <strong>feet+frames</strong>, <strong>timecode</strong> (HH:MM:SS:FF), and a total frame count. Feet+frames follows the film gauge (35mm is 16 frames per foot, 16mm is 40); timecode follows the frame rate. Pick a format and frame rate, then type into any one box and the other two update automatically.</p>
+  <div class="calc">
+    <div class="row">
+      <div>
+        <label for="tcGauge">Film format</label>
+        <select id="tcGauge">
+          <option value="35" selected>35mm (16 frames/foot)</option>
+          <option value="16">16mm (40 frames/foot)</option>
+          <option value="s8">Super 8mm (72 frames/foot)</option>
+          <option value="r8">Regular 8mm (80 frames/foot)</option>
+        </select>
+      </div>
+      <div>
+        <label for="tcFps">Frame rate</label>
+        <select id="tcFps">
+          <option value="24" selected>24 fps</option>
+          <option value="25">25 fps (PAL)</option>
+          <option value="30">30 fps</option>
+          <option value="18">18 fps (silent)</option>
+          <option value="16">16 fps (silent)</option>
+          <option value="custom">Custom&hellip;</option>
+        </select>
+        <input id="tcFpsCustom" type="number" min="1" step="any" placeholder="Frames per second" inputmode="decimal" style="display:none;margin-top:10px">
+      </div>
+    </div>
+    <div class="row3">
+      <div>
+        <label for="tcFF">Feet + frames</label>
+        <div class="stepwrap">
+          <input id="tcFF" type="text" inputmode="numeric" placeholder="e.g. 90+00">
+          <span class="stepper" data-for="tcFrames" data-step="1">
+            <button type="button" class="step-up" aria-label="Add one frame" tabindex="-1">&#9650;</button>
+            <button type="button" class="step-down" aria-label="Subtract one frame" tabindex="-1">&#9660;</button>
+          </span>
+        </div>
+      </div>
+      <div>
+        <label for="tcTC">Timecode (HH:MM:SS:FF)</label>
+        <div class="stepwrap">
+          <input id="tcTC" type="text" inputmode="numeric" placeholder="e.g. 00:01:00:00">
+          <span class="stepper" data-for="tcFrames" data-step="1">
+            <button type="button" class="step-up" aria-label="Add one frame" tabindex="-1">&#9650;</button>
+            <button type="button" class="step-down" aria-label="Subtract one frame" tabindex="-1">&#9660;</button>
+          </span>
+        </div>
+      </div>
+      <div>
+        <label for="tcFrames">Total frames</label>
+        <div class="stepwrap">
+          <input id="tcFrames" type="number" min="0" step="1" inputmode="numeric" placeholder="e.g. 1440">
+          <span class="stepper" data-for="tcFrames" data-step="1">
+            <button type="button" class="step-up" aria-label="Add one frame" tabindex="-1">&#9650;</button>
+            <button type="button" class="step-down" aria-label="Subtract one frame" tabindex="-1">&#9660;</button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <p class="calc-note" id="tcNote"></p>
+    <button type="button" class="calc-csv" id="dlTC">Download as CSV</button>
+  </div>
+</div></section>
+
+<section class="calc-sec tool-sec"><div class="wrap calc-wrap">
+  <h2 class="tool-title">Date your Kodak film by its edge code</h2>
+  <p class="tool-sub">For most of the twentieth century, Eastman Kodak printed a small symbol code along the edge of its motion-picture film, outside the perforations, to mark the year the stock was made. The symbols differ by the plant that coated the film, so choose the plant first. Then read the symbols left to right and pick them below, filling only as many as your film shows. This is the year the film was manufactured, not necessarily when it was shot or processed.</p>
+  <div class="calc">
+    <div class="row">
+      <div>
+        <label for="ecPlant">Kodak plant (where it was coated)</label>
+        <select id="ecPlant">
+          <option value="us">Rochester, USA</option>
+          <option value="ca">Canada</option>
+          <option value="uk">United Kingdom</option>
+        </select>
+      </div>
+      <div id="ecGaugeWrap">
+        <label for="ecGauge">Film gauge</label>
+        <select id="ecGauge">
+          <option value="1635">16mm or 35mm</option>
+          <option value="8">8mm (Standard 8)</option>
+        </select>
+      </div>
+    </div>
+    <p class="calc-note" id="ecPlantNote" style="margin:2px 0 14px"></p>
+    <ul class="ec-legend" id="ecLegend"></ul>
+    <div class="ec-picker">
+      <div class="ec-slot"><div class="ec-slot-hd">First symbol</div><div class="ec-opts" data-pos="0"></div></div>
+      <div class="ec-slot"><div class="ec-slot-hd">Second symbol</div><div class="ec-opts" data-pos="1"></div></div>
+      <div class="ec-slot"><div class="ec-slot-hd">Third symbol</div><div class="ec-opts" data-pos="2"></div></div>
+    </div>
+    <div class="results">
+      <div class="result hl" style="grid-column:1/-1"><div class="k">Possible year(s) of manufacture</div><div class="v" id="ecYears">&nbsp;</div></div>
+    </div>
+    <p class="calc-note" id="ecNote">Pick the symbols you see, in order.</p>
+  </div>
+
+  <div class="ec-factory">
+    <h3>Factory ID code: where the film was made</h3>
+    <p class="fac-lead">Alongside the date symbols, Kodak printed the word <strong style="color:var(--ink);font-weight:600">SAFETY</strong> on acetate stock, and a single dot above the word identified the factory that coated the film. The dot sits <em>between</em> two letters, not over one, and its position is what matters: read which pair of letters it falls between. Kodak began marking the Rochester plant around 1927 and the overseas plants in Canada and England around 1936.</p>
+    <div class="fac-grid">
+      <div class="fac-item">
+        <span class="fac-word" aria-label="SAFETY with a dot between the S and A">
+          <span class="d p12">&bull;</span>
+          <span class="l">S</span><span class="l">A</span><span class="l">F</span><span class="l">E</span><span class="l">T</span><span class="l">Y</span>
+        </span>
+        <span class="fac-loc">Rochester, USA</span>
+      </div>
+      <div class="fac-item">
+        <span class="fac-word" aria-label="SAFETY with a dot between the A and F">
+          <span class="d p23">&bull;</span>
+          <span class="l">S</span><span class="l">A</span><span class="l">F</span><span class="l">E</span><span class="l">T</span><span class="l">Y</span>
+        </span>
+        <span class="fac-loc">Canada</span>
+      </div>
+      <div class="fac-item">
+        <span class="fac-word" aria-label="SAFETY with a dot between the F and E">
+          <span class="d p34">&bull;</span>
+          <span class="l">S</span><span class="l">A</span><span class="l">F</span><span class="l">E</span><span class="l">T</span><span class="l">Y</span>
+        </span>
+        <span class="fac-loc">England</span>
+      </div>
+      <div class="fac-item">
+        <span class="fac-word" aria-label="SAFETY with a dot between the E and T">
+          <span class="d p45">&bull;</span>
+          <span class="l">S</span><span class="l">A</span><span class="l">F</span><span class="l">E</span><span class="l">T</span><span class="l">Y</span>
+        </span>
+        <span class="fac-loc">France</span>
+      </div>
+      <div class="fac-item">
+        <span class="fac-word" aria-label="SAFETY with a dot between the T and Y">
+          <span class="d p56">&bull;</span>
+          <span class="l">S</span><span class="l">A</span><span class="l">F</span><span class="l">E</span><span class="l">T</span><span class="l">Y</span>
+        </span>
+        <span class="fac-loc">Australia</span>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="calc-sec tool-sec"><div class="wrap tool-wrap">
+  <h2 class="tool-title">Reel capacity &amp; runtime</h2>
+  <p class="tool-sub">The footage and running time a full reel holds, by gauge and reel size. Super 8 is shown at 18 fps and Regular 8 at 16 fps, their silent standards; 16mm and 35mm at 24 fps. Reel sizes are nominal outer diameters.</p>
+  <div class="twrap">
+    <table class="ftable">
+      <thead><tr><th>Gauge</th><th>Reel size</th><th>Approx. length</th><th>Running time</th></tr></thead>
+      <tbody>
+        <tr><td class="g">Super 8</td><td>3 in</td><td>50 ft</td><td>about 3.5 min</td></tr>
+        <tr><td class="g">Super 8</td><td>5 in</td><td>200 ft</td><td>about 13 min</td></tr>
+        <tr><td class="g">Super 8</td><td>7 in</td><td>400 ft</td><td>about 27 min</td></tr>
+        <tr><td class="g">Regular 8</td><td>3 in</td><td>50 ft</td><td>about 4 min</td></tr>
+        <tr><td class="g">Regular 8</td><td>5 in</td><td>200 ft</td><td>about 17 min</td></tr>
+        <tr><td class="g">Regular 8</td><td>7 in</td><td>400 ft</td><td>about 33 min</td></tr>
+        <tr><td class="g">16mm</td><td>3.625 in</td><td>100 ft</td><td>about 2.75 min</td></tr>
+        <tr><td class="g">16mm</td><td>5 in</td><td>200 ft</td><td>about 5.5 min</td></tr>
+        <tr><td class="g">16mm</td><td>7 in</td><td>400 ft</td><td>about 11 min</td></tr>
+        <tr><td class="g">16mm</td><td>10.5 in</td><td>800 ft</td><td>about 22 min</td></tr>
+        <tr><td class="g">16mm</td><td>11.5 in</td><td>1000 ft</td><td>about 28 min</td></tr>
+        <tr><td class="g">16mm</td><td>12.25 in</td><td>1200 ft</td><td>about 33 min</td></tr>
+        <tr><td class="g">16mm</td><td>13.75 in</td><td>1600 ft</td><td>about 44 min</td></tr>
+        <tr><td class="g">16mm</td><td>14.5 in</td><td>1800 ft</td><td>about 50 min</td></tr>
+        <tr><td class="g">16mm</td><td>15 in</td><td>2000 ft</td><td>about 56 min</td></tr>
+        <tr><td class="g">35mm</td><td>~10.5 in</td><td>1000 ft</td><td>about 11 min</td></tr>
+        <tr><td class="g">35mm</td><td>15 in</td><td>2000 ft</td><td>about 22 min</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="tip"><strong>Need it exact?</strong> Use the <a href="#footage-calculator" class="calc-back" style="margin:0;display:inline">Film footage calculator</a> above to convert any footage, running time, or frame count for your gauge and frame rate.</p>
+</div></section>
+
+<section class="calc-sec tool-sec"><div class="wrap tool-wrap">
+  <h2 class="tool-title">Aspect ratios</h2>
+  <p class="tool-sub">The aspect ratios you are most likely to meet in a film collection, from silent Academy to modern anamorphic scope.</p>
+  <div class="twrap">
+    <table class="ftable">
+      <thead><tr><th>Ratio</th><th>Name</th><th>About</th><th class="arcell">Shape</th></tr></thead>
+      <tbody>
+        <tr><td class="g">1.19:1</td><td>Movietone</td><td>One of the first sound-on-film formats, introduced by Fox in the late 1920s. Fitting an optical soundtrack beside the picture narrowed the frame to a nearly square shape, a look that lasted only until the Academy ratio standardized the sound-era frame.</td><td class="arcell"><span class="arbox" style="width:57px"></span></td></tr>
+        <tr><td class="g">1.33:1</td><td>Silent / full aperture (4:3)</td><td>The classic 4:3 rectangle. It fills the full 35mm camera aperture of the silent era and is the native shape of Regular 8, Super 8, and 16mm film, as well as pre-widescreen television.</td><td class="arcell"><span class="arbox" style="width:64px"></span></td></tr>
+        <tr><td class="g">1.37:1</td><td>Academy</td><td>Standardized by the Academy of Motion Picture Arts and Sciences in 1932. To make room for an optical soundtrack running alongside the picture, the image area was reduced, and the frame was then reshaped into a balanced rectangle. It stayed the theatrical norm until widescreen arrived in the 1950s.</td><td class="arcell"><span class="arbox" style="width:66px"></span></td></tr>
+        <tr><td class="g">1.43:1</td><td>IMAX</td><td>The largest common film format. 65/70mm stock runs sideways through the camera rather than vertically, each frame spanning 15 perforations, producing a negative roughly ten times the area of a standard 35mm frame.</td><td class="arcell"><span class="arbox" style="width:69px"></span></td></tr>
+        <tr><td class="g">1.66:1</td><td>European widescreen</td><td>A modest widescreen that became a common projection standard across Europe from the 1950s onward. It is also the native shape of Super 16, often used to originate material for wider finishing.</td><td class="arcell"><span class="arbox" style="width:80px"></span></td></tr>
+        <tr><td class="g">1.78:1</td><td>16:9</td><td>The shape of HD and modern digital video and displays. It sits between 1.66 and 1.85, chosen as a compromise widescreen for presenting both older and theatrical material on television.</td><td class="arcell"><span class="arbox" style="width:85px"></span></td></tr>
+        <tr><td class="g">1.85:1</td><td>US widescreen (flat)</td><td>The standard American "flat" widescreen since the mid-1950s. It is created by masking the top and bottom of a full 35mm frame in projection, rather than with an anamorphic lens.</td><td class="arcell"><span class="arbox" style="width:89px"></span></td></tr>
+        <tr><td class="g">2.20:1</td><td>70mm</td><td>The presentation ratio of traditional 5-perf 70mm roadshow films. The wide frame and large negative made it the premium large-format experience of its era.</td><td class="arcell"><span class="arbox" style="width:106px"></span></td></tr>
+        <tr><td class="g">2.35:1</td><td>CinemaScope / early scope</td><td>The original anamorphic widescreen, horizontally squeezed onto 35mm by a special lens and unsqueezed in projection. It ran from CinemaScope's 1953 debut until the anamorphic standard was slightly revised in 1970.</td><td class="arcell"><span class="arbox" style="width:113px"></span></td></tr>
+        <tr><td class="g">2.39:1</td><td>Modern anamorphic (scope)</td><td>The current anamorphic "scope" standard, a 1970 refinement of the earlier 2.35 that made frame-line splices less visible. It remains the widest ratio in everyday theatrical use.</td><td class="arcell"><span class="arbox" style="width:115px"></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div></section>
+
+<script>/* edge-code dating tool */(function(){
+  var M1635={
+    "c":[1976,1956,1936,1916],"s":[1977,1957,1937,1917],"t":[1978,1958,1938,1918],
+    "cc":[1979,1959,1939,1919],"ss":[1980,1960,1940,1920],"tt":[1981,1961,1941,1921],
+    "cs":[1962,1942,1922],"ct":[1963,1943,1923],"ts":[1964,1944,1924],
+    "sc":[1965,1945,1925],"tc":[1966,1946,1926],"st":[1967,1947,1927],
+    "ccc":[2019,1948,1928],"p":[1969,1949,1929],"tp":[1970,1950,1930],"cp":[1971,1951,1931],
+    "sp":[1972,1952,1932],"pt":[1973,1953,1933],"pc":[1974,1954,1934],"ps":[1975,1955,1935],
+    "pp":[1968],
+    "csx":[1982],"xtx":[1983],"tst":[1984],"sct":[1985],"tct":[1986],"stt":[1987],
+    "ppt":[1988],"xpt":[1989],"tpt":[1990],"xpx":[1991],"spt":[1992],"ptt":[1993],
+    "pct":[1994],"pst":[1995],"xct":[1996],"xst":[1997],"xtt":[1998],"cxt":[1999],
+    "sst":[2000],"ttc":[2001],"csc":[2002],"ctc":[2003],"tsc":[2004],"scc":[2005],
+    "tcc":[2006],"stc":[2007],"ppc":[2008],"xpc":[2009],"tpc":[2010],
+    "cpc":[2011],"spc":[2012],"ptc":[2013],"pcc":[2014],"pcs":[2015],"xcc":[2016],
+    "xcs":[2017],"xtc":[2018],"ssc":[2020],"ttt":[2021]
+  };
+  var M8={
+    "c":["1932"],"s":["1963","1933 (Jan-Jun)"],"t":["1933 (Jul-Dec)"],
+    "cc":["1964","1954","1934 (Jan-Jun)"],"ss":["1934 (Jul-Dec)"],
+    "tt":["1955","1935 (Jan-Jun)"],"cs":["1935 (Jul-Dec)"],
+    "ct":["1956","1936 (Jan-Jun)"],"ts":["1936 (Jul-Dec)"],
+    "sc":["1937 (Jan-Jun)"],"tc":["1957","1937 (Jul-Dec)"],
+    "st":["1958","1938 (Jan-Jun)"],"pp":["1938 (Jul-Dec)"],
+    "pc":["1960","1939 (Jan-Jun)"],"ps":["1939 (Jul-Dec)"],
+    "pt":["1940 (Jan-Jun)"],"cp":["1940 (Jul-Dec)"],
+    "sp":["1961","1941 (Jan-Jun)"],"tp":["1941 (Jul-Dec)"],"p":["1962"]
+  };
+  var MCA={
+    "cl":[1947,1936,1925],"cb":[1948,1937,1926],"ch":[1949,1938,1927],
+    "hc":[1950,1941,1939,1930,1928],"bc":[1940,1929],
+    "d":[1942,1931],"dc":[1943,1932],"db":[1944,1933],"dl":[1945,1934],"dh":[1946,1935]
+  };
+  var MUK={
+    "h":[1936,1917],"l":[1937,1918],"b":[1938,1919],
+    "hh":[1939,1920],"ll":[1940,1921],"bb":[1941,1922],
+    "hl":[1950,1942,1931,1923],"bl":[1943,1924],"hb":[1944,1925],"bh":[1945,1926],
+    "lb":[1946,1927],"lh":[1947,1928],"p":[1948,1929],"ph":[1949,1930],
+    "pb":[1932],"hp":[1933],"lp":[1934],"bp":[1935]
+  };
+  var SVG={
+    c:'<circle cx="12" cy="12" r="9"/>',
+    s:'<rect x="3" y="3" width="18" height="18"/>',
+    t:'<path d="M12 3 L21.5 20 L2.5 20 Z"/>',
+    p:'<path d="M9.5 3 H14.5 V9.5 H21 V14.5 H14.5 V21 H9.5 V14.5 H3 V9.5 H9.5 Z"/>',
+    x:'<path d="M4.2 6.3 L6.3 4.2 L12 9.9 L17.7 4.2 L19.8 6.3 L14.1 12 L19.8 17.7 L17.7 19.8 L12 14.1 L6.3 19.8 L4.2 17.7 L9.9 12 Z"/>',
+    d:'<path d="M12 2 L22 12 L12 22 L2 12 Z"/>',
+    l:'<path d="M6 3 H11 V16 H18 V21 H6 Z"/>',
+    b:'<rect x="6" y="9" width="12" height="6" rx="1"/>',
+    h:'<path d="M3 8.5 H21 A9 9 0 0 1 3 8.5 Z"/>'
+  };
+  var SNAME={c:"Circle",s:"Square",t:"Triangle",p:"Plus",x:"X",d:"Diamond",l:"L",b:"Dash",h:"Half-circle"};
+  var PLANTSYM={us:["c","s","t","p","x"],ca:["c","h","b","d","l"],uk:["h","l","b","p"]};
+  var PNOTE={
+    us:"Symbols for film coated at Kodak's Rochester, New York plant. On 16mm and 35mm the code repeats on a twenty-year cycle; three-symbol codes date 1982 onward.",
+    ca:"Kodak's Canadian plant used its own symbol set, on 16mm and 35mm, roughly 1925 to 1950.",
+    uk:"Kodak's British plant used its own symbol set, on 16mm and 35mm, roughly 1917 to 1950."
+  };
+  function svg(k,cls){return '<svg class="'+(cls||"ec-svg")+'" viewBox="0 0 24 24" aria-hidden="true">'+SVG[k]+'</svg>';}
+
+  var plantEl=document.getElementById("ecPlant"),
+      gaugeEl=document.getElementById("ecGauge"),
+      gaugeWrap=document.getElementById("ecGaugeWrap"),
+      legendEl=document.getElementById("ecLegend"),
+      plantNote=document.getElementById("ecPlantNote"),
+      pickerOpts=document.querySelectorAll(".ec-opts"),
+      out=document.getElementById("ecYears"),note=document.getElementById("ecNote");
+  var sel=["","",""];
+
+  function eraNote(ys){
+    var nums=ys.map(function(y){return parseInt(y,10);}).filter(function(n){return !isNaN(n);});
+    if(!nums.length) return "";
+    var oldest=Math.min.apply(null,nums), newest=Math.max.apply(null,nums);
+    if(nums.length===1){
+      var y=oldest;
+      if(y>=1982) return "By "+y+", the stock is modern acetate or polyester safety film.";
+      if(y>=1951) return y+" stock is acetate safety film, which can develop vinegar syndrome as it ages.";
+      return y+" is nitrate-era film: on 35mm that base is flammable and needs careful handling, while 16mm was always safety film.";
+    }
+    if(oldest<1951 && newest>=1951)
+      return "These stretch from the nitrate era ("+oldest+") to later safety film ("+newest+"), so the film's base and look will tell you which.";
+    if(newest<1951)
+      return "All of these fall in the nitrate era, when 35mm ran on a flammable nitrate base.";
+    return "All of these are acetate safety film, which can develop vinegar syndrome as it ages.";
+  }
+  function usNote(hit,symCount){
+    var cf = symCount===1
+      ? "A single symbol is the oldest, simplest form of the code, and on 16mm and 35mm it repeats every twenty years."
+      : symCount===2
+      ? "Two-symbol codes belong to the same twenty-year cycle Kodak used before 1982."
+      : "From 1982 on, Kodak used a three-symbol code, adding the X shape, so three symbols usually point to a single year.";
+    return cf + " " + eraNote(hit);
+  }
+  function caukNote(hit){
+    var many = hit.length>1 ? " This symbol recurs on the plant's cycle, so more than one year is possible." : "";
+    return "On 35mm, film from this era runs on a flammable nitrate base and needs careful handling; 16mm was always safety film." + many;
+  }
+
+  function buildOptions(){
+    var syms=PLANTSYM[plantEl.value];
+    for(var pos=0;pos<pickerOpts.length;pos++){
+      var html='<button type="button" class="ec-opt ec-none active" data-sym="">None</button>';
+      for(var i=0;i<syms.length;i++){
+        var k=syms[i];
+        html+='<button type="button" class="ec-opt" data-sym="'+k+'" title="'+SNAME[k]+'" aria-label="'+SNAME[k]+'">'+svg(k)+'</button>';
+      }
+      pickerOpts[pos].innerHTML=html;
+    }
+    sel=["","",""];
+  }
+  function renderPlant(){
+    var syms=PLANTSYM[plantEl.value];
+    gaugeWrap.style.display=(plantEl.value==="us")?"":"none";
+    legendEl.innerHTML=syms.map(function(k){return "<li>"+svg(k,"ec-svg sym")+SNAME[k]+"</li>";}).join("");
+    plantNote.textContent=PNOTE[plantEl.value];
+    buildOptions();
+    calc();
+  }
+  function calc(){
+    var plant=plantEl.value;
+    var code=""; for(var i=0;i<3;i++){ if(!sel[i])break; code+=sel[i]; }
+    if(!sel[0]){ out.innerHTML="&nbsp;"; note.textContent="Pick the symbols you see, left to right."; return; }
+    var map = plant==="us" ? (gaugeEl.value==="8"?M8:M1635) : (plant==="ca"?MCA:MUK);
+    var hit=map[code];
+    if(!hit){
+      out.innerHTML="&nbsp;";
+      var where = plant==="us" ? "Kodak US" : (plant==="ca" ? "Kodak Canada" : "Kodak UK");
+      note.textContent="That combination isn't in the "+where+" chart. Double-check the order and the shapes, or send us a photo and we'll identify it.";
+      return;
+    }
+    out.textContent=hit.join("  ·  ");
+    if(plant==="us"){
+      if(gaugeEl.value==="8") note.textContent="Kodak's 8mm coverage is partial, and several codes recur across its two eras, so more than one year can share a code. 8mm and Super 8 were always acetate safety film, never nitrate.";
+      else note.textContent=usNote(hit,code.length);
+    } else {
+      note.textContent=caukNote(hit);
+    }
+  }
+
+  for(var pi=0;pi<pickerOpts.length;pi++){
+    (function(container,pos){
+      container.addEventListener("click",function(e){
+        var btn=e.target.closest(".ec-opt"); if(!btn)return;
+        var kids=container.querySelectorAll(".ec-opt");
+        for(var j=0;j<kids.length;j++) kids[j].classList.remove("active");
+        btn.classList.add("active");
+        sel[pos]=btn.getAttribute("data-sym");
+        calc();
+      });
+    })(pickerOpts[pi],pi);
+  }
+  plantEl.addEventListener("change",renderPlant);
+  gaugeEl.addEventListener("change",calc);
+  renderPlant();
+})();</script>
+
+<footer><div class="wrap">
+    <div class="nap">4100 West Burbank Blvd, Burbank, CA 91505<br>818-859-7770 &nbsp;/&nbsp; info@reflextechnologies.com<br>Serving clients in Los Angeles and worldwide</div>
+    <div class="social"><a href="https://www.linkedin.com/company/90664175/" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.facebook.com/reflexburbank" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/reflexfilmscanning/" target="_blank" rel="noopener">Instagram</a></div>
+  </div></footer>
+<script>
+(function(){
+  var FPF={s8:72,r8:80,'16':40,'35':16,'353':64/3,'352':32,'65':12.8};
+  var NAME={s8:'Super 8mm',r8:'Regular 8mm','16':'16mm','35':'35mm (4-perf)','353':'35mm (3-perf)','352':'35mm (2-perf)','65':'65mm (5-perf)'};
+  var el=function(id){return document.getElementById(id);};
+  function fmtTime(s){s=Math.max(0,Math.round(s));var h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;
+    return (h?h+':':'')+String(m).padStart(h?2:1,'0')+':'+String(ss).padStart(2,'0');}
+  function round1(v){var r=Math.round(v*10)/10;return r;}
+  function parseTime(str){
+    if(str==null)return NaN;str=String(str).trim();if(str==='')return NaN;
+    if(str.indexOf(':')>=0){var p=str.split(':'),s=0;for(var i=0;i<p.length;i++){var n=parseFloat(p[i]);if(isNaN(n))n=0;s=s*60+n;}return s;}
+    var m=parseFloat(str);return isNaN(m)?NaN:m*60;
+  }
+  function curFps(){var custom=el('fps').value==='custom';el('fpsCustom').style.display=custom?'block':'none';return custom?parseFloat(el('fpsCustom').value):parseFloat(el('fps').value);}
+  function clearOthers(anchor){if(anchor!=='feet')el('fFeet').value='';if(anchor!=='time')el('fTime').value='';if(anchor!=='frames')el('fFrames').value='';}
+  var last='feet';
+  function calc(source){
+    if(source)last=source;
+    var g=el('gauge').value, fpf=FPF[g], fps=curFps();
+    if(isNaN(fps)||fps<=0){el('rate').textContent='Enter a frame rate above.';clearOthers(last);return;}
+    var rate=fps*60/fpf;
+    el('rate').textContent='At '+fps+' fps, '+NAME[g]+' runs '+rate.toFixed(1)+' feet per minute ('+(Math.round(fpf*100)/100)+' frames per foot).';
+    var frames;
+    if(last==='feet'){var feet=parseFloat(el('fFeet').value);if(isNaN(feet)||feet<0){clearOthers('feet');return;}frames=feet*fpf;}
+    else if(last==='time'){var secs=parseTime(el('fTime').value);if(isNaN(secs)||secs<0){clearOthers('time');return;}frames=secs*fps;}
+    else{frames=parseFloat(el('fFrames').value);if(isNaN(frames)||frames<0){clearOthers('frames');return;}}
+    if(last!=='feet')el('fFeet').value=round1(frames/fpf);
+    if(last!=='time')el('fTime').value=fmtTime(frames/fps);
+    if(last!=='frames')el('fFrames').value=Math.round(frames);
+  }
+  el('fFeet').addEventListener('input',function(){calc('feet');});
+  el('fTime').addEventListener('input',function(){calc('time');});
+  el('fFrames').addEventListener('input',function(){calc('frames');});
+  ['gauge','fps','fpsCustom'].forEach(function(id){el(id).addEventListener('input',function(){calc();});});
+  function csvDL(fn,rows){var c=rows.map(function(r){return r.map(function(x){return '"'+String(x).replace(/"/g,'""')+'"';}).join(',');}).join('\r\n');var b=new Blob([c],{type:'text/csv'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download=fn;document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(u);},1000);}
+  el('dlFootage').addEventListener('click',function(){
+    var g=el('gauge').value;var fps=curFps();
+    csvDL('reflex-footage-calculation.csv',[['Reflex Technologies','Film footage calculator'],['Film format',NAME[g]],['Frame rate (fps)',isNaN(fps)?'':fps],['Footage',el('fFeet').value+' ft'],['Running time',el('fTime').value],['Frames',el('fFrames').value]]);
+  });
+  calc();
+})();
+</script>
+
+<script>/*navdd*/(function(){document.querySelectorAll(".nav-dd-btn").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var d=b.closest(".nav-dd");var o=d.classList.toggle("open");b.setAttribute("aria-expanded",o);});});document.addEventListener("click",function(){document.querySelectorAll(".nav-dd.open").forEach(function(d){d.classList.remove("open");var x=d.querySelector(".nav-dd-btn");if(x)x.setAttribute("aria-expanded","false");});});})();</script>
+
+<script>/*timecode-converter*/(function(){
+  var FPF={'35':16,'16':40,s8:72,r8:80};
+  var NAME={'35':'35mm','16':'16mm',s8:'Super 8mm',r8:'Regular 8mm'};
+  var el=function(id){return document.getElementById(id);};
+  function pad(n,w){n=String(n);while(n.length<w)n='0'+n;return n;}
+  function curFps(){var c=el('tcFps').value==='custom';el('tcFpsCustom').style.display=c?'block':'none';return c?parseFloat(el('tcFpsCustom').value):parseFloat(el('tcFps').value);}
+  function clearOthers(a){if(a!=='ff')el('tcFF').value='';if(a!=='tc')el('tcTC').value='';if(a!=='fr')el('tcFrames').value='';}
+  function parseFF(str,fpf){str=String(str).trim();if(str==='')return NaN;var p=str.split('+');var ft=parseFloat(p[0]);if(isNaN(ft))ft=0;var fr=p.length>1?parseFloat(p[1]):0;if(isNaN(fr))fr=0;return ft*fpf+fr;}
+  function parseTC(str,f){str=String(str).trim();if(str==='')return NaN;var p=str.split(':').map(function(x){var n=parseInt(x,10);return isNaN(n)?0:n;});while(p.length<4)p.unshift(0);return ((p[0]*3600+p[1]*60+p[2])*f)+p[3];}
+  function fmtFF(total,fpf){var ft=Math.floor(total/fpf);var fr=Math.round(total-ft*fpf);if(fr>=fpf){ft+=Math.floor(fr/fpf);fr=fr%fpf;}return ft+'+'+pad(fr,2);}
+  function fmtTC(total,f){var whole=Math.floor(total/f),ff=total-whole*f;var h=Math.floor(whole/3600),m=Math.floor((whole%3600)/60),s=whole%60;return pad(h,2)+':'+pad(m,2)+':'+pad(s,2)+':'+pad(ff,2);}
+  var last='tc';
+  function calc(source){
+    if(source)last=source;
+    var g=el('tcGauge').value, fpf=FPF[g], fps=curFps();
+    if(isNaN(fps)||fps<=0){el('tcNote').textContent='Enter a frame rate above.';clearOthers(last);return;}
+    var fnum=Math.round(fps);if(fnum<1)fnum=1;
+    el('tcNote').textContent=NAME[g]+' at '+fps+' fps: '+fpf+' frames per foot, '+(fps*60/fpf).toFixed(1)+' feet per minute. Non-drop timecode.';
+    var frames;
+    if(last==='ff')frames=parseFF(el('tcFF').value,fpf);
+    else if(last==='tc')frames=parseTC(el('tcTC').value,fnum);
+    else frames=parseFloat(el('tcFrames').value);
+    if(isNaN(frames)||frames<0){clearOthers(last);return;}
+    frames=Math.round(frames);
+    if(last!=='ff')el('tcFF').value=fmtFF(frames,fpf);
+    if(last!=='tc')el('tcTC').value=fmtTC(frames,fnum);
+    if(last!=='fr')el('tcFrames').value=frames;
+  }
+  el('tcFF').addEventListener('input',function(){calc('ff');});
+  el('tcTC').addEventListener('input',function(){calc('tc');});
+  el('tcFrames').addEventListener('input',function(){calc('fr');});
+  ['tcGauge','tcFps','tcFpsCustom'].forEach(function(id){el(id).addEventListener('input',function(){calc();});});
+  function csvDL(fn,rows){var c=rows.map(function(r){return r.map(function(x){return '"'+String(x).replace(/"/g,'""')+'"';}).join(',');}).join('\r\n');var b=new Blob([c],{type:'text/csv'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download=fn;document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(u);},1000);}
+  el('dlTC').addEventListener('click',function(){var g=el('tcGauge').value;var fps=curFps();csvDL('reflex-timecode-conversion.csv',[['Reflex Technologies','Timecode & feet+frames converter'],['Film format',NAME[g]],['Frame rate (fps)',isNaN(fps)?'':fps],['Feet + frames',el('tcFF').value],['Timecode',el('tcTC').value],['Total frames',el('tcFrames').value]]);});
+  el('tcTC').value='00:01:00:00';calc('tc');
+})();</script>
+
+<script>/*storage-estimator*/(function(){
+  var RES={hd:[1920,1080],'2k':[2048,1556],'4k':[4096,3112],'8k':[8192,6224]};
+  var BITS={prhq:3.54,pr4444:5.31,h264:0.10}; // bits per pixel (compressed averages)
+  var el=function(id){return document.getElementById(id);};
+  function human(bytes){
+    var gb=bytes/1e9;
+    if(gb>=1000) return (gb/1000).toLocaleString(undefined,{maximumFractionDigits:2})+' TB';
+    if(gb>=10) return gb.toLocaleString(undefined,{maximumFractionDigits:0})+' GB';
+    if(gb>=1) return gb.toLocaleString(undefined,{maximumFractionDigits:1})+' GB';
+    return (bytes/1e6).toLocaleString(undefined,{maximumFractionDigits:0})+' MB';
+  }
+  function bytesPerSec(dims,fmt){
+    var px=dims[0]*dims[1];
+    if(fmt==='dpx10') return px*4;      // 10-bit packed to 32bpp
+    if(fmt==='dpx16') return px*6;      // 16-bit RGB
+    if(fmt==='avi') return px*3;        // uncompressed AVI, 8-bit RGB
+    return px*BITS[fmt]/8;              // compressed
+  }
+  function curDims(){
+    if(el('stRes').value==='custom'){
+      el('stResCustom').style.display='grid';
+      return [parseFloat(el('stResW').value),parseFloat(el('stResH').value)];
+    }
+    el('stResCustom').style.display='none';
+    return RES[el('stRes').value];
+  }
+  function calc(){
+    var fmt=el('stFmt').value;
+    var dims=curDims();
+    var custom=el('stFps').value==='custom';
+    el('stFpsCustom').style.display=custom?'block':'none';
+    var fps=custom?parseFloat(el('stFpsCustom').value):parseFloat(el('stFps').value);
+    var mins=parseFloat(el('stMin').value);var secs=isNaN(mins)?NaN:mins*60;
+    if(!dims||isNaN(dims[0])||isNaN(dims[1])||dims[0]<=0||dims[1]<=0){el('stNote').textContent='Enter a width and height in pixels.';el('stTotal').value='';el('stRate').value='';el('stHour').value='';return;}
+    if(isNaN(fps)||fps<=0){el('stNote').textContent='Enter a frame rate above.';el('stTotal').value='';el('stRate').value='';el('stHour').value='';return;}
+    var bps = bytesPerSec(dims,fmt) * fps; // bytes/frame x fps
+    el('stRate').value=(bps/1e6).toLocaleString(undefined,{maximumFractionDigits:(bps/1e6<10?1:0)})+' MB/s';
+    el('stHour').value=human(bps*3600);
+    el('stNote').textContent='Based on '+dims[0]+' x '+dims[1]+' at '+fps+' fps. Uncompressed DPX and AVI are exact; ProRes and MP4 are typical averages.';
+    if(isNaN(secs)||secs<0){el('stTotal').value='';return;}
+    el('stTotal').value=human(bps*secs);
+  }
+  ['stRes','stFmt','stFps','stFpsCustom','stMin','stResW','stResH'].forEach(function(id){el(id).addEventListener('input',calc);});
+  function csvDL(fn,rows){var c=rows.map(function(r){return r.map(function(x){return '"'+String(x).replace(/"/g,'""')+'"';}).join(',');}).join('\r\n');var b=new Blob([c],{type:'text/csv'});var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download=fn;document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(u);},1000);}
+  el('dlStorage').addEventListener('click',function(){
+    var fpsOut=el('stFps').value==='custom'?el('stFpsCustom').value:el('stFps').value;
+    csvDL('reflex-storage-estimate.csv',[['Reflex Technologies','Disk storage estimator'],['Resolution',el('stRes').value==='custom'?(el('stResW').value+' x '+el('stResH').value+' (custom)'):el('stRes').selectedOptions[0].text],['Delivery format',el('stFmt').selectedOptions[0].text],['Frame rate (fps)',fpsOut],['Length (minutes)',el('stMin').value],['Total size',el('stTotal').value],['Data rate',el('stRate').value],['Per hour',el('stHour').value]]);
+  });
+  calc();
+})();</script>
+
+<script>/*time-steppers*/(function(){
+  function parseT(s){s=(s==null?'':String(s)).trim();if(!s)return 0;var p=s.split(':'),sec=0;for(var i=0;i<p.length;i++){var n=parseFloat(p[i]);if(isNaN(n))n=0;sec=sec*60+n;}return sec;}
+  function fmtT(sec){sec=Math.max(0,Math.round(sec));var m=Math.floor(sec/60),s=sec%60;return m+':'+(s<10?'0':'')+s;}
+  function bump(input,mode,step,d){
+    if(mode==='time'){input.value=fmtT(parseT(input.value)+d);}
+    else{var v=parseFloat(input.value);if(isNaN(v))v=0;v=v+d*step;if(v<0)v=0;v=Math.round(v*1000)/1000;input.value=String(v);}
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+  }
+  document.querySelectorAll('.stepper').forEach(function(st){
+    var input=document.getElementById(st.getAttribute('data-for'));
+    if(!input)return;
+    var raw=st.getAttribute('data-step')||'1';
+    var mode=(raw==='time')?'time':'num';
+    var step=(raw==='time')?1:(parseFloat(raw)||1);
+    Array.prototype.forEach.call(st.querySelectorAll('button'),function(btn){
+      var d=btn.classList.contains('step-up')?1:-1,timer,rep;
+      function stop(){clearTimeout(timer);clearInterval(rep);timer=rep=null;}
+      function start(e){e.preventDefault();stop();bump(input,mode,step,d);input.focus();
+        timer=setTimeout(function(){var n=0;rep=setInterval(function(){n++;bump(input,mode,step,d*(n>25?5:1));},70);},420);}
+      btn.addEventListener('mousedown',start);
+      btn.addEventListener('touchstart',start,{passive:false});
+      ['mouseup','mouseleave','touchend','touchcancel','blur'].forEach(function(ev){btn.addEventListener(ev,stop);});
+    });
+  });
+})();</script>
+
+</body></html>

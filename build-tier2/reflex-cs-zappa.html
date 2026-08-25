@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frank Zappa Film Library Digitization | Reflex</title>
+<meta name="description" content="Scanning the Frank Zappa film and audio vault in Burbank, source material for Alex Winter's documentary Zappa, archival film and video digitization.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#0c0e10; --surface:#14181b; --line:rgba(255,255,255,.09);
+ --ink:#f1f4f4; --muted:#9aa3a5; --teal:#15ebdf; --teal-deep:#0a8f8a; --amber:#e6a24a;
+ --d:'Archivo',system-ui,sans-serif; --b:'Inter',system-ui,sans-serif; --m:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--b);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+a{color:inherit;text-decoration:none}
+.eyebrow{font-family:var(--m);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}
+.hero .eyebrow{display:block;margin-top:16px}
+.btn{font-family:var(--m);font-size:13px;letter-spacing:.04em;padding:13px 22px;border-radius:3px;display:inline-block;transition:.18s;cursor:pointer;border:1px solid transparent}
+.btn-p{background:var(--teal);color:#04201f;font-weight:500}
+.btn-p:hover{background:#51fff8}
+.btn-g{border-color:rgba(255,255,255,.38);color:var(--ink)}
+.btn-g:hover{border-color:var(--teal);color:var(--teal)}
+h1,h2,h3{font-family:var(--d);font-weight:800;line-height:1.05;letter-spacing:-.01em}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:rgba(12,14,16,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:baseline;gap:10px}
+.logo img{height:35px;width:auto;display:block}header .btn{padding:5px 9px}.cta .btn{padding:5px 9px}
+.logo .s{font-family:var(--m);font-weight:400;font-size:11px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase}
+
+nav{display:flex;gap:26px;align-items:center}
+nav a{font-size:14px;color:var(--muted);transition:.15s} nav a:hover{color:var(--ink)}
+.nav-links{display:flex;gap:26px}.nav-links a[aria-current="page"]{color:var(--teal)}
+.navtog{display:none;background:none;border:0;color:var(--ink);cursor:pointer;padding:6px;margin:0;line-height:0}@media(max-width:860px){.navtog{display:inline-flex;align-items:center}nav{position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(12,14,16,.98);border-bottom:1px solid var(--line);padding:6px 0;display:none}header.open nav{display:flex}.nav-links{display:flex;flex-direction:column;gap:0}.nav-links a{padding:15px 24px;font-size:16px}nav>.btn{margin:10px 24px 14px;text-align:center;font-size:15px;padding:13px}}
+
+/* hero */
+.hero{position:relative;min-height:90vh;display:flex;align-items:flex-end;background:linear-gradient(0deg,rgba(8,10,11,.72),rgba(8,10,11,0) 58%),#0c0e10 url(images/74b4d99b28d0.jpg) center/cover no-repeat}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,rgba(8,10,11,.92) 0%,rgba(8,10,11,.6) 38%,rgba(8,10,11,.15) 70%,rgba(8,10,11,.4) 100%)}
+.hero-in{position:relative;z-index:2;padding:0 28px 34px;max-width:1140px;margin:0 auto;width:100%}
+.hero h1{font-size:clamp(2.4rem,6vw,4.6rem);max-width:16ch;margin:18px 0 22px}
+.hero p{font-size:clamp(1rem,1.6vw,1.22rem);color:#d6dcdc;max-width:60ch;margin-bottom:30px}
+.hero .btns{display:flex;gap:14px;flex-wrap:wrap}
+.fade{opacity:0;transform:translateY(14px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+.fade.d1{animation-delay:.08s}.fade.d2{animation-delay:.18s}.fade.d3{animation-delay:.28s}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* thesis */
+.thesis{border-bottom:1px solid var(--line)}
+.thesis .wrap{padding:64px 28px}
+.thesis p{font-family:var(--d);font-weight:600;font-size:clamp(1.4rem,3vw,2.1rem);line-height:1.25;letter-spacing:-.01em;max-width:24ch}
+.thesis .lead{color:var(--muted)} .thesis .hl{color:var(--ink)}
+
+/* services */
+.svc{padding:72px 0;border-bottom:1px solid var(--line)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:34px}
+@media(max-width:760px){.grid3{grid-template-columns:1fr}}
+.card{background:var(--bg);padding:30px 28px}
+.card .n{font-family:var(--m);font-size:12px;color:var(--teal);letter-spacing:.1em}
+.card h3{font-size:1.45rem;font-weight:700;margin:14px 0 10px}
+.card p{color:var(--muted);font-size:.96rem}
+.card .go{font-family:var(--m);font-size:12px;color:var(--ink);margin-top:18px;display:inline-block;border-bottom:1px solid var(--teal);padding-bottom:2px}
+.sec-head .eyebrow{display:block;margin-bottom:14px}
+.sec-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem)}
+
+/* split bands */
+.band{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;border-bottom:1px solid var(--line)}
+.band.rev .media{order:2}
+@media(max-width:820px){.band{grid-template-columns:1fr}.band.rev .media{order:0}}
+.band .media{position:relative;min-height:440px;background-size:cover;background-position:center}
+.band .media .tag{position:absolute;left:18px;bottom:16px;font-family:var(--m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(8,10,11,.6);padding:6px 11px;border:1px solid rgba(255,255,255,.18)}
+.band .copy{padding:64px 56px;display:flex;flex-direction:column;justify-content:center}
+@media(max-width:820px){.band .copy{padding:48px 28px}}
+.band h2{font-size:clamp(1.8rem,3.4vw,2.6rem);margin:14px 0 18px}
+.band p{color:var(--muted);font-size:1.04rem;max-width:46ch}
+.band .hl{color:var(--teal)}
+.band .go{font-family:var(--m);font-size:12px;color:var(--ink);margin-top:24px;border-bottom:1px solid var(--teal);padding-bottom:3px;align-self:flex-start}
+
+/* proof */
+.proof{padding:80px 0;border-bottom:1px solid var(--line)}
+.roster{display:flex;flex-wrap:wrap;gap:10px 14px;margin:26px 0 50px}
+.roster span{font-family:var(--m);font-size:13px;color:var(--muted);border:1px solid var(--line);padding:8px 14px;border-radius:2px}
+.quote{font-family:var(--d);font-weight:600;font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.25;letter-spacing:-.01em;max-width:20ch;border-left:2px solid var(--teal);padding-left:24px}
+.quote .by{font-family:var(--b);font-weight:400;font-size:.95rem;color:var(--muted);margin-top:16px;border:0;padding:0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:54px}
+@media(max-width:680px){.stats{grid-template-columns:1fr}}
+.stat{background:var(--bg);padding:26px}
+.stat .k{font-family:var(--d);font-weight:800;font-size:1.7rem}
+.stat .l{font-family:var(--m);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+
+/* cta */
+.cta{padding:96px 0;text-align:center;background:radial-gradient(120% 140% at 50% 0%, rgba(21,235,223,.08), transparent 60%)}
+.cta h2{font-size:clamp(2rem,4vw,3rem);max-width:18ch;margin:0 auto 16px}
+.cta p{color:var(--muted);margin:44px 0 12px}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:46px 0;color:var(--muted);font-size:.9rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px;align-items:center}
+footer .nap{font-family:var(--m);font-size:13px;line-height:1.9;color:#cdd3d4}
+footer a:hover{color:var(--teal)}
+footer .footcol{display:flex;flex-direction:column;gap:14px}
+footer .social{font-family:var(--m);font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:flex;gap:20px}
+footer .social a{color:var(--muted);text-decoration:none}
+@media(prefers-reduced-motion:reduce){.fade{animation:none;opacity:1;transform:none}html{scroll-behavior:auto}}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+
+/* film page additions */
+.intro{padding:72px 0;border-bottom:1px solid var(--line)}
+.intro p{font-size:clamp(1.05rem,1.6vw,1.22rem);color:#c9d0d1;max-width:64ch;line-height:1.65}
+.specs{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:34px}
+@media(max-width:760px){.specs{grid-template-columns:1fr}}
+.spec{background:var(--bg);padding:28px}
+.spec .n{font-family:var(--m);font-size:12px;color:var(--teal);letter-spacing:.1em}
+.spec h3{font-size:1.18rem;font-weight:700;margin:12px 0 8px}
+.spec p{color:var(--muted);font-size:.97rem}
+.band .copy p + p{margin-top:16px}
+.casestudy{padding:80px 0;border-bottom:1px solid var(--line)}
+.casestudy p{color:var(--muted);max-width:62ch;margin-top:10px;font-size:1.06rem}
+.link{font-family:var(--m);font-size:12px;color:var(--ink);margin-top:22px;display:inline-block;border-bottom:1px solid var(--teal);padding-bottom:3px}
+.faq{padding:80px 0;border-bottom:1px solid var(--line)}
+.faq .sec-head{margin-bottom:10px}
+.faq .qa{border-top:1px solid var(--line);padding:26px 0}
+.faq .qa:last-of-type{border-bottom:1px solid var(--line)}
+.faq h3{font-size:1.1rem;font-weight:700;margin-bottom:10px}
+.faq .qa p{color:var(--muted);max-width:74ch}
+
+/* case study detail */
+.backlink{display:inline-block;font-family:var(--m);font-size:12px;color:var(--muted);letter-spacing:.04em;margin-top:22px}
+.backlink .ba{font-size:1.9em;line-height:0;vertical-align:-.14em;margin-right:2px}
+.backlink:hover{color:var(--teal)}
+.csfacts{padding:42px 0;border-bottom:1px solid var(--line)}
+.article{padding:56px 0 72px;border-bottom:1px solid var(--line)}
+.article .wrap{max-width:780px}
+.article h2{font-size:1.42rem;font-weight:700;margin:38px 0 12px}
+.article h2:first-child{margin-top:0}
+.article p{color:#c9d0d1;font-size:1.06rem;line-height:1.75;margin-bottom:16px}
+.article .pull{font-family:var(--d);font-weight:600;font-size:clamp(1.3rem,2.4vw,1.8rem);line-height:1.32;color:var(--ink);border-left:2px solid var(--teal);padding-left:24px;margin:32px 0}
+
+
+.nav-dd{position:relative}
+.nav-dd>.nav-dd-btn{font-family:inherit;font-size:14px;color:var(--muted);background:none;border:0;cursor:pointer;padding:0;transition:.15s}
+.nav-dd>.nav-dd-btn:hover{color:var(--ink)}
+.nav-dd-btn .caret{font-size:.7em;transition:transform .2s}
+.nav-dd.open .nav-dd-btn .caret{transform:rotate(180deg)}
+.nav-dd-menu{position:absolute;top:calc(100% + 14px);right:0;min-width:242px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px;display:none;flex-direction:column;gap:2px;z-index:40;box-shadow:0 16px 40px rgba(0,0,0,.45)}
+.nav-dd.open .nav-dd-menu,.nav-dd:hover .nav-dd-menu{display:flex}
+.nav-dd-menu a{padding:11px 13px;border-radius:8px;white-space:nowrap}
+.nav-dd-menu a:hover{background:rgba(255,255,255,.06)}
+
+.more{border-top:1px solid var(--line);padding:56px 0;background:var(--bg)}
+.more-in{max-width:1140px;margin:0 auto;padding:0 28px}
+.more-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:18px}
+.more-grid a{display:block;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:6px;color:var(--ink);font-family:var(--d);font-weight:600;font-size:1.02rem;text-decoration:none;transition:.18s}
+.more-grid a:hover{border-color:var(--teal);color:var(--teal)}
+.more-grid a span{display:block;font-family:var(--b);font-weight:400;font-size:.85rem;color:var(--muted);margin-top:5px;line-height:1.35}
+</style>
+<!-- ===== SEO metadata ===== -->
+<link rel="canonical" href="https://reflextechnologies.com/reflex-cs-zappa">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Reflex Technologies">
+<meta property="og:title" content="Frank Zappa Film Library Digitization">
+<meta property="og:description" content="Reflex Technologies|Scanning the Frank Zappa film and audio vault in Burbank, source material for Alex Winter's documentary Zappa, archival film and video digitization.">
+<meta property="og:url" content="https://reflextechnologies.com/reflex-cs-zappa">
+<meta property="og:image" content="https://reflextechnologies.com/og-reflex.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Reflex Technologies, archival film, video, and image digitization in Burbank, California">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://reflextechnologies.com/og-reflex.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": [
+    "LocalBusiness",
+    "ProfessionalService"
+  ],
+  "name": "Reflex Technologies",
+  "description": "Archival digitization of motion picture film, video, audio, and still images in Burbank, California, including film other labs cannot scan.",
+  "url": "https://reflextechnologies.com/",
+  "telephone": "+1-818-859-7770",
+  "@id": "https://reflextechnologies.com/#business",
+  "image": "https://reflextechnologies.com/og-reflex.jpg",
+  "sameAs": [
+    "https://www.linkedin.com/company/90664175/",
+    "https://www.facebook.com/reflexburbank",
+    "https://www.instagram.com/reflexfilmscanning/"
+  ],
+  "email": "info@reflextechnologies.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4100 West Burbank Blvd",
+    "addressLocality": "Burbank",
+    "addressRegion": "CA",
+    "postalCode": "91505",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 34.1668,
+    "longitude": -118.3565
+  },
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Los Angeles"
+    },
+    {
+      "@type": "City",
+      "name": "Burbank"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Greater Los Angeles"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Southern California"
+    }
+  ],
+  "knowsAbout": [
+    "film scanning",
+    "film restoration",
+    "8mm film",
+    "Super 8 film",
+    "9.5mm film",
+    "16mm film",
+    "35mm film",
+    "65mm film",
+    "videotape transfer",
+    "audio digitization",
+    "photo and negative scanning",
+    "archival digitization"
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "09:00",
+      "closes": "17:00"
+    }
+  ],
+  "priceRange": "$$"
+}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZNM994NKR"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-FZNM994NKR');
+</script>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20rx='20'%20fill='%230c0e10'/%3E%3Ctext%20x='50'%20y='73'%20font-family='Arial,Helvetica,sans-serif'%20font-size='70'%20font-weight='800'%20fill='%2315ebdf'%20text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="images/ad6ba989078a.png">
+<link rel="apple-touch-icon" href="images/a0e48739cca2.png">
+</head>
+<body>
+
+<header><div class="wrap bar">
+  <a href="/" class="logo"><img src="images/4369af57d541.png" alt="Reflex" width="360" height="101"><span class="s">technologies</span></a>
+  <button class="navtog" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('header');var o=h.classList.toggle('open');this.setAttribute('aria-expanded',o)"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
+  <nav>
+    <div class="nav-links">
+      <a href="/">Home</a><a href="reflex-film-page">Film</a><a href="reflex-video-audio-page">Video &amp; Audio</a><a href="reflex-stills-page">Stills</a><a href="reflex-our-work-page" aria-current="page">Our Work</a><a href="reflex-film-tools">Film Tools</a><a href="reflex-posters">Archivist Posters</a>
+    </div>
+    <a class="btn btn-p" href="reflex-quote-page">Get in touch</a>
+  </nav>
+</div></header>
+
+<section class="hero">
+  <div class="hero-in">
+    <a class="backlink" href="reflex-our-work-page"><span class="ba">&larr;</span> Our Work</a>
+    <span class="eyebrow fade">Case study</span>
+    <h1 class="fade d1">The source for<br>Alex&nbsp;Winter&rsquo;s<br>documentary<br>&ldquo;Zappa&rdquo;</h1>
+    <p class="fade d2">Thousands of items from Frank Zappa&rsquo;s vault, every format from Regular 8 to 35mm feature film, each shot under wildly different conditions and brought to one consistent look so it all cut together.</p>
+  </div>
+</section>
+
+<section class="csfacts"><div class="wrap">
+  <div class="specs">
+    <div class="spec"><div class="n">Client</div><h3>Zappa Family Trust</h3></div>
+    <div class="spec"><div class="n">Service</div><h3>Film &amp; film sound digitization</h3></div>
+    <div class="spec"><div class="n">Scope</div><h3>Every format, Regular 8 to 35mm</h3></div>
+    <div class="spec"><div class="n">Outcome</div><h3>Feature documentary</h3></div>
+  </div>
+</div></section>
+
+<section class="article"><div class="wrap">
+  <h2>The vault</h2>
+  <p>Frank Zappa was a compulsive documentarian, and the evidence filled the basement of his home: thousands of film and film sound elements spanning feature films, concert footage, travel, backstage moments, and private reels. The archive is kept for the Zappa Family Trust by Joe Travers, the archivist known as the &ldquo;Vaultmeister,&rdquo; who catalogs and manages its contents. We were brought in to digitize the film elements so they could serve as source materials for a biographical documentary by actor and filmmaker Alex Winter.</p>
+  <h2>The challenge</h2>
+  <p>The vault held just about every kind of film ever made, from Christmas-morning reels of Zappa&rsquo;s childhood on Regular 8 to 35mm feature films, and nearly every format in between: Super 8, 16, and Super 16. Within each were emulsions of every type: camera negative, internegative, interpositive, color reversal intermediate, and release print, in black and white and color alike. Every piece had been shot in its own era, its own situation, and its own light, so no two looked the same.</p>
+  <p>For a documentary, though, all of it has to cut together. The picture cannot lurch from one look to the next between shots, so this wildly mismatched material could not simply be digitized and handed over. It had to end up as a single, consistent image.</p>
+  <h2>What we did</h2>
+  <p>We digitized every format and every emulsion in the collection, then did the harder part: bringing this wildly varied material into a common family of looks so the footage could intercut, while honoring what each film stock and format was meant to look like in the first place.</p>
+  <p class="pull">The scans became the primary source material for Alex Winter&rsquo;s documentary &ldquo;Zappa.&rdquo;</p>
+  <h2>The result</h2>
+  <p>The client was glad of both the image quality and the completeness of the preservation. Beyond the documentary, the digitized vault is now a stable archive of a vast and famously sprawling body of work, secured against the further decay of the originals.</p>
+</div></section>
+
+
+<section class="more"><div class="more-in">
+    <span class="eyebrow">More projects</span>
+    <div class="more-grid">
+      <a href="reflex-cs-gene-kelly">Gene Kelly<span>Audio, video and film from a Hollywood legend</span></a>
+      <a href="reflex-cs-iam">Institute of the American Musical<span>The only film record of Broadway's golden age</span></a>
+      <a href="reflex-cs-moma">Museum of Modern Art<span>Biograph films no other lab could scan</span></a>
+      <a href="reflex-cs-paramount">Paramount Pictures<span>Early studio features, rediscovered</span></a>
+      <a href="reflex-cs-illusion-arts">Illusion Arts<span>Preserving the photochemical matte era</span></a>
+    </div>
+</div></section>
+<section class="cta"><div class="wrap">
+  <h2>Have media that needs saving?</h2>
+  <p>Send us a photo and we'll let you know what is possible.</p>
+  <a class="btn btn-p" href="reflex-quote-page">Get in touch</a>
+</div></section>
+
+<footer><div class="wrap">
+    <div class="nap">4100 West Burbank Blvd, Burbank, CA 91505<br>818-859-7770 &nbsp;/&nbsp; info@reflextechnologies.com<br>Serving clients in Los Angeles and worldwide</div>
+    <div class="social"><a href="https://www.linkedin.com/company/90664175/" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.facebook.com/reflexburbank" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/reflexfilmscanning/" target="_blank" rel="noopener">Instagram</a></div>
+  </div></footer>
+
+
+<script>/*navdd*/(function(){document.querySelectorAll(".nav-dd-btn").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var d=b.closest(".nav-dd");var o=d.classList.toggle("open");b.setAttribute("aria-expanded",o);});});document.addEventListener("click",function(){document.querySelectorAll(".nav-dd.open").forEach(function(d){d.classList.remove("open");var x=d.querySelector(".nav-dd-btn");if(x)x.setAttribute("aria-expanded","false");});});})();</script>
+</body></html>
