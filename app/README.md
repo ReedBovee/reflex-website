@@ -54,6 +54,22 @@ Once installed it opens full-screen with its own icon and keeps working with
 no signal. It also remembers the tab you were last on and your format /
 frame-rate choices.
 
+## Preview build
+
+`build-preview.py` folds the whole app into one self-contained file — logo
+inlined, manifest and service worker stripped — for sharing before it is
+hosted:
+
+```bash
+python3 app/build-preview.py out.html               # Claude Artifact fragment
+python3 app/build-preview.py out.html --standalone  # full HTML, opens from disk
+```
+
+It is generated, never hand-edited: re-run it after changing `index.html`.
+The preview knows it is a preview (it detects being framed) and says so
+instead of offering an Install button that cannot work. Installing and
+offline use only switch on once the real `app/` folder is hosted over HTTPS.
+
 ## Notes
 
 - Fonts come from Google Fonts and are cached after the first online load;
