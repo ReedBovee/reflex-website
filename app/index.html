@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reflex Film Tools</title>
+<meta name="description" content="Film footage, storage, timecode and Kodak edge-code tools from Reflex Technologies. Works offline.">
+<meta name="theme-color" content="#0c0e10">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Film Tools">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#0c0e10; --surface:#14181b; --line:rgba(255,255,255,.09);
+ --ink:#f1f4f4; --muted:#9aa3a5; --teal:#15ebdf; --teal-deep:#0a8f8a; --amber:#e6a24a;
+ --d:'Archivo',system-ui,-apple-system,sans-serif;
+ --b:'Inter',system-ui,-apple-system,sans-serif;
+ --m:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+ --hdr:54px; --tab:62px;
+ --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}
+body{background:var(--bg);color:var(--ink);font-family:var(--b);line-height:1.6;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+h1,h2,h3{font-family:var(--d);font-weight:800;line-height:1.1;letter-spacing:-.01em}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+
+/* ---------- app shell ---------- */
+.appbar{position:fixed;top:0;left:0;right:0;z-index:30;height:calc(var(--hdr) + var(--sat));
+  padding:var(--sat) 16px 0;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:rgba(12,14,16,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.appbar .brand{display:flex;align-items:center;gap:9px;min-width:0}
+.appbar img{height:19px;width:auto;display:block;flex:0 0 auto}
+.appbar .s{font-family:var(--m);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.appbar .paneName{font-family:var(--m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+main{position:fixed;left:0;right:0;top:calc(var(--hdr) + var(--sat));bottom:calc(var(--tab) + var(--sab));overflow:hidden}
+.pane{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;display:none;padding:18px 16px 40px}
+.pane.active{display:block}
+
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;height:calc(var(--tab) + var(--sab));
+  padding-bottom:var(--sab);display:grid;grid-template-columns:repeat(4,1fr);
+  background:rgba(12,14,16,.94);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+.tabbtn{background:none;border:0;padding:6px 2px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  color:var(--muted);font-family:var(--m);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:color .15s}
+.tabbtn svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tabbtn[aria-selected="true"]{color:var(--teal)}
+.tabbtn:active{opacity:.6}
+
+/* ---------- tool blocks ---------- */
+.tool-title{font-family:var(--d);font-weight:700;font-size:1.45rem;margin:0 0 12px;letter-spacing:-.015em}
+.explain{border:1px solid var(--line);border-radius:12px;background:var(--surface);margin:0 0 16px}
+.explain>summary{list-style:none;cursor:pointer;padding:12px 14px;font-family:var(--m);font-size:10.5px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.explain>summary::-webkit-details-marker{display:none}
+.explain>summary::after{content:'';flex:0 0 auto;width:7px;height:7px;border-right:1.5px solid currentColor;
+  border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin-bottom:3px;transition:transform .18s}
+.explain[open]>summary{color:var(--teal)}
+.explain[open]>summary::after{transform:rotate(225deg);margin-bottom:-2px}
+.explain p{padding:0 14px 14px;color:var(--muted);font-size:.9rem;line-height:1.6;margin:0}
+.explain p strong{color:var(--ink);font-weight:600}
+.calc{display:grid;gap:18px;background:var(--surface);border:1px solid var(--line);padding:18px 16px;border-radius:16px}
+.calc .row,.calc .row3{display:grid;grid-template-columns:1fr;gap:14px}
+.calc label{display:block;font-family:var(--m);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.calc select,.calc input{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--ink);
+  padding:13px 14px;font-family:var(--b);font-size:16px;border-radius:10px;outline:none;appearance:none}
+.calc select{background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239aa3a5' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;background-size:16px;padding-right:38px}
+.calc select:focus,.calc input:focus{border-color:var(--teal)}
+.calc input[readonly]{color:var(--teal);font-family:var(--m);font-size:15px}
+
+.stepwrap{position:relative}
+.stepwrap input{padding-right:46px}
+.stepwrap input[type=number]{-moz-appearance:textfield;appearance:textfield}
+.stepwrap input[type=number]::-webkit-outer-spin-button,.stepwrap input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.stepper{position:absolute;top:1px;right:1px;bottom:1px;width:38px;display:flex;flex-direction:column;
+  border-left:1px solid var(--line);border-radius:0 9px 9px 0;overflow:hidden}
+.stepper button{flex:1;display:flex;align-items:center;justify-content:center;background:transparent;border:0;
+  color:var(--muted);font-size:10px;line-height:1;cursor:pointer;padding:0;-webkit-user-select:none;user-select:none;touch-action:none}
+.stepper button:first-child{border-bottom:1px solid var(--line)}
+.stepper button:active{background:rgba(21,235,223,.18);color:var(--teal)}
+
+.results{display:grid;grid-template-columns:1fr;gap:12px}
+.result{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+.result .k{font-family:var(--m);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.result .v{font-family:var(--d);font-weight:700;font-size:1.5rem;margin-top:6px;color:var(--ink);overflow-wrap:anywhere}
+.result.hl{border-color:var(--teal-deep)}
+.result.hl .v{color:var(--teal)}
+.calc-note{font-family:var(--m);font-size:11.5px;line-height:1.65;color:var(--muted);margin:0}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.act{flex:1 1 0;min-width:120px;background:transparent;border:1px solid var(--line);color:var(--ink);
+  font-family:var(--m);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  padding:12px 10px;border-radius:10px;cursor:pointer;transition:border-color .15s,color .15s}
+.act:active{border-color:var(--teal);color:var(--teal)}
+.act.done{border-color:var(--teal-deep);color:var(--teal)}
+
+/* ---------- edge code ---------- */
+.ec-legend{display:flex;flex-wrap:wrap;gap:9px 16px;margin:0;padding:0;list-style:none}
+.ec-legend li{display:inline-flex;align-items:center;gap:6px;font-family:var(--m);font-size:11.5px;color:var(--muted)}
+.ec-legend svg.sym{width:18px;height:18px;fill:var(--ink);flex:0 0 auto}
+.ec-picker{display:grid;grid-template-columns:1fr;gap:14px}
+.ec-slot-hd{font-family:var(--m);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ec-opts{display:flex;flex-wrap:wrap;gap:7px}
+.ec-opt{width:46px;height:46px;display:inline-flex;align-items:center;justify-content:center;background:var(--bg);
+  border:1px solid var(--line);border-radius:11px;cursor:pointer;padding:0;transition:border-color .12s,background .12s}
+.ec-opt.active{border-color:var(--teal);background:rgba(21,235,223,.10)}
+.ec-opt svg{width:24px;height:24px;fill:var(--ink)}
+.ec-opt.active svg{fill:var(--teal)}
+.ec-opt.ec-none{width:auto;min-width:56px;padding:0 14px;font-family:var(--m);font-size:11.5px;color:var(--muted)}
+.ec-opt.ec-none.active{color:var(--teal);border-color:var(--teal);background:rgba(21,235,223,.10)}
+
+/* safety-film footnote */
+.ec-factory{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 16px}
+.ec-factory h3{font-family:var(--d);font-size:1.06rem;font-weight:700;margin:0 0 10px;color:var(--ink)}
+.ec-factory .fac-lead{font-size:.9rem;line-height:1.6;color:var(--muted);margin:0 0 18px}
+.ec-factory .fac-lead strong{color:var(--ink);font-weight:600}
+.fac-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(94px,1fr));gap:16px 10px}
+.fac-item{display:flex;flex-direction:column;align-items:center;gap:7px}
+.fac-word{display:inline-grid;grid-template-columns:repeat(6,1.3ch);grid-template-rows:auto auto;
+  justify-content:center;font-family:var(--m);font-size:1.06rem;line-height:1.05;color:var(--ink)}
+.fac-word .l{grid-row:2;text-align:center}
+.fac-word .d{grid-row:1;text-align:center;height:.6em;font-size:.85em;font-weight:700}
+.fac-word .p12{grid-column:1/3}.fac-word .p23{grid-column:2/4}.fac-word .p34{grid-column:3/5}
+.fac-word .p45{grid-column:4/6}.fac-word .p56{grid-column:5/7}
+.fac-loc{font-family:var(--m);font-size:11px;color:var(--muted);text-align:center;line-height:1.4}
+
+/* ---------- misc ---------- */
+.appfoot{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);
+  font-family:var(--m);font-size:11px;line-height:1.9;color:var(--muted)}
+.appfoot a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--teal-deep);padding-bottom:1px}
+.appfoot .n{color:#cdd3d4}
+.install{position:fixed;left:12px;right:12px;bottom:calc(var(--tab) + var(--sab) + 12px);z-index:40;
+  background:var(--surface);border:1px solid var(--teal-deep);border-radius:14px;padding:14px 15px;
+  display:none;gap:12px;align-items:flex-start;box-shadow:0 16px 40px rgba(0,0,0,.5)}
+.install.show{display:flex}
+.install p{font-size:.86rem;color:var(--muted);margin:0;flex:1}
+.install strong{color:var(--ink);font-weight:600}
+.install .btns{display:flex;flex-direction:column;gap:7px;flex:0 0 auto}
+.install button{background:var(--teal);color:#04201f;border:0;font-family:var(--m);font-size:10.5px;
+  letter-spacing:.08em;text-transform:uppercase;padding:9px 13px;border-radius:8px;cursor:pointer;font-weight:500}
+.install button.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="appbar">
+  <span class="brand">
+    <img src="icons/reflex-logo.png" alt="Reflex" width="360" height="101">
+    <span class="s">Film tools</span>
+  </span>
+  <span class="paneName" id="paneName">Footage</span>
+</div>
+
+<main>
+
+<!-- ============ 1. FILM FOOTAGE CALCULATOR ============ -->
+<section class="pane active" id="pane-footage" role="tabpanel" aria-labelledby="tab-footage">
+  <h2 class="tool-title">Film footage calculator</h2>
+  <details class="explain"><summary>How this works</summary><p>Convert between footage, running time, and frame count for 8mm, Super 8mm, 16mm, 35mm, and 65mm at any frame rate. Pick a film format and frame rate, then type a number into any one of the three boxes below and the other two update automatically.</p></details>
+  <div class="calc">
+    <div class="row">
+      <div>
+        <label for="gauge">Film format</label>
+        <select id="gauge">
+          <option value="r8">Regular 8mm</option>
+          <option value="s8">Super 8mm</option>
+          <option value="16" selected>16mm</option>
+          <option value="352">35mm (2-perf)</option>
+          <option value="353">35mm (3-perf)</option>
+          <option value="35">35mm (4-perf)</option>
+          <option value="65">65mm (5-perf)</option>
+        </select>
+      </div>
+      <div>
+        <label for="fps">Frame rate</label>
+        <select id="fps">
+          <option value="16">16 fps</option>
+          <option value="18">18 fps</option>
+          <option value="24" selected>24 fps</option>
+          <option value="25">25 fps (PAL)</option>
+          <option value="29.97">29.97 fps (NTSC)</option>
+          <option value="custom">Custom&hellip;</option>
+        </select>
+        <input id="fpsCustom" type="number" min="1" step="any" placeholder="Frames per second" inputmode="decimal" style="display:none;margin-top:10px">
+      </div>
+    </div>
+    <div class="row3">
+      <div>
+        <label for="fFeet">Footage (feet)</label>
+        <div class="stepwrap">
+          <input id="fFeet" type="number" min="0" step="any" value="1000" inputmode="decimal">
+          <span class="stepper" data-for="fFeet" data-step="1">
+            <button type="button" class="step-up" aria-label="Add one foot" tabindex="-1">&#9650;</button>
+            <button type="button" class="step-down" aria-label="Subtract one foot" tabindex="-1">&#9660;</button>
+          </span>
+        </div>
+      </div>
+      <div>
+        <label for="fTime">Running time (mm:ss)</label>
+        <div class="stepwrap">
+          <input id="fTime" type="text" inputmode="numeric" placeholder="e.g. 27:47">
+          <span class="stepper" data-for="fTime" data-step="time">
+            <button type="button" class="step-up" aria-label="Add one second" tabindex="-1">&#9650;</button>
+            <button type="button" class="step-down" aria-label="Subtract one second" tabindex="-1">&#9660;</button>
+          </span>
+        </div>
+      </div>
+      <div>
+        <label for="fFrames">Frames</label>
+        <div class="stepwrap">
+          <input id="fFrames" type="number" min="0" step="1" inputmode="numeric" placeholder="e.g. 40000">
+          <span class="stepper" data-for="fFrames" data-step="1">
+            <button type="button" class="step-up" aria-label="Add one frame" tabindex="-1">&#9650;</button>
+            <button type="button" class="step-down" aria-label="Subtract one frame" tabindex="-1">&#9660;</button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <p class="calc-note" id="rate"></p>
+    <div class="actions">
+      <button type="button" class="act" id="shFootage">Share result</button>
+      <button type="button" class="act" id="dlFootage">Download CSV</button>
+    </div>
+  </div>
+  <div class="appfoot" data-foot></div>
+</section>
+
+<!-- ============ 2. DISK STORAGE ESTIMATOR ============ -->
+<section class="pane" id="pane-storage" role="tabpanel" aria-labelledby="tab-storage">
+  <h2 class="tool-title">Disk storage estimator</h2>
+  <details class="explain"><summary>How this works</summary><p>Estimate the storage a film scan will require. Pick a resolution, delivery format, frame rate, and length, and see the total file size, the data rate, and the size per hour of footage.</p></details>
+  <div class="calc">
+    <div class="row">
+      <div>
+        <label for="stRes">Resolution</label>
+        <select id="stRes">
+          <option value="hd">HD (1920 x 1080)</option>
+          <option value="2k">2K (2048 x 1556)</option>
+          <option value="4k" selected>4K (4096 x 3112)</option>
+          <option value="8k">8K (8192 x 6224)</option>
+          <option value="custom">Custom&hellip;</option>
+        </select>
+        <div id="stResCustom" style="display:none;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+          <input id="stResW" type="number" min="1" step="1" placeholder="Width px" inputmode="numeric">
+          <input id="stResH" type="number" min="1" step="1" placeholder="Height px" inputmode="numeric">
+        </div>
+      </div>
+      <div>
+        <label for="stFmt">Delivery format</label>
+        <select id="stFmt">
+          <option value="dpx10" selected>DPX, 10-bit (uncompressed)</option>
+          <option value="dpx16">DPX, 16-bit (uncompressed)</option>
+          <option value="avi">AVI, 8-bit RGB (uncompressed)</option>
+          <option value="pr4444">ProRes 4444</option>
+          <option value="prhq">ProRes 422 HQ</option>
+          <option value="h264">MP4 viewing copy</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label for="stFps">Frame rate</label>
+        <select id="stFps">
+          <option value="16">16 fps</option>
+          <option value="18">18 fps</option>
+          <option value="24" selected>24 fps</option>
+          <option value="25">25 fps</option>
+          <option value="30">30 fps</option>
+          <option value="custom">Custom&hellip;</option>
+        </select>
+        <input id="stFpsCustom" type="number" min="1" step="any" placeholder="Frames per second" inputmode="decimal" style="display:none;margin-top:10px">
+      </div>
+      <div>
+        <label for="stMin">Length (minutes)</label>
+        <div class="stepwrap">
+          <input id="stMin" type="number" min="0" step="1" inputmode="decimal" value="10" placeholder="e.g. 10">
+          <span class="stepper" data-for="stMin" data-step="1">
+            <button type="button" class="step-up" aria-label="Add one minute" tabindex="-1">&#9650;</button>
+            <button type="button" class="step-down" aria-label="Subtract one minute" tabindex="-1">&#9660;</button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="results">
+      <div class="result hl"><div class="k">Total size</div><div class="v" id="stTotalV">&nbsp;</div></div>
+      <div class="result"><div class="k">Data rate</div><div class="v" id="stRateV">&nbsp;</div></div>
+      <div class="result"><div class="k">Per hour</div><div class="v" id="stHourV">&nbsp;</div></div>
+    </div>
+    <p class="calc-note" id="stNote"></p>
+    <div class="actions">
+      <button type="button" class="act" id="shStorage">Share result</button>
+      <button type="button" class="act" id="dlStorage">Download CSV</button>
+    </div>
+  </div>
+  <div class="appfoot" data-foot></div>
+</section>
+
+<!-- ============ 3. TIMECODE & FEET+FRAMES ============ -->
+<section class="pane" id="pane-timecode" role="tabpanel" aria-labelledby="tab-timecode">
+  <h2 class="tool-title">Timecode &amp; feet+frames</h2>
+  <details class="explain"><summary>How this works</summary><p>Convert between <strong>feet+frames</strong>, <strong>timecode</strong> (HH:MM:SS:FF), and a total frame count. Feet+frames follows the film gauge (35mm is 16 frames per foot, 16mm is 40); timecode follows the frame rate. Pick a format and frame rate, then type into any one box and the other two update automatically.</p></details>
+  <div class="calc">
+    <div class="row">
+      <div>
+        <label for="tcGauge">Film format</label>
+        <select id="tcGauge">
+          <option value="35" selected>35mm (16 frames/foot)</option>
+          <option value="16">16mm (40 frames/foot)</option>
+          <option value="s8">Super 8mm (72 frames/foot)</option>
+          <option value="r8">Regular 8mm (80 frames/foot)</option>
+        </select>
+      </div>
+      <div>
+        <label for="tcFps">Frame rate</label>
+        <select id="tcFps">
+          <option value="24" selected>24 fps</option>
+          <option value="25">25 fps (PAL)</option>
+          <option value="30">30 fps</option>
+          <option value="18">18 fps (silent)</option>
+          <option value="16">16 fps (silent)</option>
+          <option value="custom">Custom&hellip;</option>
+        </select>
+        <input id="tcFpsCustom" type="number" min="1" step="any" placeholder="Frames per second" inputmode="decimal" style="display:none;margin-top:10px">
+      </div>
+    </div>
+    <div class="row3">
+      <div>
+        <label for="tcFF">Feet + frames</label>
+        <div class="stepwrap">
+          <input id="tcFF" type="text" inputmode="numeric" placeholder="e.g. 90+00">
+          <span class="stepper" data-for="tcFrames" data-step="1">
+            <button type="button" class="step-up" aria-label="Add one frame" tabindex="-1">&#9650;</button>
+            <button type="button" class="step-down" aria-label="Subtract one frame" tabindex="-1">&#9660;</button>
+          </span>
+        </div>
+      </div>
+      <div>
+        <label for="tcTC">Timecode (HH:MM:SS:FF)</label>
+        <div class="stepwrap">
+          <input id="tcTC" type="text" inputmode="numeric" placeholder="e.g. 00:01:00:00">
+          <span class="stepper" data-for="tcFrames" data-step="1">
+            <button type="button" class="step-up" aria-label="Add one frame" tabindex="-1">&#9650;</button>
+            <button type="button" class="step-down" aria-label="Subtract one frame" tabindex="-1">&#9660;</button>
+          </span>
+        </div>
+      </div>
+      <div>
+        <label for="tcFrames">Total frames</label>
+        <div class="stepwrap">
+          <input id="tcFrames" type="number" min="0" step="1" inputmode="numeric" placeholder="e.g. 1440">
+          <span class="stepper" data-for="tcFrames" data-step="1">
+            <button type="button" class="step-up" aria-label="Add one frame" tabindex="-1">&#9650;</button>
+            <button type="button" class="step-down" aria-label="Subtract one frame" tabindex="-1">&#9660;</button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <p class="calc-note" id="tcNote"></p>
+    <div class="actions">
+      <button type="button" class="act" id="shTC">Share result</button>
+      <button type="button" class="act" id="dlTC">Download CSV</button>
+    </div>
+  </div>
+  <div class="appfoot" data-foot></div>
+</section>
+
+<!-- ============ 4. KODAK EDGE CODE ============ -->
+<section class="pane" id="pane-edge" role="tabpanel" aria-labelledby="tab-edge">
+  <h2 class="tool-title">Date your Kodak film</h2>
+  <details class="explain"><summary>How this works</summary><p>For most of the twentieth century, Eastman Kodak printed a small symbol code along the edge of its motion-picture film, outside the perforations, to mark the year the stock was made. The symbols differ by the plant that coated the film, so choose the plant first. Then read the symbols left to right and pick them below, filling only as many as your film shows. This is the year the film was manufactured, not necessarily when it was shot or processed.</p></details>
+  <div class="calc">
+    <div class="row">
+      <div>
+        <label for="ecPlant">Kodak plant (where it was coated)</label>
+        <select id="ecPlant">
+          <option value="us">Rochester, USA</option>
+          <option value="ca">Canada</option>
+          <option value="uk">United Kingdom</option>
+        </select>
+      </div>
+      <div id="ecGaugeWrap">
+        <label for="ecGauge">Film gauge</label>
+        <select id="ecGauge">
+          <option value="1635">16mm or 35mm</option>
+          <option value="8">8mm (Standard 8)</option>
+        </select>
+      </div>
+    </div>
+    <p class="calc-note" id="ecPlantNote"></p>
+    <ul class="ec-legend" id="ecLegend"></ul>
+    <div class="ec-picker">
+      <div class="ec-slot"><div class="ec-slot-hd">First symbol</div><div class="ec-opts" data-pos="0"></div></div>
+      <div class="ec-slot"><div class="ec-slot-hd">Second symbol</div><div class="ec-opts" data-pos="1"></div></div>
+      <div class="ec-slot"><div class="ec-slot-hd">Third symbol</div><div class="ec-opts" data-pos="2"></div></div>
+    </div>
+    <div class="results">
+      <div class="result hl"><div class="k">Possible year(s) of manufacture</div><div class="v" id="ecYears">&nbsp;</div></div>
+    </div>
+    <p class="calc-note" id="ecNote">Pick the symbols you see, in order.</p>
+  </div>
+
+  <div class="ec-factory">
+    <h3>Factory ID code: where the film was made</h3>
+    <p class="fac-lead">Alongside the date symbols, Kodak printed the word <strong>SAFETY</strong> on acetate stock, and a single dot above the word identified the factory that coated the film. The dot sits <em>between</em> two letters, not over one, and its position is what matters: read which pair of letters it falls between. Kodak began marking the Rochester plant around 1927 and the overseas plants in Canada and England around 1936.</p>
+    <div class="fac-grid">
+      <div class="fac-item">
+        <span class="fac-word" aria-label="SAFETY with a dot between the S and A">
+          <span class="d p12">&bull;</span><span class="l">S</span><span class="l">A</span><span class="l">F</span><span class="l">E</span><span class="l">T</span><span class="l">Y</span>
+        </span>
+        <span class="fac-loc">Rochester, USA</span>
+      </div>
+      <div class="fac-item">
+        <span class="fac-word" aria-label="SAFETY with a dot between the A and F">
+          <span class="d p23">&bull;</span><span class="l">S</span><span class="l">A</span><span class="l">F</span><span class="l">E</span><span class="l">T</span><span class="l">Y</span>
+        </span>
+        <span class="fac-loc">Canada</span>
+      </div>
+      <div class="fac-item">
+        <span class="fac-word" aria-label="SAFETY with a dot between the F and E">
+          <span class="d p34">&bull;</span><span class="l">S</span><span class="l">A</span><span class="l">F</span><span class="l">E</span><span class="l">T</span><span class="l">Y</span>
+        </span>
+        <span class="fac-loc">England</span>
+      </div>
+      <div class="fac-item">
+        <span class="fac-word" aria-label="SAFETY with a dot between the E and T">
+          <span class="d p45">&bull;</span><span class="l">S</span><span class="l">A</span><span class="l">F</span><span class="l">E</span><span class="l">T</span><span class="l">Y</span>
+        </span>
+        <span class="fac-loc">France</span>
+      </div>
+      <div class="fac-item">
+        <span class="fac-word" aria-label="SAFETY with a dot between the T and Y">
+          <span class="d p56">&bull;</span><span class="l">S</span><span class="l">A</span><span class="l">F</span><span class="l">E</span><span class="l">T</span><span class="l">Y</span>
+        </span>
+        <span class="fac-loc">Australia</span>
+      </div>
+    </div>
+  </div>
+  <div class="appfoot" data-foot></div>
+</section>
+
+</main>
+
+<nav class="tabbar" role="tablist" aria-label="Film tools">
+  <button class="tabbtn" id="tab-footage" role="tab" aria-selected="true" aria-controls="pane-footage" data-pane="footage" data-name="Footage">
+    <svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 9h19M2.5 15h19M7 5v4M12 5v4M17 5v4M7 15v4M12 15v4M17 15v4"/></svg>
+    Footage
+  </button>
+  <button class="tabbtn" id="tab-storage" role="tab" aria-selected="false" aria-controls="pane-storage" data-pane="storage" data-name="Storage">
+    <svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>
+    Storage
+  </button>
+  <button class="tabbtn" id="tab-timecode" role="tab" aria-selected="false" aria-controls="pane-timecode" data-pane="timecode" data-name="Timecode">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+    Timecode
+  </button>
+  <button class="tabbtn" id="tab-edge" role="tab" aria-selected="false" aria-controls="pane-edge" data-pane="edge" data-name="Edge code">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1.6"/><rect x="14" y="6.4" width="3.2" height="3.2"/><path d="M8 14.2l2 3.4H6z"/><path d="M15.6 13.6v4M13.6 15.6h4"/></svg>
+    Edge code
+  </button>
+</nav>
+
+<div class="install" id="installBar">
+  <p id="installMsg"><strong>Add Film Tools to your home screen</strong> so it opens like an app and works with no signal.</p>
+  <span class="btns">
+    <button type="button" id="installGo">Install</button>
+    <button type="button" class="ghost" id="installNo">Not now</button>
+  </span>
+</div>
+
+<script>
+/* ================= shared helpers ================= */
+var el=function(id){return document.getElementById(id);};
+function store(k,v){try{localStorage.setItem('reflex.'+k,v);}catch(e){}}
+function recall(k){try{return localStorage.getItem('reflex.'+k);}catch(e){return null;}}
+
+function csvDL(fn,rows){
+  var c=rows.map(function(r){return r.map(function(x){return '"'+String(x).replace(/"/g,'""')+'"';}).join(',');}).join('\r\n');
+  var b=new Blob([c],{type:'text/csv'});var u=URL.createObjectURL(b);
+  var a=document.createElement('a');a.href=u;a.download=fn;document.body.appendChild(a);a.click();
+  document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(u);},1000);
+}
+function flash(btn,txt){
+  var old=btn.textContent;btn.textContent=txt;btn.classList.add('done');
+  setTimeout(function(){btn.textContent=old;btn.classList.remove('done');},1600);
+}
+/* Share sheet on phones, clipboard everywhere else. */
+function shareOut(btn,title,rows){
+  var text=title+'\n'+rows.map(function(r){return r[0]+': '+r[1];}).join('\n')+'\n\nReflex Technologies — reflextechnologies.com';
+  if(navigator.share){
+    navigator.share({title:title,text:text}).catch(function(){});
+    return;
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){flash(btn,'Copied');},function(){flash(btn,'Copy failed');});
+  }else{
+    flash(btn,'Not supported');
+  }
+}
+
+/* footer, repeated at the foot of every pane */
+(function(){
+  var html='<div class="n">Reflex Technologies</div>'+
+    '4100 West Burbank Blvd, Burbank, CA 91505<br>'+
+    '<a href="tel:+18188597770">818-859-7770</a><br>'+
+    '<a href="mailto:info@reflextechnologies.com">info@reflextechnologies.com</a><br>'+
+    '<a href="https://reflextechnologies.com/reflex-quote-page.html" target="_blank" rel="noopener">Request a quote</a>';
+  Array.prototype.forEach.call(document.querySelectorAll('[data-foot]'),function(f){f.innerHTML=html;});
+})();
+
+/* ================= tabs ================= */
+(function(){
+  var tabs=Array.prototype.slice.call(document.querySelectorAll('.tabbtn'));
+  var name=el('paneName');
+  function show(key,remember){
+    tabs.forEach(function(t){
+      var on=t.getAttribute('data-pane')===key;
+      t.setAttribute('aria-selected',on?'true':'false');
+      var p=el('pane-'+t.getAttribute('data-pane'));
+      if(p)p.classList.toggle('active',on);
+      if(on)name.textContent=t.getAttribute('data-name');
+    });
+    if(remember!==false)store('tab',key);
+  }
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){show(t.getAttribute('data-pane'));});
+  });
+  var saved=recall('tab');
+  if(saved&&el('pane-'+saved))show(saved,false);
+})();
+
+/* ================= 1. film footage calculator ================= */
+(function(){
+  var FPF={s8:72,r8:80,'16':40,'35':16,'353':64/3,'352':32,'65':12.8};
+  var NAME={s8:'Super 8mm',r8:'Regular 8mm','16':'16mm','35':'35mm (4-perf)','353':'35mm (3-perf)','352':'35mm (2-perf)','65':'65mm (5-perf)'};
+  function fmtTime(s){s=Math.max(0,Math.round(s));var h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;
+    return (h?h+':':'')+String(m).padStart(h?2:1,'0')+':'+String(ss).padStart(2,'0');}
+  function round1(v){return Math.round(v*10)/10;}
+  function parseTime(str){
+    if(str==null)return NaN;str=String(str).trim();if(str==='')return NaN;
+    if(str.indexOf(':')>=0){var p=str.split(':'),s=0;for(var i=0;i<p.length;i++){var n=parseFloat(p[i]);if(isNaN(n))n=0;s=s*60+n;}return s;}
+    var m=parseFloat(str);return isNaN(m)?NaN:m*60;
+  }
+  function curFps(){var custom=el('fps').value==='custom';el('fpsCustom').style.display=custom?'block':'none';return custom?parseFloat(el('fpsCustom').value):parseFloat(el('fps').value);}
+  function clearOthers(anchor){if(anchor!=='feet')el('fFeet').value='';if(anchor!=='time')el('fTime').value='';if(anchor!=='frames')el('fFrames').value='';}
+  var last='feet';
+  function calc(source){
+    if(source)last=source;
+    var g=el('gauge').value, fpf=FPF[g], fps=curFps();
+    if(isNaN(fps)||fps<=0){el('rate').textContent='Enter a frame rate above.';clearOthers(last);return;}
+    var rate=fps*60/fpf;
+    el('rate').textContent='At '+fps+' fps, '+NAME[g]+' runs '+rate.toFixed(1)+' feet per minute ('+(Math.round(fpf*100)/100)+' frames per foot).';
+    var frames;
+    if(last==='feet'){var feet=parseFloat(el('fFeet').value);if(isNaN(feet)||feet<0){clearOthers('feet');return;}frames=feet*fpf;}
+    else if(last==='time'){var secs=parseTime(el('fTime').value);if(isNaN(secs)||secs<0){clearOthers('time');return;}frames=secs*fps;}
+    else{frames=parseFloat(el('fFrames').value);if(isNaN(frames)||frames<0){clearOthers('frames');return;}}
+    if(last!=='feet')el('fFeet').value=round1(frames/fpf);
+    if(last!=='time')el('fTime').value=fmtTime(frames/fps);
+    if(last!=='frames')el('fFrames').value=Math.round(frames);
+  }
+  el('fFeet').addEventListener('input',function(){calc('feet');});
+  el('fTime').addEventListener('input',function(){calc('time');});
+  el('fFrames').addEventListener('input',function(){calc('frames');});
+  ['gauge','fps','fpsCustom'].forEach(function(id){el(id).addEventListener('input',function(){
+    if(id==='gauge')store('f.gauge',el('gauge').value);
+    if(id==='fps')store('f.fps',el('fps').value);
+    calc();
+  });});
+  var sg=recall('f.gauge'),sf=recall('f.fps');
+  if(sg)el('gauge').value=sg; if(sf)el('fps').value=sf;
+  function rows(){
+    var g=el('gauge').value,fps=curFps();
+    return [['Film format',NAME[g]],['Frame rate (fps)',isNaN(fps)?'':fps],['Footage',el('fFeet').value+' ft'],['Running time',el('fTime').value],['Frames',el('fFrames').value]];
+  }
+  el('dlFootage').addEventListener('click',function(){
+    csvDL('reflex-footage-calculation.csv',[['Reflex Technologies','Film footage calculator']].concat(rows()));
+  });
+  el('shFootage').addEventListener('click',function(){shareOut(this,'Film footage calculation',rows());});
+  calc();
+})();
+
+/* ================= 2. disk storage estimator ================= */
+(function(){
+  var RES={hd:[1920,1080],'2k':[2048,1556],'4k':[4096,3112],'8k':[8192,6224]};
+  var BITS={prhq:3.54,pr4444:5.31,h264:0.10}; // bits per pixel (compressed averages)
+  function human(bytes){
+    var gb=bytes/1e9;
+    if(gb>=1000) return (gb/1000).toLocaleString(undefined,{maximumFractionDigits:2})+' TB';
+    if(gb>=10) return gb.toLocaleString(undefined,{maximumFractionDigits:0})+' GB';
+    if(gb>=1) return gb.toLocaleString(undefined,{maximumFractionDigits:1})+' GB';
+    return (bytes/1e6).toLocaleString(undefined,{maximumFractionDigits:0})+' MB';
+  }
+  function bytesPerSec(dims,fmt){
+    var px=dims[0]*dims[1];
+    if(fmt==='dpx10') return px*4;      // 10-bit packed to 32bpp
+    if(fmt==='dpx16') return px*6;      // 16-bit RGB
+    if(fmt==='avi') return px*3;        // uncompressed AVI, 8-bit RGB
+    return px*BITS[fmt]/8;              // compressed
+  }
+  function curDims(){
+    if(el('stRes').value==='custom'){
+      el('stResCustom').style.display='grid';
+      return [parseFloat(el('stResW').value),parseFloat(el('stResH').value)];
+    }
+    el('stResCustom').style.display='none';
+    return RES[el('stRes').value];
+  }
+  function blank(msg){el('stNote').textContent=msg;el('stTotalV').innerHTML='&nbsp;';el('stRateV').innerHTML='&nbsp;';el('stHourV').innerHTML='&nbsp;';}
+  function calc(){
+    var fmt=el('stFmt').value;
+    var dims=curDims();
+    var custom=el('stFps').value==='custom';
+    el('stFpsCustom').style.display=custom?'block':'none';
+    var fps=custom?parseFloat(el('stFpsCustom').value):parseFloat(el('stFps').value);
+    var mins=parseFloat(el('stMin').value);var secs=isNaN(mins)?NaN:mins*60;
+    if(!dims||isNaN(dims[0])||isNaN(dims[1])||dims[0]<=0||dims[1]<=0){blank('Enter a width and height in pixels.');return;}
+    if(isNaN(fps)||fps<=0){blank('Enter a frame rate above.');return;}
+    var bps = bytesPerSec(dims,fmt) * fps; // bytes/frame x fps
+    el('stRateV').textContent=(bps/1e6).toLocaleString(undefined,{maximumFractionDigits:(bps/1e6<10?1:0)})+' MB/s';
+    el('stHourV').textContent=human(bps*3600);
+    el('stNote').textContent='Based on '+dims[0]+' x '+dims[1]+' at '+fps+' fps. Uncompressed DPX and AVI are exact; ProRes and MP4 are typical averages.';
+    el('stTotalV').innerHTML=(isNaN(secs)||secs<0)?'&nbsp;':human(bps*secs);
+  }
+  ['stRes','stFmt','stFps','stFpsCustom','stMin','stResW','stResH'].forEach(function(id){
+    el(id).addEventListener('input',function(){
+      if(id==='stRes')store('s.res',el('stRes').value);
+      if(id==='stFmt')store('s.fmt',el('stFmt').value);
+      if(id==='stFps')store('s.fps',el('stFps').value);
+      calc();
+    });
+  });
+  var r=recall('s.res'),f=recall('s.fmt'),p=recall('s.fps');
+  if(r)el('stRes').value=r; if(f)el('stFmt').value=f; if(p)el('stFps').value=p;
+  function rows(){
+    var fpsOut=el('stFps').value==='custom'?el('stFpsCustom').value:el('stFps').value;
+    return [['Resolution',el('stRes').value==='custom'?(el('stResW').value+' x '+el('stResH').value+' (custom)'):el('stRes').selectedOptions[0].text],
+            ['Delivery format',el('stFmt').selectedOptions[0].text],
+            ['Frame rate (fps)',fpsOut],
+            ['Length (minutes)',el('stMin').value],
+            ['Total size',el('stTotalV').textContent.trim()],
+            ['Data rate',el('stRateV').textContent.trim()],
+            ['Per hour',el('stHourV').textContent.trim()]];
+  }
+  el('dlStorage').addEventListener('click',function(){
+    csvDL('reflex-storage-estimate.csv',[['Reflex Technologies','Disk storage estimator']].concat(rows()));
+  });
+  el('shStorage').addEventListener('click',function(){shareOut(this,'Film scan storage estimate',rows());});
+  calc();
+})();
+
+/* ================= 3. timecode & feet+frames ================= */
+(function(){
+  var FPF={'35':16,'16':40,s8:72,r8:80};
+  var NAME={'35':'35mm','16':'16mm',s8:'Super 8mm',r8:'Regular 8mm'};
+  function pad(n,w){n=String(n);while(n.length<w)n='0'+n;return n;}
+  function curFps(){var c=el('tcFps').value==='custom';el('tcFpsCustom').style.display=c?'block':'none';return c?parseFloat(el('tcFpsCustom').value):parseFloat(el('tcFps').value);}
+  function clearOthers(a){if(a!=='ff')el('tcFF').value='';if(a!=='tc')el('tcTC').value='';if(a!=='fr')el('tcFrames').value='';}
+  function parseFF(str,fpf){str=String(str).trim();if(str==='')return NaN;var p=str.split('+');var ft=parseFloat(p[0]);if(isNaN(ft))ft=0;var fr=p.length>1?parseFloat(p[1]):0;if(isNaN(fr))fr=0;return ft*fpf+fr;}
+  function parseTC(str,f){str=String(str).trim();if(str==='')return NaN;var p=str.split(':').map(function(x){var n=parseInt(x,10);return isNaN(n)?0:n;});while(p.length<4)p.unshift(0);return ((p[0]*3600+p[1]*60+p[2])*f)+p[3];}
+  function fmtFF(total,fpf){var ft=Math.floor(total/fpf);var fr=Math.round(total-ft*fpf);if(fr>=fpf){ft+=Math.floor(fr/fpf);fr=fr%fpf;}return ft+'+'+pad(fr,2);}
+  function fmtTC(total,f){var whole=Math.floor(total/f),ff=total-whole*f;var h=Math.floor(whole/3600),m=Math.floor((whole%3600)/60),s=whole%60;return pad(h,2)+':'+pad(m,2)+':'+pad(s,2)+':'+pad(ff,2);}
+  var last='tc';
+  function calc(source){
+    if(source)last=source;
+    var g=el('tcGauge').value, fpf=FPF[g], fps=curFps();
+    if(isNaN(fps)||fps<=0){el('tcNote').textContent='Enter a frame rate above.';clearOthers(last);return;}
+    var fnum=Math.round(fps);if(fnum<1)fnum=1;
+    el('tcNote').textContent=NAME[g]+' at '+fps+' fps: '+fpf+' frames per foot, '+(fps*60/fpf).toFixed(1)+' feet per minute. Non-drop timecode.';
+    var frames;
+    if(last==='ff')frames=parseFF(el('tcFF').value,fpf);
+    else if(last==='tc')frames=parseTC(el('tcTC').value,fnum);
+    else frames=parseFloat(el('tcFrames').value);
+    if(isNaN(frames)||frames<0){clearOthers(last);return;}
+    frames=Math.round(frames);
+    if(last!=='ff')el('tcFF').value=fmtFF(frames,fpf);
+    if(last!=='tc')el('tcTC').value=fmtTC(frames,fnum);
+    if(last!=='fr')el('tcFrames').value=frames;
+  }
+  el('tcFF').addEventListener('input',function(){calc('ff');});
+  el('tcTC').addEventListener('input',function(){calc('tc');});
+  el('tcFrames').addEventListener('input',function(){calc('fr');});
+  ['tcGauge','tcFps','tcFpsCustom'].forEach(function(id){el(id).addEventListener('input',function(){
+    if(id==='tcGauge')store('t.gauge',el('tcGauge').value);
+    if(id==='tcFps')store('t.fps',el('tcFps').value);
+    calc();
+  });});
+  var g=recall('t.gauge'),f=recall('t.fps');
+  if(g)el('tcGauge').value=g; if(f)el('tcFps').value=f;
+  function rows(){
+    var gg=el('tcGauge').value;var fps=curFps();
+    return [['Film format',NAME[gg]],['Frame rate (fps)',isNaN(fps)?'':fps],['Feet + frames',el('tcFF').value],['Timecode',el('tcTC').value],['Total frames',el('tcFrames').value]];
+  }
+  el('dlTC').addEventListener('click',function(){
+    csvDL('reflex-timecode-conversion.csv',[['Reflex Technologies','Timecode & feet+frames converter']].concat(rows()));
+  });
+  el('shTC').addEventListener('click',function(){shareOut(this,'Timecode / feet+frames conversion',rows());});
+  el('tcTC').value='00:01:00:00';calc('tc');
+})();
+
+/* ================= 4. Kodak edge-code dating ================= */
+(function(){
+  var M1635={
+    "c":[1976,1956,1936,1916],"s":[1977,1957,1937,1917],"t":[1978,1958,1938,1918],
+    "cc":[1979,1959,1939,1919],"ss":[1980,1960,1940,1920],"tt":[1981,1961,1941,1921],
+    "cs":[1962,1942,1922],"ct":[1963,1943,1923],"ts":[1964,1944,1924],
+    "sc":[1965,1945,1925],"tc":[1966,1946,1926],"st":[1967,1947,1927],
+    "ccc":[2019,1948,1928],"p":[1969,1949,1929],"tp":[1970,1950,1930],"cp":[1971,1951,1931],
+    "sp":[1972,1952,1932],"pt":[1973,1953,1933],"pc":[1974,1954,1934],"ps":[1975,1955,1935],
+    "pp":[1968],
+    "csx":[1982],"xtx":[1983],"tst":[1984],"sct":[1985],"tct":[1986],"stt":[1987],
+    "ppt":[1988],"xpt":[1989],"tpt":[1990],"xpx":[1991],"spt":[1992],"ptt":[1993],
+    "pct":[1994],"pst":[1995],"xct":[1996],"xst":[1997],"xtt":[1998],"cxt":[1999],
+    "sst":[2000],"ttc":[2001],"csc":[2002],"ctc":[2003],"tsc":[2004],"scc":[2005],
+    "tcc":[2006],"stc":[2007],"ppc":[2008],"xpc":[2009],"tpc":[2010],
+    "cpc":[2011],"spc":[2012],"ptc":[2013],"pcc":[2014],"pcs":[2015],"xcc":[2016],
+    "xcs":[2017],"xtc":[2018],"ssc":[2020],"ttt":[2021]
+  };
+  var M8={
+    "c":["1932"],"s":["1963","1933 (Jan-Jun)"],"t":["1933 (Jul-Dec)"],
+    "cc":["1964","1954","1934 (Jan-Jun)"],"ss":["1934 (Jul-Dec)"],
+    "tt":["1955","1935 (Jan-Jun)"],"cs":["1935 (Jul-Dec)"],
+    "ct":["1956","1936 (Jan-Jun)"],"ts":["1936 (Jul-Dec)"],
+    "sc":["1937 (Jan-Jun)"],"tc":["1957","1937 (Jul-Dec)"],
+    "st":["1958","1938 (Jan-Jun)"],"pp":["1938 (Jul-Dec)"],
+    "pc":["1960","1939 (Jan-Jun)"],"ps":["1939 (Jul-Dec)"],
+    "pt":["1940 (Jan-Jun)"],"cp":["1940 (Jul-Dec)"],
+    "sp":["1961","1941 (Jan-Jun)"],"tp":["1941 (Jul-Dec)"],"p":["1962"]
+  };
+  var MCA={
+    "cl":[1947,1936,1925],"cb":[1948,1937,1926],"ch":[1949,1938,1927],
+    "hc":[1950,1941,1939,1930,1928],"bc":[1940,1929],
+    "d":[1942,1931],"dc":[1943,1932],"db":[1944,1933],"dl":[1945,1934],"dh":[1946,1935]
+  };
+  var MUK={
+    "h":[1936,1917],"l":[1937,1918],"b":[1938,1919],
+    "hh":[1939,1920],"ll":[1940,1921],"bb":[1941,1922],
+    "hl":[1950,1942,1931,1923],"bl":[1943,1924],"hb":[1944,1925],"bh":[1945,1926],
+    "lb":[1946,1927],"lh":[1947,1928],"p":[1948,1929],"ph":[1949,1930],
+    "pb":[1932],"hp":[1933],"lp":[1934],"bp":[1935]
+  };
+  var SVG={
+    c:'<circle cx="12" cy="12" r="9"/>',
+    s:'<rect x="3" y="3" width="18" height="18"/>',
+    t:'<path d="M12 3 L21.5 20 L2.5 20 Z"/>',
+    p:'<path d="M9.5 3 H14.5 V9.5 H21 V14.5 H14.5 V21 H9.5 V14.5 H3 V9.5 H9.5 Z"/>',
+    x:'<path d="M4.2 6.3 L6.3 4.2 L12 9.9 L17.7 4.2 L19.8 6.3 L14.1 12 L19.8 17.7 L17.7 19.8 L12 14.1 L6.3 19.8 L4.2 17.7 L9.9 12 Z"/>',
+    d:'<path d="M12 2 L22 12 L12 22 L2 12 Z"/>',
+    l:'<path d="M6 3 H11 V16 H18 V21 H6 Z"/>',
+    b:'<rect x="6" y="9" width="12" height="6" rx="1"/>',
+    h:'<path d="M3 8.5 H21 A9 9 0 0 1 3 8.5 Z"/>'
+  };
+  var SNAME={c:"Circle",s:"Square",t:"Triangle",p:"Plus",x:"X",d:"Diamond",l:"L",b:"Dash",h:"Half-circle"};
+  var PLANTSYM={us:["c","s","t","p","x"],ca:["c","h","b","d","l"],uk:["h","l","b","p"]};
+  var PNOTE={
+    us:"Symbols for film coated at Kodak's Rochester, New York plant. On 16mm and 35mm the code repeats on a twenty-year cycle; three-symbol codes date 1982 onward.",
+    ca:"Kodak's Canadian plant used its own symbol set, on 16mm and 35mm, roughly 1925 to 1950.",
+    uk:"Kodak's British plant used its own symbol set, on 16mm and 35mm, roughly 1917 to 1950."
+  };
+  function svg(k,cls){return '<svg class="'+(cls||"ec-svg")+'" viewBox="0 0 24 24" aria-hidden="true">'+SVG[k]+'</svg>';}
+
+  var plantEl=el("ecPlant"),gaugeEl=el("ecGauge"),gaugeWrap=el("ecGaugeWrap"),
+      legendEl=el("ecLegend"),plantNote=el("ecPlantNote"),
+      pickerOpts=document.querySelectorAll(".ec-opts"),
+      out=el("ecYears"),note=el("ecNote");
+  var sel=["","",""];
+
+  function eraNote(ys){
+    var nums=ys.map(function(y){return parseInt(y,10);}).filter(function(n){return !isNaN(n);});
+    if(!nums.length) return "";
+    var oldest=Math.min.apply(null,nums), newest=Math.max.apply(null,nums);
+    if(nums.length===1){
+      var y=oldest;
+      if(y>=1982) return "By "+y+", the stock is modern acetate or polyester safety film.";
+      if(y>=1951) return y+" stock is acetate safety film, which can develop vinegar syndrome as it ages.";
+      return y+" is nitrate-era film: on 35mm that base is flammable and needs careful handling, while 16mm was always safety film.";
+    }
+    if(oldest<1951 && newest>=1951)
+      return "These stretch from the nitrate era ("+oldest+") to later safety film ("+newest+"), so the film's base and look will tell you which.";
+    if(newest<1951)
+      return "All of these fall in the nitrate era, when 35mm ran on a flammable nitrate base.";
+    return "All of these are acetate safety film, which can develop vinegar syndrome as it ages.";
+  }
+  function usNote(hit,symCount){
+    var cf = symCount===1
+      ? "A single symbol is the oldest, simplest form of the code, and on 16mm and 35mm it repeats every twenty years."
+      : symCount===2
+      ? "Two-symbol codes belong to the same twenty-year cycle Kodak used before 1982."
+      : "From 1982 on, Kodak used a three-symbol code, adding the X shape, so three symbols usually point to a single year.";
+    return cf + " " + eraNote(hit);
+  }
+  function caukNote(hit){
+    var many = hit.length>1 ? " This symbol recurs on the plant's cycle, so more than one year is possible." : "";
+    return "On 35mm, film from this era runs on a flammable nitrate base and needs careful handling; 16mm was always safety film." + many;
+  }
+  function buildOptions(){
+    var syms=PLANTSYM[plantEl.value];
+    for(var pos=0;pos<pickerOpts.length;pos++){
+      var html='<button type="button" class="ec-opt ec-none active" data-sym="">None</button>';
+      for(var i=0;i<syms.length;i++){
+        var k=syms[i];
+        html+='<button type="button" class="ec-opt" data-sym="'+k+'" title="'+SNAME[k]+'" aria-label="'+SNAME[k]+'">'+svg(k)+'</button>';
+      }
+      pickerOpts[pos].innerHTML=html;
+    }
+    sel=["","",""];
+  }
+  function renderPlant(){
+    var syms=PLANTSYM[plantEl.value];
+    gaugeWrap.style.display=(plantEl.value==="us")?"":"none";
+    legendEl.innerHTML=syms.map(function(k){return "<li>"+svg(k,"ec-svg sym")+SNAME[k]+"</li>";}).join("");
+    plantNote.textContent=PNOTE[plantEl.value];
+    buildOptions();
+    calc();
+  }
+  function calc(){
+    var plant=plantEl.value;
+    var code=""; for(var i=0;i<3;i++){ if(!sel[i])break; code+=sel[i]; }
+    if(!sel[0]){ out.innerHTML="&nbsp;"; note.textContent="Pick the symbols you see, left to right."; return; }
+    var map = plant==="us" ? (gaugeEl.value==="8"?M8:M1635) : (plant==="ca"?MCA:MUK);
+    var hit=map[code];
+    if(!hit){
+      out.innerHTML="&nbsp;";
+      var where = plant==="us" ? "Kodak US" : (plant==="ca" ? "Kodak Canada" : "Kodak UK");
+      note.textContent="That combination isn't in the "+where+" chart. Double-check the order and the shapes, or send us a photo and we'll identify it.";
+      return;
+    }
+    out.textContent=hit.join("  ·  ");
+    if(plant==="us"){
+      if(gaugeEl.value==="8") note.textContent="Kodak's 8mm coverage is partial, and several codes recur across its two eras, so more than one year can share a code. 8mm and Super 8 were always acetate safety film, never nitrate.";
+      else note.textContent=usNote(hit,code.length);
+    } else {
+      note.textContent=caukNote(hit);
+    }
+  }
+  for(var pi=0;pi<pickerOpts.length;pi++){
+    (function(container,pos){
+      container.addEventListener("click",function(e){
+        var btn=e.target.closest(".ec-opt"); if(!btn)return;
+        var kids=container.querySelectorAll(".ec-opt");
+        for(var j=0;j<kids.length;j++) kids[j].classList.remove("active");
+        btn.classList.add("active");
+        sel[pos]=btn.getAttribute("data-sym");
+        calc();
+      });
+    })(pickerOpts[pi],pi);
+  }
+  plantEl.addEventListener("change",function(){store('e.plant',plantEl.value);renderPlant();});
+  gaugeEl.addEventListener("change",function(){store('e.gauge',gaugeEl.value);calc();});
+  var sp=recall('e.plant'),sg=recall('e.gauge');
+  if(sp)plantEl.value=sp; if(sg)gaugeEl.value=sg;
+  renderPlant();
+})();
+
+/* ================= press-and-hold steppers ================= */
+(function(){
+  function parseT(s){s=(s==null?'':String(s)).trim();if(!s)return 0;var p=s.split(':'),sec=0;for(var i=0;i<p.length;i++){var n=parseFloat(p[i]);if(isNaN(n))n=0;sec=sec*60+n;}return sec;}
+  function fmtT(sec){sec=Math.max(0,Math.round(sec));var m=Math.floor(sec/60),s=sec%60;return m+':'+(s<10?'0':'')+s;}
+  function bump(input,mode,step,d){
+    if(mode==='time'){input.value=fmtT(parseT(input.value)+d);}
+    else{var v=parseFloat(input.value);if(isNaN(v))v=0;v=v+d*step;if(v<0)v=0;v=Math.round(v*1000)/1000;input.value=String(v);}
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+  }
+  document.querySelectorAll('.stepper').forEach(function(st){
+    var input=el(st.getAttribute('data-for'));
+    if(!input)return;
+    var raw=st.getAttribute('data-step')||'1';
+    var mode=(raw==='time')?'time':'num';
+    var step=(raw==='time')?1:(parseFloat(raw)||1);
+    Array.prototype.forEach.call(st.querySelectorAll('button'),function(btn){
+      var d=btn.classList.contains('step-up')?1:-1,timer,rep;
+      function stop(){clearTimeout(timer);clearInterval(rep);timer=rep=null;}
+      function start(e){e.preventDefault();stop();bump(input,mode,step,d);
+        timer=setTimeout(function(){var n=0;rep=setInterval(function(){n++;bump(input,mode,step,d*(n>25?5:1));},70);},420);}
+      btn.addEventListener('mousedown',start);
+      btn.addEventListener('touchstart',start,{passive:false});
+      ['mouseup','mouseleave','touchend','touchcancel','blur'].forEach(function(ev){btn.addEventListener(ev,stop);});
+    });
+  });
+})();
+
+/* ================= install prompt + offline ================= */
+(function(){
+  var bar=el('installBar'),msg=el('installMsg'),go=el('installGo'),no=el('installNo');
+  var deferred=null;
+  var standalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+  function dismissed(){return recall('install.no')==='1';}
+  function hide(){bar.classList.remove('show');}
+  no.addEventListener('click',function(){store('install.no','1');hide();});
+
+  window.addEventListener('beforeinstallprompt',function(e){
+    e.preventDefault();deferred=e;
+    if(standalone||dismissed())return;
+    bar.classList.add('show');
+  });
+  go.addEventListener('click',function(){
+    if(deferred){deferred.prompt();deferred=null;hide();}
+    else{hide();}
+  });
+  window.addEventListener('appinstalled',function(){store('install.no','1');hide();});
+
+  // iOS gives no beforeinstallprompt, so show the Share-sheet instructions instead.
+  var iOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  if(iOS&&!standalone&&!dismissed()){
+    msg.innerHTML='<strong>Add Film Tools to your home screen.</strong> Tap the Share button in Safari, then "Add to Home Screen". It then opens like an app and works with no signal.';
+    go.style.display='none';
+    no.textContent='Got it';
+    setTimeout(function(){bar.classList.add('show');},1200);
+  }
+
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',function(){
+      navigator.serviceWorker.register('sw.js').catch(function(){});
+    });
+  }
+})();
+</script>
+</body>
+</html>
