@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Film Scanning in Los Angeles, 8mm to 35mm | Reflex</title>
-<meta name="description" content="Professional archival film scanning for Los Angeles and Southern California, from our purpose-built Burbank facility. 8mm to 35mm cleaned and restored.">
+<title>Vinegar Syndrome & Shrunken Film Scanning, Burbank | Reflex</title>
+<meta name="description" content="Sprocketless scanning of shrunken, warped, brittle, and vinegar-syndrome film, up to 25 percent shrinkage, that conventional scanners cannot handle. 8mm to 35mm in Burbank.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -17,6 +17,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--b);line-height:1.6;
 .wrap{max-width:1140px;margin:0 auto;padding:0 28px}
 a{color:inherit;text-decoration:none}
 .eyebrow{font-family:var(--m);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}
+.hero .eyebrow{display:block;margin-top:16px}
 .btn{font-family:var(--m);font-size:13px;letter-spacing:.04em;padding:13px 22px;border-radius:3px;display:inline-block;transition:.18s;cursor:pointer;border:1px solid transparent}
 .btn-p{background:var(--teal);color:#04201f;font-weight:500}
 .btn-p:hover{background:#51fff8}
@@ -37,9 +38,9 @@ nav a{font-size:14px;color:var(--muted);transition:.15s} nav a:hover{color:var(-
 .navtog{display:none;background:none;border:0;color:var(--ink);cursor:pointer;padding:6px;margin:0;line-height:0}@media(max-width:860px){.navtog{display:inline-flex;align-items:center}nav{position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(12,14,16,.98);border-bottom:1px solid var(--line);padding:6px 0;display:none}header.open nav{display:flex}.nav-links{display:flex;flex-direction:column;gap:0}.nav-links a{padding:15px 24px;font-size:16px}nav>.btn{margin:10px 24px 14px;text-align:center;font-size:15px;padding:13px}}
 
 /* hero */
-.hero{position:relative;min-height:90vh;display:flex;align-items:flex-end;background:url('images/42fafb5210ff.jpg') center/cover no-repeat}
-.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,10,11,.74) 0%,rgba(8,10,11,.45) 18%,rgba(8,10,11,.14) 38%,rgba(8,10,11,0) 58%),linear-gradient(105deg,rgba(8,10,11,.92) 0%,rgba(8,10,11,.6) 38%,rgba(8,10,11,.15) 70%,rgba(8,10,11,.4) 100%)}
-.hero-in{position:relative;z-index:2;padding:0 28px 76px;max-width:1140px;margin:0 auto;width:100%}
+.hero{position:relative;min-height:90vh;display:flex;align-items:flex-end;background:linear-gradient(0deg,rgba(8,10,11,.72),rgba(8,10,11,0) 58%),linear-gradient(0deg,rgba(8,10,11,.75),rgba(8,10,11,0) 55%),#0c0e10 url(images/df-hero.jpg) center/cover no-repeat no-repeat}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,rgba(8,10,11,.92) 0%,rgba(8,10,11,.6) 38%,rgba(8,10,11,.15) 70%,rgba(8,10,11,.4) 100%)}
+.hero-in{position:relative;z-index:2;padding:0 28px 14px;max-width:1140px;margin:0 auto;width:100%}
 .hero h1{font-size:clamp(2.4rem,6vw,4.6rem);max-width:16ch;margin:18px 0 22px}
 .hero p{font-size:clamp(1rem,1.6vw,1.22rem);color:#d6dcdc;max-width:60ch;margin-bottom:30px}
 .hero .btns{display:flex;gap:14px;flex-wrap:wrap}
@@ -67,18 +68,9 @@ nav a{font-size:14px;color:var(--muted);transition:.15s} nav a:hover{color:var(-
 
 /* split bands */
 .band{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;border-bottom:1px solid var(--line)}
-.band:has(+ .band){border-bottom:0}
-.band+.band{border-top:1px solid var(--line);margin-top:24px;padding-top:24px}
-.band:has(.media.r169){min-height:580px}
-.hero + .band{border-top:1px solid var(--line);margin-top:24px;padding-top:24px}
-.hero + .band .media.r169{align-self:flex-start;margin-top:0}
-.hero + .band:has(.media.r169) .copy{justify-content:flex-start;padding-top:0}
-.svc + .band{padding-top:24px}
 .band.rev .media{order:2}
 @media(max-width:820px){.band{grid-template-columns:1fr}.band.rev .media{order:0}}
 .band .media{position:relative;min-height:440px;background-size:cover;background-position:center}
-.band .media.r169{aspect-ratio:16/9;min-height:0;align-self:center;margin:24px}
-.band .media.framed{background-size:contain;background-repeat:no-repeat;background-color:#0c0e10}
 .band .media .tag{position:absolute;left:18px;bottom:16px;font-family:var(--m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(8,10,11,.6);padding:6px 11px;border:1px solid rgba(255,255,255,.18)}
 .band .copy{padding:64px 56px;display:flex;flex-direction:column;justify-content:center}
 @media(max-width:820px){.band .copy{padding:48px 28px}}
@@ -92,7 +84,7 @@ nav a{font-size:14px;color:var(--muted);transition:.15s} nav a:hover{color:var(-
 .roster{display:flex;flex-wrap:wrap;gap:10px 14px;margin:26px 0 50px}
 .roster span{font-family:var(--m);font-size:13px;color:var(--muted);border:1px solid var(--line);padding:8px 14px;border-radius:2px}
 .quote{font-family:var(--d);font-weight:600;font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.25;letter-spacing:-.01em;max-width:20ch;border-left:2px solid var(--teal);padding-left:24px}
-.quote .by{display:block;font-family:var(--b);font-weight:400;font-size:.95rem;color:var(--muted);margin-top:16px;border:0;padding:0}
+.quote .by{font-family:var(--b);font-weight:400;font-size:.95rem;color:var(--muted);margin-top:16px;border:0;padding:0}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:54px}
 @media(max-width:680px){.stats{grid-template-columns:1fr}}
 .stat{background:var(--bg);padding:26px}
@@ -135,6 +127,19 @@ footer .social a{color:var(--muted);text-decoration:none}
 .faq h3{font-size:1.1rem;font-weight:700;margin-bottom:10px}
 .faq .qa p{color:var(--muted);max-width:74ch}
 
+/* case study detail */
+.backlink{display:inline-block;font-family:var(--m);font-size:12px;color:var(--muted);letter-spacing:.04em;margin-top:22px}
+.backlink .ba{font-size:1.9em;line-height:0;vertical-align:-.14em;margin-right:2px}
+.backlink:hover{color:var(--teal)}
+.csfacts{padding:42px 0;border-bottom:1px solid var(--line)}
+.article{padding:56px 0 72px;border-bottom:1px solid var(--line)}
+.article .wrap{max-width:780px}
+.article h2{font-size:1.42rem;font-weight:700;margin:38px 0 12px}
+.article h2:first-child{margin-top:0}
+.article p{color:#c9d0d1;font-size:1.06rem;line-height:1.75;margin-bottom:16px}
+.article .pull{font-family:var(--d);font-weight:600;font-size:clamp(1.3rem,2.4vw,1.8rem);line-height:1.32;color:var(--ink);border-left:2px solid var(--teal);padding-left:24px;margin:32px 0}
+
+
 .nav-dd{position:relative}
 .nav-dd>.nav-dd-btn{font-family:inherit;font-size:14px;color:var(--muted);background:none;border:0;cursor:pointer;padding:0;transition:.15s}
 .nav-dd>.nav-dd-btn:hover{color:var(--ink)}
@@ -144,14 +149,30 @@ footer .social a{color:var(--muted);text-decoration:none}
 .nav-dd.open .nav-dd-menu,.nav-dd:hover .nav-dd-menu{display:flex}
 .nav-dd-menu a{padding:11px 13px;border-radius:8px;white-space:nowrap}
 .nav-dd-menu a:hover{background:rgba(255,255,255,.06)}
+
+.more{border-top:1px solid var(--line);padding:56px 0;background:var(--bg)}
+.more-in{max-width:1140px;margin:0 auto;padding:0 28px}
+.more-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:18px}
+.more-grid a{display:block;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:6px;color:var(--ink);font-family:var(--d);font-weight:600;font-size:1.02rem;text-decoration:none;transition:.18s}
+.more-grid a:hover{border-color:var(--teal);color:var(--teal)}
+.more-grid a span{display:block;font-family:var(--b);font-weight:400;font-size:.85rem;color:var(--muted);margin-top:5px;line-height:1.35}
+
+/* distressed-film page */
+.hero h1{font-size:clamp(2rem,5vw,3.7rem);max-width:none}
+.cseg{padding:40px 0;border-top:1px solid var(--line)}
+.cseg:first-of-type{border-top:0}
+.cseg .wrap{max-width:900px}
+.cseg .eyebrow{display:block;margin-bottom:14px}
+.cseg h2{margin:0 0 18px}
+.cseg p{margin:0;max-width:74ch}
 </style>
 <!-- ===== SEO metadata ===== -->
-<link rel="canonical" href="https://reflextechnologies.com/reflex-film-page">
+<link rel="canonical" href="https://reflextechnologies.com/shrunken-warped-vinegar-syndrome-film-scanning">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Reflex Technologies">
-<meta property="og:title" content="Motion picture film scanning and restoration | Reflex Technologies">
-<meta property="og:description" content="Professional archival film scanning for Los Angeles and Southern California, from our purpose-built Burbank facility. 8mm to 35mm cleaned and restored.">
-<meta property="og:url" content="https://reflextechnologies.com/reflex-film-page">
+<meta property="og:title" content="Shrunken, Warped & Vinegar Syndrome Film Scanning">
+<meta property="og:description" content="Sprocketless scanning of shrunken, warped, brittle, and vinegar-syndrome film, up to 25 percent shrinkage, that conventional scanners cannot handle. 8mm to 35mm in Burbank.">
+<meta property="og:url" content="https://reflextechnologies.com/shrunken-warped-vinegar-syndrome-film-scanning">
 <meta property="og:image" content="https://reflextechnologies.com/og-reflex.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -249,78 +270,6 @@ gtag('config', 'G-FZNM994NKR');
 </script>
 <link rel="icon" type="image/png" sizes="32x32" href="images/ad6ba989078a.png">
 <link rel="apple-touch-icon" href="images/a0e48739cca2.png">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What film formats do you scan?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Regular 8mm, Super 8mm, Regular 16mm, Super 16mm, and 35mm, silent or with sound."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "My film is shrunken, warped, or has vinegar syndrome. Can you still scan it?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "In most cases, yes. Our scanners move film gently and do not depend on its perforations, so we routinely scan reels conventional machines cannot even thread. We have successfully scanned film measured at more than 25 percent shrinkage. Many conventional transports begin encountering serious registration or transport problems at only a few percent, depending on the scanner and the condition of the film. Send us a photo and we'll let you know what is possible."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Will scanning damage my film?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Protecting the original is the entire premise of the process. The transport never contacts the image area and is designed to minimize stress on the film, so your film is handled and returned with the utmost care."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do you clean and repair film before scanning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Cleaning and repair, what we call preparation, is an essential first step, and how much a reel needs varies enormously. We bill it by the hour and quote it case by case."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What will I receive?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Preservation masters are available as DPX sequences, with ProRes production masters and MP4 viewing copies supplied as needed. We can recommend the right deliverables for how you plan to use the footage."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What resolution should I choose?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "HD, 2K, 4K, or 8K, depending on the gauge and how the footage will be used. We recommend a capture resolution sufficient to preserve all useful image detail in the original element, and we are glad to advise."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does damaged film cost more?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Usually a little. Difficult film is scanned at a much slower speed, which takes more time, but it is a modest difference, not a multiple. Every project is quoted individually based on the condition of the film."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can you restore the footage, not just scan it?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Restoration and color correction are available as separate services, quoted by condition. We digitize first, then restore whatever you want restored."
-      }
-    }
-  ]
-}
-</script>
 </head>
 <body>
 
@@ -329,7 +278,7 @@ gtag('config', 'G-FZNM994NKR');
   <button class="navtog" aria-label="Menu" aria-expanded="false" onclick="var h=this.closest('header');var o=h.classList.toggle('open');this.setAttribute('aria-expanded',o)"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
   <nav>
     <div class="nav-links">
-      <a href="/">Home</a><a href="reflex-film-page" aria-current="page">Film</a><a href="reflex-video-audio-page">Video &amp; Audio</a><a href="reflex-stills-page">Stills</a><a href="reflex-our-work-page">Our Work</a><a href="reflex-film-tools">Film Tools</a><a href="reflex-posters">Archivist Posters</a>
+      <a href="/">Home</a><a href="reflex-film-page">Film</a><a href="reflex-video-audio-page">Video &amp; Audio</a><a href="reflex-stills-page">Stills</a><a href="reflex-our-work-page">Our Work</a><a href="reflex-film-tools">Film Tools</a><a href="reflex-posters">Archivist Posters</a>
     </div>
     <a class="btn btn-p" href="reflex-quote-page">Get in touch</a>
   </nav>
@@ -337,92 +286,47 @@ gtag('config', 'G-FZNM994NKR');
 
 <section class="hero">
   <div class="hero-in">
-    <span class="eyebrow fade">Motion picture film</span>
-    <h1 class="fade d1">Motion picture film scanning and restoration</h1>
-    <p class="fade d2">From pristine studio elements to film long classified as extinct. 8mm to 35mm, cleaned, scanned, and restored to a single exacting standard.</p>
-    <div class="btns fade d3"><a class="btn btn-g" href="reflex-our-work-page">Our work</a></div>
-  </div>
-</section>
-<section class="band">
-  <div class="media framed" style="background-image:url('images/f92a6b4ea2f8.jpg')"></div>
-  <div class="copy">
-    <span class="eyebrow">Why it matters</span>
-    <h2>History on borrowed time</h2>
-    <p>Film is history made visible. The faces, the places, the moments that tell us who we were. But film doesn't last forever.</p>
-    <p>Over time the medium itself fades, and the record it carries fades with it. Digitizing film is how we save it: moving each frame safely from photochemical to digital, so the visual history held inside endures.</p>
+    <a class="backlink" href="reflex-film-page"><span class="ba">&larr;</span> Film scanning</a>
+    <span class="eyebrow fade">Difficult film</span>
+    <h1 class="fade d1">Shrunken, warped, and<br>vinegar syndrome film scanning</h1>
+    <p class="fade d2">Film too shrunken, brittle, or damaged for conventional scanners, digitized on sprocketless transports at our facility in Burbank, serving Los Angeles and archives worldwide.</p>
+    <div class="btns"><a class="btn btn-p fade d3" href="reflex-quote-page">Get a quote</a></div>
   </div>
 </section>
 
-
-
-
-
-<section class="svc"><div class="wrap">
-  <div class="sec-head"><span class="eyebrow">What we handle</span><h2>From 8mm through 35mm</h2></div>
-  <div class="specs">
-    <div class="spec"><div class="n">Formats</div><h3>8mm through 35mm</h3><p>Regular 8mm, Super 8mm, Regular 16mm, Super 16mm, and 35mm, silent or with sound.</p></div>
-    <div class="spec"><div class="n">Resolution</div><h3>HD, 2K, 4K, and 8K</h3><p>Captured at a resolution sufficient to preserve all useful image detail in the original.</p></div>
-    <div class="spec"><div class="n">Sound</div><h3>Optical and magnetic</h3><p>Audio tracks captured in sync with the picture.</p></div>
-    <div class="spec"><div class="n">Deliverables</div><h3>DPX, ProRes &amp; MP4</h3><p>Preservation masters as DPX sequences, with ProRes production masters and MP4 viewing copies as needed.</p></div>
-  </div>
-</div></section>
-<section class="band">
-  <div class="media r169" style="background-image:url('images/55743265a9c6.jpg')"></div>
-  <div class="copy">
-    <span class="eyebrow">The difference</span>
-    <h2>Built for &ldquo;unscannable&rdquo; film</h2>
-    <p><a href="shrunken-warped-vinegar-syndrome-film-scanning" style="color:var(--teal);border-bottom:1px solid var(--teal)">Shrunken, warped, or brittle film with damaged perforations</a> is exactly the kind that defeats a conventional scanner. The patented Reflex scanners were designed for it, moving even severely deteriorated film gently through a transport that never contacts the image area and is designed to minimize stress on the film. The result is a high-fidelity, preservation-grade scan of every recoverable frame from film that was, by any other standard, considered unscannable.</p>
-  </div>
-</section>
-
-<section class="band rev">
-  <div class="media r169" style="background-image:url('images/228449345f9b.jpg')"></div>
-  <div class="copy">
-    <span class="eyebrow">Before the scan</span>
-    <h2>Inspection &amp; preparation</h2>
-    <p>The amount of prep a reel needs depends on its condition. Some are near-perfect straight out of the can; others need real work by hand, mending broken splices, lifting old tape and debris, and adding fresh leader.</p>
-    <p>We clean every reel, too: fragile originals by hand with a Kodak-approved solution, the rest by gentle wet-cleaning machine.</p>
-    <p>Because condition varies so widely, we quote preparation case by case, once we have seen the film.</p>
-  </div>
-</section>
-
-<section class="band">
-  <div class="media r169" style="background-image:url('images/3c5d6c9d0464.jpg')"></div>
-  <div class="copy">
-    <span class="eyebrow">The process</span>
-    <h2>Film scanning</h2>
-    <p>The sprocketless scanners carry the film through in one smooth, continuous motion. Because nothing grips the perforations, the film is spared the stress that sprockets would put on it, and every recoverable frame is captured individually at the selected resolution, preserving the available image detail. Digitization always comes first; color correction and any deeper restoration are a separate step we handle afterward, whenever you want it.</p>
-  </div>
-</section>
-
-<section class="band rev">
-  <div class="media r169" style="background-image:url('images/5e2c12a3b8fb.jpg')"></div>
-  <div class="copy">
-    <span class="eyebrow">Color &amp; restoration</span>
-    <h2>Color, resurrected</h2>
-    <p>The Reflex scanners create 16-bit DPX files with exceptional tonal and color latitude, providing ample information for correcting faded or shifted color. Even badly faded or magenta-shifted film can often be brought substantially closer to its original processed appearance, to the extent that surviving dye information allows. Deeper restoration, repairing tears, stains, and missing frames, is a separate service we quote case by case.</p>
-  </div>
-</section>
-
-<section class="faq"><div class="wrap">
-  <div class="sec-head"><span class="eyebrow">FAQ</span><h2>Questions we hear most</h2></div>
-  <div class="qa"><h3>What film formats do you scan?</h3><p>Regular 8mm, Super 8mm, Regular 16mm, Super 16mm, and 35mm, silent or with sound.</p></div>
-  <div class="qa"><h3>My film is shrunken, warped, or has vinegar syndrome. Can you still scan it?</h3><p>In most cases, yes. Our scanners move film gently and do not depend on its perforations, so we routinely scan reels conventional machines cannot even thread. We have successfully scanned film measured at more than 25 percent shrinkage. Many conventional transports begin encountering serious registration or transport problems at only a few percent, depending on the scanner and the condition of the film. Send us a photo and we'll let you know what is possible. <a href="shrunken-warped-vinegar-syndrome-film-scanning" style="color:var(--teal);border-bottom:1px solid var(--teal)">Read more about shrunken, warped, and vinegar syndrome film scanning.</a></p></div>
-  <div class="qa"><h3>Will scanning damage my film?</h3><p>Protecting the original is the entire premise of the process. The transport never contacts the image area and is designed to minimize stress on the film, so your film is handled and returned with the utmost care.</p></div>
-  <div class="qa"><h3>Do you clean and repair film before scanning?</h3><p>Yes. Cleaning and repair, what we call preparation, is an essential first step, and how much a reel needs varies enormously. We bill it by the hour and quote it case by case.</p></div>
-  <div class="qa"><h3>What will I receive?</h3><p>Preservation masters are available as DPX sequences, with ProRes production masters and MP4 viewing copies supplied as needed. We can recommend the right deliverables for how you plan to use the footage.</p></div>
-  <div class="qa"><h3>What resolution should I choose?</h3><p>HD, 2K, 4K, or 8K, depending on the gauge and how the footage will be used. We recommend a capture resolution sufficient to preserve all useful image detail in the original element, and we are glad to advise.</p></div>
-  <div class="qa"><h3>Does damaged film cost more?</h3><p>Usually a little. Difficult film is scanned at a much slower speed, which takes more time, but it is a modest difference, not a multiple. Every project is quoted individually based on the condition of the film.</p></div>
-  <div class="qa"><h3>Can you restore the footage, not just scan it?</h3><p>Yes. Restoration and color correction are available as separate services, quoted by condition. We digitize first, then restore whatever you want restored.</p></div>
+<section class="cseg"><div class="wrap">
+  <span class="eyebrow">When ordinary scanning fails</span>
+  <h2>Film the perforations can no longer guide</h2>
+  <p>A reel that smells of vinegar, curls when you unspool it, or has grown too brittle to lie flat has begun to decay. As acetate film ages it shrinks, warps, and turns acidic, and torn, worn, or missing perforations are common. Sprocket teeth and perforation-reading scanners depend on those holes being intact and evenly spaced, so shrunken, warped, or damaged film falls outside their range, and it is often exactly this film that most needs saving.</p>
 </div></section>
 
-<section style="border-top:1px solid var(--line)"><div class="wrap" style="padding:76px 28px">
-  <blockquote class="quote">&ldquo;Reflex resurrected films we had no hope of saving.&rdquo;<span class="by">Eric Davis, Institute of the American Musical</span></blockquote>
+<section class="cseg"><div class="wrap">
+  <span class="eyebrow">How we handle it</span>
+  <h2>Built for &ldquo;unscannable&rdquo; film</h2>
+  <p>Our sprocketless scanners carry film by gentle contact instead of gripping the perforations, so torn or missing holes bear no load. Reels with measured shrinkage of up to 25 percent are transported and scanned, each frame registered optically from whichever perforation edge survives. A short path over large rollers spares brittle, cupped, and warped stock, and every frame is captured individually at up to 4K.</p>
+</div></section>
+
+<section class="cseg"><div class="wrap">
+  <span class="eyebrow">Vinegar syndrome</span>
+  <h2>The vinegar smell is the warning</h2>
+  <p>That sour smell is vinegar syndrome, the chemical breakdown of an acetate film base as it ages. It is progressive and accelerates once it starts, so affected film should be digitized sooner rather than later. Our transport moves fragile, shrunken, vinegar-affected film without adding to the damage.</p>
+</div></section>
+
+<section class="cseg"><div class="wrap">
+  <span class="eyebrow">Formats</span>
+  <h2>From 8mm through 35mm</h2>
+  <p>We scan 8mm, Super 8, 16mm, Super 16, 35mm, and Super 35, including VistaVision and single-perforation 35mm, in whatever condition it has reached. Not sure what you have, or whether it can be saved? Send us a photo and we'll tell you what is possible.</p>
+</div></section>
+
+<section class="cseg"><div class="wrap">
+  <span class="eyebrow">Proven on the hardest cases</span>
+  <h2>Film other labs turned away</h2>
+  <p>Since 2012 our Burbank scanners have recovered film that studios, libraries, archives, and estates were told was beyond saving, including rare single-perforation Biograph films for the <a href="reflex-cs-moma" style="color:var(--teal);border-bottom:1px solid var(--teal)">Museum of Modern Art</a> and shrunken 16mm Broadway records for the <a href="reflex-cs-iam" style="color:var(--teal);border-bottom:1px solid var(--teal)">Institute of the American Musical</a>. We serve Los Angeles and clients worldwide, and treat every reel as the last surviving copy, because it often is.</p>
 </div></section>
 
 <section class="cta"><div class="wrap">
   <h2>Have film that needs saving?</h2>
-  <p>Send us a photo and we'll let you know what is possible.</p>
+  <p>Send us a photo of your reel and we'll tell you what is possible.</p>
   <a class="btn btn-p" href="reflex-quote-page">Get in touch</a>
 </div></section>
 
