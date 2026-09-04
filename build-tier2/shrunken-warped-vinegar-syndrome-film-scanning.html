@@ -38,8 +38,9 @@ nav a{font-size:14px;color:var(--muted);transition:.15s} nav a:hover{color:var(-
 .navtog{display:none;background:none;border:0;color:var(--ink);cursor:pointer;padding:6px;margin:0;line-height:0}@media(max-width:860px){.navtog{display:inline-flex;align-items:center}nav{position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(12,14,16,.98);border-bottom:1px solid var(--line);padding:6px 0;display:none}header.open nav{display:flex}.nav-links{display:flex;flex-direction:column;gap:0}.nav-links a{padding:15px 24px;font-size:16px}nav>.btn{margin:10px 24px 14px;text-align:center;font-size:15px;padding:13px}}
 
 /* hero */
-.hero{position:relative;min-height:90vh;display:flex;align-items:flex-end;background:linear-gradient(0deg,rgba(8,10,11,.72),rgba(8,10,11,0) 58%),linear-gradient(0deg,rgba(8,10,11,.75),rgba(8,10,11,0) 55%),url('images/Vinegar Film.jpg') center/cover no-repeat,url('images/Vinegar Film.png') center/cover no-repeat,#0c0e10 no-repeat}
-.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,rgba(8,10,11,.92) 0%,rgba(8,10,11,.6) 38%,rgba(8,10,11,.15) 70%,rgba(8,10,11,.4) 100%)}
+.hero{position:relative;min-height:90vh;display:flex;align-items:flex-end;overflow:hidden;background:#0c0e10}
+.hero::before{content:'';position:absolute;inset:0;z-index:0;transform:scaleX(-1);background:url('images/Vinegar Film.jpg') center calc(50% + 55px)/cover no-repeat,url('images/Vinegar Film.png') center calc(50% + 55px)/cover no-repeat,#0c0e10}
+.hero::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,rgba(8,10,11,.75),rgba(8,10,11,0) 55%),linear-gradient(105deg,rgba(8,10,11,.92) 0%,rgba(8,10,11,.6) 38%,rgba(8,10,11,.15) 70%,rgba(8,10,11,.4) 100%)}
 .hero-in{position:relative;z-index:2;padding:0 28px 14px;max-width:1140px;margin:0 auto;width:100%}
 .hero h1{font-size:clamp(2.4rem,6vw,4.6rem);max-width:16ch;margin:18px 0 22px}
 .hero p{font-size:clamp(1rem,1.6vw,1.22rem);color:#d6dcdc;max-width:60ch;margin-bottom:30px}
@@ -290,7 +291,6 @@ gtag('config', 'G-FZNM994NKR');
     <span class="eyebrow fade">Difficult film</span>
     <h1 class="fade d1">Shrunken, warped, and<br>vinegar syndrome film scanning</h1>
     <p class="fade d2">Film too shrunken, brittle, or damaged for conventional scanners, digitized on sprocketless transports at our facility in Burbank, serving Los Angeles and archives worldwide.</p>
-    <div class="btns"><a class="btn btn-p fade d3" href="reflex-quote-page">Get a quote</a></div>
   </div>
 </section>
 
