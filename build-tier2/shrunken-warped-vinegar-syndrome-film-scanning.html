@@ -38,8 +38,8 @@ nav a{font-size:14px;color:var(--muted);transition:.15s} nav a:hover{color:var(-
 .navtog{display:none;background:none;border:0;color:var(--ink);cursor:pointer;padding:6px;margin:0;line-height:0}@media(max-width:860px){.navtog{display:inline-flex;align-items:center}nav{position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(12,14,16,.98);border-bottom:1px solid var(--line);padding:6px 0;display:none}header.open nav{display:flex}.nav-links{display:flex;flex-direction:column;gap:0}.nav-links a{padding:15px 24px;font-size:16px}nav>.btn{margin:10px 24px 14px;text-align:center;font-size:15px;padding:13px}}
 
 /* hero */
-.hero{position:relative;min-height:90vh;display:flex;align-items:flex-end;overflow:hidden;background:#0c0e10}
-.hero::before{content:'';position:absolute;inset:0;z-index:0;transform:scaleX(-1);filter:brightness(1.4) contrast(1.02);background:url('images/Vinegar Syndrome 2.jpg') center calc(50% - 150px)/100% auto no-repeat,#0c0e10}
+.hero{position:relative;aspect-ratio:16/9;min-height:420px;display:flex;align-items:flex-end;overflow:hidden;background:#0c0e10}
+.hero::before{content:'';position:absolute;inset:0;z-index:0;transform:scaleX(-1);filter:brightness(1.12) contrast(1.02);background:url('images/Vinegar Syndrome 2.jpg') center center/100% auto no-repeat,#0c0e10}
 .hero::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,rgba(8,10,11,.75),rgba(8,10,11,0) 55%),linear-gradient(105deg,rgba(8,10,11,.92) 0%,rgba(8,10,11,.6) 38%,rgba(8,10,11,.15) 70%,rgba(8,10,11,.4) 100%)}
 .hero-in{position:relative;z-index:2;padding:0 28px 14px;max-width:1140px;margin:0 auto;width:100%}
 .hero h1{font-size:clamp(2.4rem,6vw,4.6rem);max-width:16ch;margin:18px 0 22px}
