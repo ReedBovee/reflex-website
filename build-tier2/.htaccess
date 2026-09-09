@@ -1,0 +1,19 @@
+# Reflex Technologies — clean-URL consolidation
+# Forces ONE canonical URL per page (extensionless) so Google stops
+# indexing both /page and /page.html and splitting ranking signal.
+
+Options -MultiViews
+RewriteEngine On
+
+# 1) /index.html  ->  /
+RewriteRule ^index\.html$ / [R=301,L]
+
+# 2) External request for /anything.html  ->  /anything  (301, passes authority)
+RewriteCond %{THE_REQUEST} \s/+([^\s?]+)\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# 3) Serve the real .html file for the clean URL (internal, URL stays clean)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^ %{REQUEST_FILENAME}.html [L]
