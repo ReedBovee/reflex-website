@@ -37,8 +37,9 @@ nav a{font-size:14px;color:var(--muted);transition:.15s} nav a:hover{color:var(-
 .navtog{display:none;background:none;border:0;color:var(--ink);cursor:pointer;padding:6px;margin:0;line-height:0}@media(max-width:860px){.navtog{display:inline-flex;align-items:center}nav{position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(12,14,16,.98);border-bottom:1px solid var(--line);padding:6px 0;display:none}header.open nav{display:flex}.nav-links{display:flex;flex-direction:column;gap:0}.nav-links a{padding:15px 24px;font-size:16px}nav>.btn{margin:10px 24px 14px;text-align:center;font-size:15px;padding:13px}}
 
 /* hero */
-.hero{position:relative;min-height:90vh;display:flex;align-items:flex-end;background:url('images/42fafb5210ff.jpg') center/cover no-repeat}
-.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,10,11,.74) 0%,rgba(8,10,11,.45) 18%,rgba(8,10,11,.14) 38%,rgba(8,10,11,0) 58%),linear-gradient(105deg,rgba(8,10,11,.92) 0%,rgba(8,10,11,.6) 38%,rgba(8,10,11,.15) 70%,rgba(8,10,11,.4) 100%)}
+.hero{position:relative;min-height:90vh;display:flex;align-items:flex-end;background:#0c0e10}
+.hero>.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}
+.hero::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,rgba(8,10,11,.74) 0%,rgba(8,10,11,.45) 18%,rgba(8,10,11,.14) 38%,rgba(8,10,11,0) 58%),linear-gradient(105deg,rgba(8,10,11,.92) 0%,rgba(8,10,11,.6) 38%,rgba(8,10,11,.15) 70%,rgba(8,10,11,.4) 100%)}
 .hero-in{position:relative;z-index:2;padding:0 28px 76px;max-width:1140px;margin:0 auto;width:100%}
 .hero h1{font-size:clamp(2.4rem,6vw,4.6rem);max-width:16ch;margin:18px 0 22px}
 .hero p{font-size:clamp(1rem,1.6vw,1.22rem);color:#d6dcdc;max-width:60ch;margin-bottom:30px}
@@ -79,6 +80,8 @@ nav a{font-size:14px;color:var(--muted);transition:.15s} nav a:hover{color:var(-
 .band .media{position:relative;min-height:440px;background-size:cover;background-position:center}
 .band .media.r169{aspect-ratio:16/9;min-height:0;align-self:center;margin:24px}
 .band .media.framed{background-size:contain;background-repeat:no-repeat;background-color:#0c0e10}
+.band .media>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.band .media.framed>img{object-fit:contain}
 .band .media .tag{position:absolute;left:18px;bottom:16px;font-family:var(--m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(8,10,11,.6);padding:6px 11px;border:1px solid rgba(255,255,255,.18)}
 .band .copy{padding:64px 56px;display:flex;flex-direction:column;justify-content:center}
 @media(max-width:820px){.band .copy{padding:48px 28px}}
@@ -336,6 +339,7 @@ gtag('config', 'G-FZNM994NKR');
 </div></header>
 
 <section class="hero">
+  <img class="hero-bg" src="images/42fafb5210ff.jpg" alt="Gloved hand holding a strip of 35mm color film up to the light, sprocket holes and individual frames visible" fetchpriority="high" decoding="async">
   <div class="hero-in">
     <span class="eyebrow fade">Motion picture film</span>
     <h1 class="fade d1">Motion picture film scanning and restoration</h1>
@@ -344,7 +348,7 @@ gtag('config', 'G-FZNM994NKR');
   </div>
 </section>
 <section class="band">
-  <div class="media framed" style="background-image:url('images/f92a6b4ea2f8.jpg')"></div>
+  <div class="media framed"><img src="images/f92a6b4ea2f8.jpg" alt="Restored film frame of a young girl in a red patterned headscarf and turquoise beaded necklace, full frame with sprocket edges visible" loading="lazy" decoding="async"></div>
   <div class="copy">
     <span class="eyebrow">Why it matters</span>
     <h2>History on borrowed time</h2>
@@ -367,7 +371,7 @@ gtag('config', 'G-FZNM994NKR');
   </div>
 </div></section>
 <section class="band">
-  <div class="media r169" style="background-image:url('images/55743265a9c6.jpg')"></div>
+  <div class="media r169"><img src="images/55743265a9c6.jpg" alt="Aged, warped film reel in a rusted, dented metal can awaiting scanning" loading="lazy" decoding="async"></div>
   <div class="copy">
     <span class="eyebrow">The difference</span>
     <h2>Built for &ldquo;unscannable&rdquo; film</h2>
@@ -376,7 +380,7 @@ gtag('config', 'G-FZNM994NKR');
 </section>
 
 <section class="band rev">
-  <div class="media r169" style="background-image:url('images/228449345f9b.jpg')"></div>
+  <div class="media r169"><img src="images/228449345f9b.jpg" alt="White-gloved hands repairing a splice on a manual film splicer during inspection and preparation" loading="lazy" decoding="async"></div>
   <div class="copy">
     <span class="eyebrow">Before the scan</span>
     <h2>Inspection &amp; preparation</h2>
@@ -387,7 +391,7 @@ gtag('config', 'G-FZNM994NKR');
 </section>
 
 <section class="band">
-  <div class="media r169" style="background-image:url('images/3c5d6c9d0464.jpg')"></div>
+  <div class="media r169"><img src="images/3c5d6c9d0464.jpg" alt="Reflex film scanning suite with two patented Reflex scanners and a technician at a color-grading workstation" loading="lazy" decoding="async"></div>
   <div class="copy">
     <span class="eyebrow">The process</span>
     <h2>Film scanning</h2>
@@ -396,7 +400,7 @@ gtag('config', 'G-FZNM994NKR');
 </section>
 
 <section class="band rev">
-  <div class="media r169" style="background-image:url('images/5e2c12a3b8fb.jpg')"></div>
+  <div class="media r169"><img src="images/5e2c12a3b8fb.jpg" alt="Color grading and restoration workstation with a DaVinci Resolve control panel and monitors showing scopes and footage" loading="lazy" decoding="async"></div>
   <div class="copy">
     <span class="eyebrow">Color &amp; restoration</span>
     <h2>Color, resurrected</h2>

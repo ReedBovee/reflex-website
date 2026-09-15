@@ -38,8 +38,9 @@ nav a{font-size:14px;color:var(--muted);transition:.15s} nav a:hover{color:var(-
 .navtog{display:none;background:none;border:0;color:var(--ink);cursor:pointer;padding:6px;margin:0;line-height:0}@media(max-width:860px){.navtog{display:inline-flex;align-items:center}nav{position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(12,14,16,.98);border-bottom:1px solid var(--line);padding:6px 0;display:none}header.open nav{display:flex}.nav-links{display:flex;flex-direction:column;gap:0}.nav-links a{padding:15px 24px;font-size:16px}nav>.btn{margin:10px 24px 14px;text-align:center;font-size:15px;padding:13px}}
 
 /* hero */
-.hero{position:relative;min-height:90vh;display:flex;align-items:flex-end;background:linear-gradient(0deg,rgba(8,10,11,.80),rgba(8,10,11,.10) 60%),#0c0e10 url(images/ccff3293b652.jpg) center 12%/cover no-repeat}
-.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,rgba(8,10,11,.92) 0%,rgba(8,10,11,.6) 38%,rgba(8,10,11,.15) 70%,rgba(8,10,11,.4) 100%)}
+.hero{position:relative;min-height:90vh;display:flex;align-items:flex-end;background:#0c0e10}
+.hero>.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 12%;z-index:0}
+.hero::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,rgba(8,10,11,.80),rgba(8,10,11,.10) 60%),linear-gradient(105deg,rgba(8,10,11,.92) 0%,rgba(8,10,11,.6) 38%,rgba(8,10,11,.15) 70%,rgba(8,10,11,.4) 100%)}
 .hero-in{position:relative;z-index:2;padding:0 28px 76px;max-width:1140px;margin:0 auto;width:100%}
 .hero h1{font-size:clamp(2.4rem,6vw,4.6rem);max-width:16ch;margin:18px 0 22px}
 .hero p{font-size:clamp(1rem,1.6vw,1.22rem);color:#d6dcdc;max-width:60ch;margin-bottom:30px}
@@ -276,6 +277,7 @@ gtag('config', 'G-FZNM994NKR');
 </div></header>
 
 <section class="hero">
+  <img class="hero-bg" src="images/ccff3293b652.jpg" alt="Vintage black-and-white photograph of Gene Kelly beside a Todd-AO motion picture camera" fetchpriority="high" decoding="async">
   <div class="hero-in">
     <a class="backlink" href="reflex-our-work-page"><span class="ba">&larr;</span> Our Work</a>
     <span class="eyebrow fade">Case study</span>

@@ -37,8 +37,9 @@ nav a{font-size:14px;color:var(--muted);transition:.15s} nav a:hover{color:var(-
 .navtog{display:none;background:none;border:0;color:var(--ink);cursor:pointer;padding:6px;margin:0;line-height:0}@media(max-width:860px){.navtog{display:inline-flex;align-items:center}nav{position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(12,14,16,.98);border-bottom:1px solid var(--line);padding:6px 0;display:none}header.open nav{display:flex}.nav-links{display:flex;flex-direction:column;gap:0}.nav-links a{padding:15px 24px;font-size:16px}nav>.btn{margin:10px 24px 14px;text-align:center;font-size:15px;padding:13px}}
 
 /* hero */
-.hero{position:relative;min-height:90vh;display:flex;align-items:flex-end;background:url('images/fbd895adfefa.jpg') center 16%/cover no-repeat}
-.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,rgba(8,10,11,.92) 0%,rgba(8,10,11,.6) 38%,rgba(8,10,11,.15) 70%,rgba(8,10,11,.4) 100%)}
+.hero{position:relative;min-height:90vh;display:flex;align-items:flex-end;background:#0c0e10}
+.hero>.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 16%;z-index:0}
+.hero::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(105deg,rgba(8,10,11,.92) 0%,rgba(8,10,11,.6) 38%,rgba(8,10,11,.15) 70%,rgba(8,10,11,.4) 100%)}
 .hero-in{position:relative;z-index:2;padding:0 28px 76px;max-width:1140px;margin:0 auto;width:100%}
 .hero h1{font-size:clamp(2.4rem,6vw,4.6rem);max-width:16ch;margin:18px 0 22px}
 .hero p{font-size:clamp(1rem,1.6vw,1.22rem);color:#d6dcdc;max-width:60ch;margin-bottom:30px}
@@ -76,9 +77,10 @@ nav a{font-size:14px;color:var(--muted);transition:.15s} nav a:hover{color:var(-
 .svc + .band{padding-top:24px}
 .band.rev .media{order:2}
 @media(max-width:820px){.band{grid-template-columns:1fr}.band.rev .media{order:0}}
-.band .media{position:relative;min-height:440px;background-size:cover;background-position:center}
+.band .media{position:relative;min-height:440px;background-size:cover;background-position:center;overflow:hidden}
 .band .media.r169{aspect-ratio:16/9;min-height:0;align-self:center;margin:24px}
-.band .media.lowimg{background-position:center 40%;background-size:105%}
+.band .media>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.band .media.lowimg>img{object-position:center 40%;transform:scale(1.05)}
 .band .media .tag{position:absolute;left:18px;bottom:16px;font-family:var(--m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(8,10,11,.6);padding:6px 11px;border:1px solid rgba(255,255,255,.18)}
 .band .copy{padding:64px 56px;display:flex;flex-direction:column;justify-content:center}
 @media(max-width:820px){.band .copy{padding:48px 28px}}
@@ -328,6 +330,7 @@ gtag('config', 'G-FZNM994NKR');
 </div></header>
 
 <section class="hero">
+  <img class="hero-bg" src="images/fbd895adfefa.jpg" alt="Close-up of a broadcast video deck timecode display showing hours, minutes, seconds and frames" fetchpriority="high" decoding="async">
   <div class="hero-in">
     <span class="eyebrow fade">Video &amp; audio</span>
     <h1 class="fade d1">Video and audio tape, captured before it fades.</h1>
@@ -337,8 +340,7 @@ gtag('config', 'G-FZNM994NKR');
 </section>
 
 <section class="band">
-  <!-- Drop in a real photo: replace the style with background-image:url('data:image/jpeg;base64,...') -->
-  <div class="media r169 lowimg" style="background-image:url('images/57dd39a7db53.jpg')"></div>
+  <div class="media r169 lowimg"><img src="images/57dd39a7db53.jpg" alt="Rack of professional video decks and monitors with color bars, reel-to-reel machines, and patch cables in the video transfer bay" loading="lazy" decoding="async"></div>
   <div class="copy">
     <span class="eyebrow">The difference</span>
     <h2>Precision machines,<br>kept in tune</h2>
@@ -359,8 +361,7 @@ gtag('config', 'G-FZNM994NKR');
 </div></section>
 
 <section class="band rev">
-  <!-- Drop in a real photo: replace the style with background-image:url('data:image/jpeg;base64,...') -->
-  <div class="media r169" style="background-position:center 0%;background-image:url('images/464bf58c4b07.jpg')"></div>
+  <div class="media r169"><img src="images/464bf58c4b07.jpg" alt="Hand loading a U-matic videocassette labeled Lawrence Livermore National Laboratory into a Sony broadcast deck" loading="lazy" decoding="async" style="object-position:center 0%"></div>
   <div class="copy">
     <span class="eyebrow">The approach</span>
     <h2>Capture everything, alter nothing</h2>
@@ -370,8 +371,7 @@ gtag('config', 'G-FZNM994NKR');
 </section>
 
 <section class="band">
-  <!-- Drop in a real photo: replace the style with background-image:url('data:image/jpeg;base64,...') -->
-  <div class="media r169" style="background-image:url('images/51ad60002b60.jpg');background-size:87.5% auto;background-repeat:no-repeat;background-color:#000;background-position:center"></div>
+  <div class="media r169" style="background:#000"><img src="images/51ad60002b60.jpg" alt="DaVinci Resolve video scopes showing RGB parade, waveform, vectorscope, and histogram during color correction" loading="lazy" decoding="async" style="inset:auto;top:50%;left:50%;width:87.5%;height:auto;transform:translate(-50%,-50%);object-fit:contain"></div>
   <div class="copy">
     <span class="eyebrow">Quality control</span>
     <h2>Scoping it out</h2>
