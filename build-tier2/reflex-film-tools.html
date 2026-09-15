@@ -411,7 +411,7 @@ gtag('config', 'G-FZNM994NKR');
           <option value="29.97">29.97 fps (NTSC)</option>
           <option value="custom">Custom&hellip;</option>
         </select>
-        <input id="fpsCustom" type="number" min="1" step="any" placeholder="Frames per second" inputmode="decimal" style="display:none;margin-top:10px">
+        <input id="fpsCustom" type="number" min="1" step="any" placeholder="Frames per second" inputmode="decimal" aria-label="Custom frame rate" style="display:none;margin-top:10px">
       </div>
     </div>
     <div class="row3">
@@ -465,8 +465,8 @@ gtag('config', 'G-FZNM994NKR');
           <option value="custom">Custom&hellip;</option>
         </select>
         <div id="stResCustom" style="display:none;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
-          <input id="stResW" type="number" min="1" step="1" placeholder="Width px" inputmode="numeric">
-          <input id="stResH" type="number" min="1" step="1" placeholder="Height px" inputmode="numeric">
+          <input id="stResW" type="number" min="1" step="1" placeholder="Width px" inputmode="numeric" aria-label="Custom resolution width">
+          <input id="stResH" type="number" min="1" step="1" placeholder="Height px" inputmode="numeric" aria-label="Custom resolution height">
         </div></div>
       <div><label for="stFmt">Delivery format</label>
         <select id="stFmt">
@@ -488,7 +488,7 @@ gtag('config', 'G-FZNM994NKR');
           <option value="30">30 fps</option>
           <option value="custom">Custom&hellip;</option>
         </select>
-        <input id="stFpsCustom" type="number" min="1" step="any" placeholder="Frames per second" inputmode="decimal" style="display:none;margin-top:10px"></div>
+        <input id="stFpsCustom" type="number" min="1" step="any" placeholder="Frames per second" inputmode="decimal" aria-label="Custom storage frame rate" style="display:none;margin-top:10px"></div>
       <div><label for="stMin">Length (minutes)</label>
         <div class="stepwrap">
           <input id="stMin" type="number" min="0" step="1" inputmode="decimal" value="10" placeholder="e.g. 10">
@@ -535,7 +535,7 @@ gtag('config', 'G-FZNM994NKR');
           <option value="16">16 fps (silent)</option>
           <option value="custom">Custom&hellip;</option>
         </select>
-        <input id="tcFpsCustom" type="number" min="1" step="any" placeholder="Frames per second" inputmode="decimal" style="display:none;margin-top:10px">
+        <input id="tcFpsCustom" type="number" min="1" step="any" placeholder="Frames per second" inputmode="decimal" aria-label="Custom timecode frame rate" style="display:none;margin-top:10px">
       </div>
     </div>
     <div class="row3">
@@ -697,7 +697,7 @@ gtag('config', 'G-FZNM994NKR');
         <tr><td class="g">1.78:1</td><td>16:9</td><td>The shape of HD and modern digital video and displays. It sits between 1.66 and 1.85, chosen as a compromise widescreen for presenting both older and theatrical material on television.</td><td class="arcell"><span class="arbox" style="width:85px"></span></td></tr>
         <tr><td class="g">1.85:1</td><td>US widescreen (flat)</td><td>The standard American "flat" widescreen since the mid-1950s. It is created by masking the top and bottom of a full 35mm frame in projection, rather than with an anamorphic lens.</td><td class="arcell"><span class="arbox" style="width:89px"></span></td></tr>
         <tr><td class="g">2.20:1</td><td>70mm</td><td>The presentation ratio of traditional 5-perf 70mm roadshow films. The wide frame and large negative made it the premium large-format experience of its era.</td><td class="arcell"><span class="arbox" style="width:106px"></span></td></tr>
-        <tr><td class="g">2.35:1</td><td>CinemaScope / early scope</td><td>The original anamorphic widescreen, horizontally squeezed onto 35mm by a special lens and unsqueezed in projection. It ran from CinemaScope's 1953 debut until the anamorphic standard was slightly revised in 1970.</td><td class="arcell"><span class="arbox" style="width:113px"></span></td></tr>
+        <tr><td class="g">2.35:1</td><td>CinemaScope / early scope</td><td>The classic anamorphic widescreen, horizontally squeezed onto 35mm by a special lens and unsqueezed in projection. CinemaScope debuted in 1953 at about 2.55:1 with magnetic sound; 2.35:1 became the standard soon after to make room for an optical soundtrack, and it held until the anamorphic spec was slightly revised in 1970.</td><td class="arcell"><span class="arbox" style="width:113px"></span></td></tr>
         <tr><td class="g">2.39:1</td><td>Modern anamorphic (scope)</td><td>The current anamorphic "scope" standard, a 1970 refinement of the earlier 2.35 that made frame-line splices less visible. It remains the widest ratio in everyday theatrical use.</td><td class="arcell"><span class="arbox" style="width:115px"></span></td></tr>
       </tbody>
     </table>
@@ -726,22 +726,22 @@ gtag('config', 'G-FZNM994NKR');
     "cc":["1964","1954","1934 (Jan-Jun)"],"ss":["1934 (Jul-Dec)"],
     "tt":["1955","1935 (Jan-Jun)"],"cs":["1935 (Jul-Dec)"],
     "ct":["1956","1936 (Jan-Jun)"],"ts":["1936 (Jul-Dec)"],
-    "sc":["1937 (Jan-Jun)"],"tc":["1957","1937 (Jul-Dec)"],
+    "sc":["1937 (Jul-Dec)"],"tc":["1957","1937 (Jan-Jun)"],
     "st":["1958","1938 (Jan-Jun)"],"pp":["1938 (Jul-Dec)"],
-    "pc":["1960","1939 (Jan-Jun)"],"ps":["1939 (Jul-Dec)"],
-    "pt":["1940 (Jan-Jun)"],"cp":["1940 (Jul-Dec)"],
+    "pc":["1959","1939 (Jan-Jun)"],"ps":["1939 (Jul-Dec)"],
+    "pt":["1960","1940 (Jan-Jun)"],"cp":["1940 (Jul-Dec)"],
     "sp":["1961","1941 (Jan-Jun)"],"tp":["1941 (Jul-Dec)"],"p":["1962"]
   };
   var MCA={
     "cl":[1947,1936,1925],"cb":[1948,1937,1926],"ch":[1949,1938,1927],
-    "hc":[1950,1941,1939,1930,1928],"bc":[1940,1929],
+    "lc":[1950,1939,1928],"bc":[1940,1929],"hc":[1941,1930],
     "d":[1942,1931],"dc":[1943,1932],"db":[1944,1933],"dl":[1945,1934],"dh":[1946,1935]
   };
   var MUK={
     "h":[1936,1917],"l":[1937,1918],"b":[1938,1919],
     "hh":[1939,1920],"ll":[1940,1921],"bb":[1941,1922],
-    "hl":[1950,1942,1931,1923],"bl":[1943,1924],"hb":[1944,1925],"bh":[1945,1926],
-    "lb":[1946,1927],"lh":[1947,1928],"p":[1948,1929],"ph":[1949,1930],
+    "hl":[1942,1923],"bl":[1943,1924],"hb":[1944,1925],"bh":[1945,1926],
+    "lb":[1946,1927],"lh":[1947,1928],"p":[1948,1929],"ph":[1949,1930],"pl":[1950,1931],
     "pb":[1932],"hp":[1933],"lp":[1934],"bp":[1935]
   };
   var SVG={
