@@ -186,10 +186,12 @@ footer .social a{color:var(--muted);text-decoration:none}
 .ec-keykode{margin-top:34px;border-top:1px solid var(--line);padding-top:28px}
 .ec-keykode h3{font-family:var(--d);font-size:1.2rem;letter-spacing:-.01em;margin:0 0 10px;color:var(--ink)}
 .ec-keykode p{font-family:var(--b);font-size:.95rem;line-height:1.6;color:var(--muted);margin:0 0 16px;max-width:62ch}
-.kk-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
-.kk-row #kkSel{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:12px 14px;font-family:var(--m);font-size:1.05rem;letter-spacing:.08em;outline:none;min-width:12ch}
+.kk-row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 16px}
+.kk-field{display:flex;flex-direction:column}
+.kk-field .kk-label{font-family:var(--m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.kk-row #kkSel{-webkit-appearance:none;appearance:none;background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%239aa4a6' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:12px 32px 12px 14px;font-family:var(--m);font-size:1.05rem;letter-spacing:.08em;outline:none;width:auto}
 .kk-row #kkSel:focus{border-color:var(--teal)}
-.kk-out{font-family:var(--m);font-size:1rem;color:var(--teal);min-height:1.2em}
+.kk-out{font-family:var(--m);font-size:1rem;color:var(--teal);min-height:1.2em;padding-bottom:12px}
 .ec-factory{margin-top:38px;border-top:1px solid var(--line);padding-top:30px}
 .ec-factory h3{font-family:var(--d);font-size:1.2rem;letter-spacing:-.01em;margin:0 0 10px;color:var(--ink)}
 .ec-factory .fac-lead{font-family:var(--b);font-size:.95rem;line-height:1.6;color:var(--muted);margin:0 0 22px;max-width:60ch}
@@ -622,7 +624,10 @@ gtag('config', 'G-FZNM994NKR');
     <h3>Film from 1989 on: the two-letter KEYKODE</h3>
     <p>From 1989, most Kodak film carries a two-letter year code at the end of the edge print, after <strong style="color:var(--ink);font-weight:600">EASTMAN</strong>, for example <strong style="color:var(--ink);font-weight:600">EN</strong>. (Since 2003, many 35mm prints show the full four-digit year instead, so no lookup is needed.) Select the code to see its year:</p>
     <div class="kk-row">
-      <select id="kkSel" aria-label="Two-letter KEYKODE year code"><option value="">Select a code&hellip;</option></select>
+      <div class="kk-field">
+        <label class="kk-label" for="kkSel">Select a code</label>
+        <select id="kkSel" aria-label="Two-letter KEYKODE year code"><option value="">&ndash;&ndash;</option></select>
+      </div>
       <div class="kk-out" id="kkOut">&nbsp;</div>
     </div>
   </div>
