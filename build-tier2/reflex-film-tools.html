@@ -1047,7 +1047,7 @@ gtag('config', 'G-FZNM994NKR');
     var bps = bytesPerSec(dims,fmt) * fps; // bytes/frame x fps
     el('stRate').value=(bps/1e6).toLocaleString(undefined,{maximumFractionDigits:(bps/1e6<10?1:0)})+' MB/s';
     el('stHour').value=human(bps*3600);
-    el('stNote').textContent='Based on '+dims[0]+' x '+dims[1]+' at '+fps+' fps. Uncompressed DPX and AVI are exact; ProRes and MP4 are typical averages.';
+    el('stNote').textContent='Based on '+dims[0]+' x '+dims[1]+' at '+fps+' fps. Uncompressed DPX and AVI are near-exact; ProRes and MP4 are typical averages.';
     if(isNaN(secs)||secs<0){el('stTotal').value='';return;}
     el('stTotal').value=human(bps*secs);
   }
