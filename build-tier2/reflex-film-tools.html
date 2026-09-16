@@ -183,6 +183,13 @@ footer .social a{color:var(--muted);text-decoration:none}
 .ec-legend{display:flex;flex-wrap:wrap;gap:10px 20px;margin:0 0 22px;padding:0;list-style:none}
 .ec-legend li{font-family:var(--m);font-size:12.5px;color:var(--muted)}
 .ec-legend .sym{color:var(--ink);font-size:1.05rem;margin-right:6px}
+.ec-keykode{margin-top:34px;border-top:1px solid var(--line);padding-top:28px}
+.ec-keykode h3{font-family:var(--d);font-size:1.2rem;letter-spacing:-.01em;margin:0 0 10px;color:var(--ink)}
+.ec-keykode p{font-family:var(--b);font-size:.95rem;line-height:1.6;color:var(--muted);margin:0 0 16px;max-width:62ch}
+.kk-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.kk-row #kkIn{width:6.5ch;font-family:var(--m);font-size:1.3rem;text-transform:uppercase;letter-spacing:.12em;text-align:center;padding:10px 8px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px}
+.kk-row #kkIn:focus{outline:none;border-color:var(--teal)}
+.kk-out{font-family:var(--m);font-size:1rem;color:var(--teal);min-height:1.2em}
 .ec-factory{margin-top:38px;border-top:1px solid var(--line);padding-top:30px}
 .ec-factory h3{font-family:var(--d);font-size:1.2rem;letter-spacing:-.01em;margin:0 0 10px;color:var(--ink)}
 .ec-factory .fac-lead{font-family:var(--b);font-size:.95rem;line-height:1.6;color:var(--muted);margin:0 0 22px;max-width:60ch}
@@ -586,13 +593,15 @@ gtag('config', 'G-FZNM994NKR');
           <option value="us">Rochester, USA</option>
           <option value="ca">Canada</option>
           <option value="uk">United Kingdom</option>
+          <option value="fr">Vincennes, France</option>
+          <option value="de">Kopenick, Germany</option>
         </select>
       </div>
       <div id="ecGaugeWrap">
         <label for="ecGauge">Film gauge</label>
         <select id="ecGauge">
           <option value="1635">16mm or 35mm</option>
-          <option value="8">8mm (Standard 8)</option>
+          <option value="8">Regular 8 / Super 8</option>
         </select>
       </div>
     </div>
@@ -607,6 +616,15 @@ gtag('config', 'G-FZNM994NKR');
       <div class="result hl" style="grid-column:1/-1"><div class="k">Possible year(s) of manufacture</div><div class="v" id="ecYears">&nbsp;</div></div>
     </div>
     <p class="calc-note" id="ecNote">Pick the symbols you see, in order.</p>
+  </div>
+
+  <div class="ec-keykode">
+    <h3>Film from 1989 on: the two-letter KEYKODE</h3>
+    <p>From 1989, most Kodak film carries a two-letter year code at the end of the edge print, after <strong style="color:var(--ink);font-weight:600">EASTMAN</strong> &mdash; for example <strong style="color:var(--ink);font-weight:600">EN</strong>. (Since 2003, many 35mm prints show the full four-digit year instead, so no lookup is needed.) Enter the two letters:</p>
+    <div class="kk-row">
+      <input id="kkIn" type="text" maxlength="2" autocomplete="off" spellcheck="false" placeholder="EN" aria-label="Two-letter KEYKODE year code">
+      <div class="kk-out" id="kkOut">&nbsp;</div>
+    </div>
   </div>
 
   <div class="ec-factory">
@@ -710,16 +728,13 @@ gtag('config', 'G-FZNM994NKR');
     "cc":[1979,1959,1939,1919],"ss":[1980,1960,1940,1920],"tt":[1981,1961,1941,1921],
     "cs":[1962,1942,1922],"ct":[1963,1943,1923],"ts":[1964,1944,1924],
     "sc":[1965,1945,1925],"tc":[1966,1946,1926],"st":[1967,1947,1927],
-    "ccc":[2019,1948,1928],"p":[1969,1949,1929],"tp":[1970,1950,1930],"cp":[1971,1951,1931],
+    "ccc":[1948,1928],"p":[1969,1949,1929],"tp":[1970,1950,1930],"cp":[1971,1951,1931],
     "sp":[1972,1952,1932],"pt":[1973,1953,1933],"pc":[1974,1954,1934],"ps":[1975,1955,1935],
     "pp":[1968],
     "csx":[1982],"xtx":[1983],"tst":[1984],"sct":[1985],"tct":[1986],"stt":[1987],
     "ppt":[1988],"xpt":[1989],"tpt":[1990],"xpx":[1991],"spt":[1992],"ptt":[1993],
     "pct":[1994],"pst":[1995],"xct":[1996],"xst":[1997],"xtt":[1998],"cxt":[1999],
-    "sst":[2000],"ttc":[2001],"csc":[2002],"ctc":[2003],"tsc":[2004],"scc":[2005],
-    "tcc":[2006],"stc":[2007],"ppc":[2008],"xpc":[2009],"tpc":[2010],
-    "cpc":[2011],"spc":[2012],"ptc":[2013],"pcc":[2014],"pcs":[2015],"xcc":[2016],
-    "xcs":[2017],"xtc":[2018],"ssc":[2020],"ttt":[2021]
+    "sst":[2000],"ttc":[2001],"csc":[2002],"ctc":[2003],"tsc":[2004],"scc":[2005]
   };
   var M8={
     "c":["1932"],"s":["1963","1933 (Jan-Jun)"],"t":["1933 (Jul-Dec)"],
@@ -744,6 +759,33 @@ gtag('config', 'G-FZNM994NKR');
     "lb":[1946,1927],"lh":[1947,1928],"p":[1948,1929],"ph":[1949,1930],"pl":[1950,1931],
     "pb":[1932],"hp":[1933],"lp":[1934],"bp":[1935]
   };
+  var M8UK={
+    "h":["1933 (Jan-Jun)"],"l":["1933 (Jul-Dec)"],
+    "b":["1934 (Jan-Jun)"],"hh":["1934 (Jul-Dec)"],
+    "ll":["1935 (Jan-Jun)"],"bb":["1935 (Jul-Dec)"],
+    "hl":["1936 (Jan-Jun)"],"bl":["1936 (Jul-Dec)"],
+    "lh":["1937 (Jan-Jun)"],"lb":["1937 (Jul-Dec)"],
+    "bh":["1938 (Jan-Jun)"],"hb":["1938 (Jul-Dec)"],
+    "p":["1939 (Jan-Jun)"],"pp":["1939 (Jul-Dec)"],
+    "ph":["1940 (Jan-Jun)"],"pl":["1940 (Jul-Dec)"],
+    "pb":["1941 (Jan-Jun)"],"hp":["1941 (Jul-Dec)"]
+  };
+  var MFR={
+    "hhh":[1934],"hsh":[1935],"shh":[1936],"hhs":[1937],"ssh":[1938],"hss":[1939]
+  };
+  var MDE={
+    "sss":[1934],"csc":[1935],"scc":[1936],"ccs":[1937],"scs":[1938],"ssc":[1939]
+  };
+  var KK={
+    "DE":["1989","2014"],"LE":["1990"],"EA":["1991"],"AS":["1992"],"ST":["1993"],
+    "TM":["1994"],"MN":["1995"],"NK":["1996"],"KD":["1997"],"DF":["1998"],"FL":["1999"],
+    "SD":["2000"],"TF":["2001"],"ML":["2002"],"NE":["2003"],"KA":["2004"],"DS":["2005"],
+    "FT":["2006"],"LM":["2007"],"EN":["2008"],"AK":["2009"],"TK":["2010"],"MD":["2011"],
+    "NF":["2012"],"KL":["2013"],"FA":["2015"],"LS":["2016"],"ET":["2017"],"AM":["2018"],
+    "SN":["2019"],"NM":["2020"],"KN":["2021"],"DK":["2022"],"FD":["2023"],"LF":["2024"],
+    "EL":["2025"],"AE":["2026"],"SA":["2027"],"TS":["2028"],"MT":["2029"],"KT":["2030"],
+    "DM":["2031"],"FN":["2032"],"LK":["2033"]
+  };
   var SVG={
     c:'<circle cx="12" cy="12" r="9"/>',
     s:'<rect x="3" y="3" width="18" height="18"/>',
@@ -756,11 +798,13 @@ gtag('config', 'G-FZNM994NKR');
     h:'<path d="M3 8.5 H21 A9 9 0 0 1 3 8.5 Z"/>'
   };
   var SNAME={c:"Circle",s:"Square",t:"Triangle",p:"Plus",x:"X",d:"Diamond",l:"L",b:"Dash",h:"Half-circle"};
-  var PLANTSYM={us:["c","s","t","p","x"],ca:["c","h","b","d","l"],uk:["h","l","b","p"]};
+  var PLANTSYM={us:["c","s","t","p","x"],ca:["c","s","t","p","x","h","b","d","l"],uk:["c","s","t","p","x","h","l","b"],fr:["h","s","c"],de:["s","c"]};
   var PNOTE={
-    us:"Symbols for film coated at Kodak's Rochester, New York plant. On 16mm and 35mm the code repeats on a twenty-year cycle; three-symbol codes date 1982 onward.",
-    ca:"Kodak's Canadian plant used its own symbol set, on 16mm and 35mm, roughly 1925 to 1950.",
-    uk:"Kodak's British plant used its own symbol set, on 16mm and 35mm, roughly 1917 to 1950."
+    us:"Kodak's Rochester, New York plant. On 16mm and 35mm the symbol repeats every twenty years; three-symbol codes run 1982 to 2005. Regular 8mm has its own codes through 1964, then follows the 16mm symbols.",
+    ca:"Kodak's Canadian plant used its own symbols on 16mm and 35mm from 1925 to 1950; from 1951 on it used the US symbols.",
+    uk:"Kodak's British plant used its own symbols on 16mm and 35mm from 1917 to 1950 (and on Regular 8mm in the 1930s); from 1951 on it used the US symbols.",
+    fr:"Kodak's Vincennes, France plant coated 16mm from 1934 to 1939. The gap before the first symbol sets the half-year: 1/16 inch means January to June, 3/16 inch means July to December.",
+    de:"Kodak's Kopenick, Germany plant coated 16mm from 1934 to 1939. The gap before the first symbol sets the half-year: 1/16 inch means January to June, 3/16 inch means July to December."
   };
   function svg(k,cls){return '<svg class="'+(cls||"ec-svg")+'" viewBox="0 0 24 24" aria-hidden="true">'+SVG[k]+'</svg>';}
 
@@ -773,33 +817,44 @@ gtag('config', 'G-FZNM994NKR');
       out=document.getElementById("ecYears"),note=document.getElementById("ecNote");
   var sel=["","",""];
 
+  var PLABEL={us:"US (Rochester)",ca:"Canada",uk:"UK",fr:"France",de:"Germany"};
+  // Tables that apply for a plant + gauge, each with the earliest year it may contribute
+  // (8mm after 1964, and Canada/UK after 1950, switch to the US 16/35mm symbols).
+  function tablesFor(plant,gauge){
+    if(plant==="us") return gauge==="8" ? [[M8,0],[M1635,1965]] : [[M1635,0]];
+    if(plant==="ca") return [[MCA,0],[M1635,1951]];
+    if(plant==="uk") return gauge==="8" ? [[M8UK,0],[M1635,1965]] : [[MUK,0],[M1635,1951]];
+    if(plant==="fr") return [[MFR,0]];
+    if(plant==="de") return [[MDE,0]];
+    return [];
+  }
+  function lookup(plant,gauge,code){
+    var res=[];
+    tablesFor(plant,gauge).forEach(function(spec){
+      var hit=spec[0][code]; if(!hit) return;
+      hit.forEach(function(y){
+        var n=parseInt(y,10);
+        if(spec[1] && (isNaN(n)||n<spec[1])) return;
+        if(res.indexOf(String(y))<0) res.push(String(y));
+      });
+    });
+    res.sort(function(a,b){return (parseInt(a,10)||0)-(parseInt(b,10)||0);});
+    return res;
+  }
   function eraNote(ys){
     var nums=ys.map(function(y){return parseInt(y,10);}).filter(function(n){return !isNaN(n);});
     if(!nums.length) return "";
     var oldest=Math.min.apply(null,nums), newest=Math.max.apply(null,nums);
     if(nums.length===1){
       var y=oldest;
-      if(y>=1982) return "By "+y+", the stock is modern acetate or polyester safety film.";
-      if(y>=1951) return y+" stock is acetate safety film, which can develop vinegar syndrome as it ages.";
-      return y+" is nitrate-era film: on 35mm that base is flammable and needs careful handling, while 16mm was always safety film.";
+      if(y>=1951) return y+" stock is acetate (or later polyester) safety film, which can develop vinegar syndrome as it ages.";
+      return y+" falls in the nitrate era: 35mm of this age runs on a flammable nitrate base and needs careful handling, while 8mm and 16mm were always safety film.";
     }
     if(oldest<1951 && newest>=1951)
-      return "These stretch from the nitrate era ("+oldest+") to later safety film ("+newest+"), so the film's base and look will tell you which.";
+      return "These span the nitrate era ("+oldest+") and later safety film ("+newest+"), so the base and look of the film will tell you which.";
     if(newest<1951)
-      return "All of these fall in the nitrate era, when 35mm ran on a flammable nitrate base.";
-    return "All of these are acetate safety film, which can develop vinegar syndrome as it ages.";
-  }
-  function usNote(hit,symCount){
-    var cf = symCount===1
-      ? "A single symbol is the oldest, simplest form of the code, and on 16mm and 35mm it repeats every twenty years."
-      : symCount===2
-      ? "Two-symbol codes belong to the same twenty-year cycle Kodak used before 1982."
-      : "From 1982 on, Kodak used a three-symbol code, adding the X shape, so three symbols usually point to a single year.";
-    return cf + " " + eraNote(hit);
-  }
-  function caukNote(hit){
-    var many = hit.length>1 ? " This symbol recurs on the plant's cycle, so more than one year is possible." : "";
-    return "On 35mm, film from this era runs on a flammable nitrate base and needs careful handling; 16mm was always safety film." + many;
+      return "All of these fall in the nitrate era, when 35mm ran on a flammable nitrate base (8mm and 16mm were always safety film).";
+    return "All of these are acetate or polyester safety film, which can develop vinegar syndrome as it ages.";
   }
 
   function buildOptions(){
@@ -815,32 +870,25 @@ gtag('config', 'G-FZNM994NKR');
     sel=["","",""];
   }
   function renderPlant(){
-    var syms=PLANTSYM[plantEl.value];
-    gaugeWrap.style.display=(plantEl.value==="us")?"":"none";
+    var plant=plantEl.value, syms=PLANTSYM[plant];
+    gaugeWrap.style.display=(plant==="us"||plant==="uk")?"":"none";
     legendEl.innerHTML=syms.map(function(k){return "<li>"+svg(k,"ec-svg sym")+SNAME[k]+"</li>";}).join("");
-    plantNote.textContent=PNOTE[plantEl.value];
+    plantNote.textContent=PNOTE[plant];
     buildOptions();
     calc();
   }
   function calc(){
-    var plant=plantEl.value;
+    var plant=plantEl.value, gauge=gaugeEl.value;
     var code=""; for(var i=0;i<3;i++){ if(!sel[i])break; code+=sel[i]; }
     if(!sel[0]){ out.innerHTML="&nbsp;"; note.textContent="Pick the symbols you see, left to right."; return; }
-    var map = plant==="us" ? (gaugeEl.value==="8"?M8:M1635) : (plant==="ca"?MCA:MUK);
-    var hit=map[code];
-    if(!hit){
+    var years=lookup(plant,gauge,code);
+    if(!years.length){
       out.innerHTML="&nbsp;";
-      var where = plant==="us" ? "Kodak US" : (plant==="ca" ? "Kodak Canada" : "Kodak UK");
-      note.textContent="That combination isn't in the "+where+" chart. Double-check the order and the shapes, or send us a photo and we'll identify it.";
+      note.textContent="That combination isn't in the Kodak "+PLABEL[plant]+" chart. Double-check the order and the shapes, or send us a photo and we'll identify it.";
       return;
     }
-    out.textContent=hit.join("  ·  ");
-    if(plant==="us"){
-      if(gaugeEl.value==="8") note.textContent="Kodak's 8mm coverage is partial, and several codes recur across its two eras, so more than one year can share a code. 8mm and Super 8 were always acetate safety film, never nitrate.";
-      else note.textContent=usNote(hit,code.length);
-    } else {
-      note.textContent=caukNote(hit);
-    }
+    out.textContent=years.join("  ·  ");
+    note.textContent=(years.length>1?"This code can point to more than one year. ":"")+eraNote(years);
   }
 
   for(var pi=0;pi<pickerOpts.length;pi++){
@@ -857,6 +905,16 @@ gtag('config', 'G-FZNM994NKR');
   }
   plantEl.addEventListener("change",renderPlant);
   gaugeEl.addEventListener("change",calc);
+  var kkIn=document.getElementById("kkIn"), kkOut=document.getElementById("kkOut");
+  if(kkIn){
+    kkIn.addEventListener("input",function(){
+      var v=kkIn.value.toUpperCase().replace(/[^A-Z]/g,"").slice(0,2);
+      if(kkIn.value!==v) kkIn.value=v;
+      if(v.length<2){ kkOut.innerHTML="&nbsp;"; return; }
+      var hit=KK[v];
+      kkOut.textContent = hit ? (v+" = "+hit.join(" or ")) : (v+" isn't in Kodak's 1989-2033 KEYKODE list. Re-check the two letters, or send us a photo.");
+    });
+  }
   renderPlant();
 })();</script>
 
