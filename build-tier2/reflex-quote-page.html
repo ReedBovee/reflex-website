@@ -139,6 +139,7 @@ form .row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 @media(max-width:560px){form .row{grid-template-columns:1fr}}
 .field{margin-bottom:18px}
 .field label{display:block;font-family:var(--m);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.field label .req{color:var(--teal);margin-left:6px}
 .field input,.field select,.field textarea{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:3px;color:var(--ink);font-family:var(--b);font-size:15px;padding:12px 14px}
 .field textarea{min-height:130px;resize:vertical}
 .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 1px var(--teal)}
@@ -298,12 +299,77 @@ gtag('config', 'G-FZNM994NKR');
 
 <section class="formwrap"><div class="wrap">
   <div class="grid">
-    <div class="contact-lead">
-      <p class="leadnote">Reach us by email or phone, and we&rsquo;ll walk you through the options.</p>
-      <div class="contact-btns">
-        <a class="btn btn-p" href="mailto:info@reflextechnologies.com">Email us</a>
-        <a class="btn btn-g" href="tel:+18188597770">Call 818-859-7770</a>
-      </div>
+    <div class="contact-form">
+      <p class="leadnote">Fill out the form and we&rsquo;ll get back to you. Prefer to talk it through? Call or email us directly, any time.</p>
+      <form id="contactForm" action="https://formsubmit.co/ajax/info@reflextechnologies.com" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="New inquiry from reflextechnologies.com">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <div class="row">
+          <div class="field">
+            <label for="fname">First name</label>
+            <input id="fname" name="First name" type="text" autocomplete="given-name" required>
+          </div>
+          <div class="field">
+            <label for="lname">Last name</label>
+            <input id="lname" name="Last name" type="text" autocomplete="family-name" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="Email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="phone">Phone number</label>
+            <input id="phone" name="Phone" type="tel" autocomplete="tel">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="prefer">Preferred method of contact</label>
+          <select id="prefer" name="Preferred contact">
+            <option value="Email">Email</option>
+            <option value="Phone">Phone</option>
+            <option value="Either">Either is fine</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="help">How can we help? <span class="req">required</span></label>
+          <select id="help" name="How can we help" required>
+            <option value="" disabled selected>Select one&hellip;</option>
+            <option value="Motion picture film scanning">Motion picture film scanning</option>
+            <option value="Videotape digitizing">Videotape digitizing</option>
+            <option value="Audio tape digitizing">Audio tape digitizing</option>
+            <option value="Still image capture">Still image capture</option>
+            <option value="Not sure / other">Not sure / other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="found">How did you find us?</label>
+          <select id="found" name="How did you find us">
+            <option value="" disabled selected>Select one&hellip;</option>
+            <option value="Google / web search">Google / web search</option>
+            <option value="Referral">Referral</option>
+            <option value="Returning client">Returning client</option>
+            <option value="Social media">Social media</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="msg">Tell us about your project</label>
+          <textarea id="msg" name="Message" placeholder="Formats, quantities, condition, deadlines, anything that helps us understand what you have."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-p" id="formSubmitBtn">Send message</button>
+        <p class="formstatus" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
     </div>
 
     <aside class="aside">
@@ -322,5 +388,39 @@ gtag('config', 'G-FZNM994NKR');
 
 
 
+<script>/*contact form*/(function(){
+  var f=document.getElementById("contactForm");
+  if(!f) return;
+  var statusEl=document.getElementById("formStatus");
+  var btn=document.getElementById("formSubmitBtn");
+  function setStatus(msg,kind){ statusEl.textContent=msg; statusEl.className="formstatus"+(kind?" "+kind:""); statusEl.style.display=msg?"block":"none"; }
+  f.addEventListener("submit",function(e){
+    e.preventDefault();
+    if(f.querySelector('[name="_honey"]').value) return;
+    var fn=(f.elements["First name"].value||"").trim();
+    var em=(f.elements["Email"].value||"").trim();
+    var hp=(f.elements["How can we help"].value||"").trim();
+    if(!fn||!em){ setStatus("Please add your name and email so we can reply.","err"); return; }
+    if(!hp){ setStatus("Please tell us how we can help.","err"); return; }
+    btn.disabled=true;
+    setStatus("Sending…","");
+    fetch(f.action,{method:"POST",body:new FormData(f),headers:{"Accept":"application/json"}})
+      .then(function(r){return r.json();})
+      .then(function(d){
+        if(d && (d.success===true||d.success==="true")){
+          f.reset();
+          btn.disabled=false;
+          setStatus("Thank you. We’ve got your message and will be in touch shortly.","ok");
+        } else {
+          btn.disabled=false;
+          setStatus("Sorry, something went wrong. Please email info@reflextechnologies.com or call 818-859-7770.","err");
+        }
+      })
+      .catch(function(){
+        btn.disabled=false;
+        setStatus("Sorry, something went wrong. Please email info@reflextechnologies.com or call 818-859-7770.","err");
+      });
+  });
+})();</script>
 <script>/*navdd*/(function(){document.querySelectorAll(".nav-dd-btn").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var d=b.closest(".nav-dd");var o=d.classList.toggle("open");b.setAttribute("aria-expanded",o);});});document.addEventListener("click",function(){document.querySelectorAll(".nav-dd.open").forEach(function(d){d.classList.remove("open");var x=d.querySelector(".nav-dd-btn");if(x)x.setAttribute("aria-expanded","false");});});})();</script>
 </body></html>
