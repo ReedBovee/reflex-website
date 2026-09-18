@@ -603,7 +603,8 @@ gtag('config', 'G-FZNM994NKR');
         <label for="ecGauge">Film gauge</label>
         <select id="ecGauge">
           <option value="1635">16mm or 35mm</option>
-          <option value="8">Regular 8 / Super 8</option>
+          <option value="r8">Regular 8</option>
+          <option value="s8">Super 8</option>
         </select>
       </div>
     </div>
@@ -838,7 +839,7 @@ gtag('config', 'G-FZNM994NKR');
   var SNAME={c:"Circle",s:"Square",t:"Triangle",p:"Plus",x:"X",d:"Diamond",l:"L",b:"Dash",h:"Half-circle"};
   var PLANTSYM={us:["c","s","t","p","x"],ca:["c","s","t","p","x","h","b","d","l"],uk:["c","s","t","p","x","h","l","b"],fr:["h","s","c"],de:["s","c"]};
   var PNOTE={
-    us:"Kodak's Rochester, New York plant. On 16mm and 35mm the symbol repeats every twenty years; three-symbol codes run 1982 to 2005. Regular 8mm has its own codes through 1964, then follows the 16mm symbols.",
+    us:"Kodak's Rochester, New York plant. On 16mm and 35mm the symbol repeats every twenty years; three-symbol codes run 1982 to 2005. Regular 8mm has its own codes through 1964, then follows the 16mm symbols. Super 8 began in 1965 and always uses the 16mm symbols.",
     ca:"Kodak's Canadian plant used its own symbols on 16mm and 35mm from 1925 to 1950; from 1951 on it used the US symbols.",
     uk:"Kodak's British plant used its own symbols on 16mm and 35mm from 1917 to 1950 (and on Regular 8mm in the 1930s); from 1951 on it used the US symbols.",
     fr:"Kodak's Vincennes, France plant coated 16mm from 1934 to 1939. The gap before the first symbol sets the half-year: 1/16 inch means January to June, 3/16 inch means July to December.",
@@ -859,9 +860,19 @@ gtag('config', 'G-FZNM994NKR');
   // Tables that apply for a plant + gauge, each with the earliest year it may contribute
   // (8mm after 1964, and Canada/UK after 1950, switch to the US 16/35mm symbols).
   function tablesFor(plant,gauge){
-    if(plant==="us") return gauge==="8" ? [[M8,0],[M1635,1965]] : [[M1635,0]];
+    // Super 8 began in 1965 and only ever uses the 16/35mm symbol system.
+    // Regular 8 has its own codes through 1964, then follows 16/35mm.
+    if(plant==="us"){
+      if(gauge==="s8") return [[M1635,1965]];
+      if(gauge==="r8") return [[M8,0],[M1635,1965]];
+      return [[M1635,0]];
+    }
     if(plant==="ca") return [[MCA,0],[M1635,1951]];
-    if(plant==="uk") return gauge==="8" ? [[M8UK,0],[M1635,1965]] : [[MUK,0],[M1635,1951]];
+    if(plant==="uk"){
+      if(gauge==="s8") return [[M1635,1965]];
+      if(gauge==="r8") return [[M8UK,0],[M1635,1965]];
+      return [[MUK,0],[M1635,1951]];
+    }
     if(plant==="fr") return [[MFR,0]];
     if(plant==="de") return [[MDE,0]];
     return [];
@@ -898,7 +909,8 @@ gtag('config', 'G-FZNM994NKR');
   // US Regular 8 needs the half-circle, L and dash symbols the 1942-53 codes
   // use (and X for post-1982, once it follows the 16/35mm system).
   function symsFor(plant,gauge){
-    if(plant==="us") return gauge==="8" ? ["c","s","t","p","h","l","b","x"] : ["c","s","t","p","x"];
+    if(gauge==="s8") return ["c","s","t","p","x"]; // Super 8 uses only the 16/35mm system (1965 on)
+    if(plant==="us") return gauge==="r8" ? ["c","s","t","p","h","l","b","x"] : ["c","s","t","p","x"];
     return PLANTSYM[plant];
   }
   function buildOptions(){
