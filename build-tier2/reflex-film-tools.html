@@ -189,8 +189,8 @@ footer .social a{color:var(--muted);text-decoration:none}
 .kk-row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 16px}
 .kk-field{display:flex;flex-direction:column}
 .kk-field .kk-label{font-family:var(--m);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
-.kk-row #kkSel{-webkit-appearance:none;appearance:none;background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%239aa4a6' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:12px 32px 12px 14px;font-family:var(--m);font-size:1.05rem;letter-spacing:.08em;outline:none;width:auto}
-.kk-row #kkSel:focus{border-color:var(--teal)}
+.kk-row select{-webkit-appearance:none;appearance:none;background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%239aa4a6' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:12px 32px 12px 14px;font-family:var(--m);font-size:1.05rem;letter-spacing:.08em;outline:none;width:auto}
+.kk-row select:focus{border-color:var(--teal)}
 .kk-out{font-family:var(--m);font-size:1rem;color:var(--teal);min-height:1.2em;padding-bottom:12px}
 .ec-factory{margin-top:38px;border-top:1px solid var(--line);padding-top:30px}
 .ec-factory h3{font-family:var(--d);font-size:1.2rem;letter-spacing:-.01em;margin:0 0 10px;color:var(--ink)}
@@ -622,13 +622,20 @@ gtag('config', 'G-FZNM994NKR');
 
   <div class="ec-keykode">
     <h3>Film from 1989 on: the two-letter KEYKODE</h3>
-    <p>From 1989, most Kodak film carries a two-letter year code at the end of the edge print, after <strong style="color:var(--ink);font-weight:600">EASTMAN</strong>, for example <strong style="color:var(--ink);font-weight:600">EN</strong>. (Since 2003, many 35mm prints show the full four-digit year instead, so no lookup is needed.) Select the code to see its year:</p>
+    <p>From 1989, Kodak KEYKODE edge print carries two-letter codes. One is the <strong style="color:var(--ink);font-weight:600">year</strong> of manufacture, printed at the end after <strong style="color:var(--ink);font-weight:600">EASTMAN</strong> (for example <strong style="color:var(--ink);font-weight:600">EN</strong> = 2008). Another identifies the <strong style="color:var(--ink);font-weight:600">film stock</strong> by its Kodak catalog number. Look up either below. The same two letters can mean different things in the two systems, so read the code from the matching spot on the edge. (Since 2003, many 35mm prints show the full four-digit year, so no year lookup is needed.)</p>
     <div class="kk-row">
       <div class="kk-field">
-        <label class="kk-label" for="kkSel">Select a code</label>
+        <label class="kk-label" for="kkSel">Year code</label>
         <select id="kkSel" aria-label="Two-letter KEYKODE year code"><option value="">&ndash;&ndash;</option></select>
       </div>
       <div class="kk-out" id="kkOut">&nbsp;</div>
+    </div>
+    <div class="kk-row" style="margin-top:14px">
+      <div class="kk-field">
+        <label class="kk-label" for="kkProdSel">Film-stock code</label>
+        <select id="kkProdSel" aria-label="Two-letter KEYKODE film stock code"><option value="">&ndash;&ndash;</option></select>
+      </div>
+      <div class="kk-out" id="kkProdOut">&nbsp;</div>
     </div>
     <p style="margin-top:16px">Some Kodak film made from 2008 on carries a multi-year numeric stencil instead of a two-letter code, for example a run of years like <strong style="color:var(--ink);font-weight:600">12 11 10 9 8</strong>. The last (lowest) number in the sequence is the year of manufacture, so that example is 2008.</p>
   </div>
@@ -802,6 +809,21 @@ gtag('config', 'G-FZNM994NKR');
     "EL":["2025"],"AE":["2026"],"SA":["2027"],"TS":["2028"],"MT":["2029"],"KT":["2030"],
     "DM":["2031"],"FN":["2032"],"LK":["2033"]
   };
+  // KEYKODE product identification: two-letter code to Kodak film-stock
+  // catalog numbers (SO = special order). Source: Kodak KEYKODE ID Table.
+  var KKPROD={
+    "KA":"5243, SO-420, SO-421","KB":"5247, SO-247","KC":"5297",
+    "KD":"5234, 2234, SO-239","KE":"5222","KF":"5295, SO-215","KG":"SO-185",
+    "KH":"5231","KI":"5246","KJ":"5296, SO-261, SO-290, SO-896","KK":"5245, SO-245",
+    "KL":"5293, SO-009, SO-893","KM":"5248, SO-848, SO-031, SO-256",
+    "KN":"7292, SO-175, SO-463","KO":"5249","KP":"5600","KQ":"5277","KR":"5289, 2374",
+    "KS":"5272, 2272, SO-211","KT":"5298, SO-098, SO-898, SO-262","KU":"5279, SO-079",
+    "KV":"2244, 5244, SO-443","KW":"5287","KX":"5017, 5239, SO-0080, SO-214, 7239 (special)",
+    "KY":"5620","KZ":"5274","EA":"5285, 5294, 7294","EB":"5229","ED":"7266","EE":"5263",
+    "EG":"5284","EH":"5218","EI":"5299","EJ":"5219","EK":"5201","EL":"5217","EM":"5212",
+    "EN":"5207","EO":"5213","EQ":"5205","ER":"5203","ET":"5206","EU":"5260",
+    "EV":"2242, 5242, SO-742, SO-942","EW":"2254, 5254","EX":"2366","EZ":"5230","VP":"2237"
+  };
   var SVG={
     c:'<circle cx="12" cy="12" r="9"/>',
     s:'<rect x="3" y="3" width="18" height="18"/>',
@@ -940,6 +962,18 @@ gtag('config', 'G-FZNM994NKR');
       if(!v){ kkOut.innerHTML="&nbsp;"; return; }
       var hit=KK[v];
       kkOut.textContent = hit ? (v+" = "+hit.join(" or ")) : "";
+    });
+  }
+  var kkProdSel=document.getElementById("kkProdSel"), kkProdOut=document.getElementById("kkProdOut");
+  if(kkProdSel){
+    Object.keys(KKPROD).sort().forEach(function(code){
+      var o=document.createElement("option"); o.value=code; o.textContent=code; kkProdSel.appendChild(o);
+    });
+    kkProdSel.addEventListener("change",function(){
+      var v=kkProdSel.value;
+      if(!v){ kkProdOut.innerHTML="&nbsp;"; return; }
+      var hit=KKPROD[v];
+      kkProdOut.textContent = hit ? (v+" = "+hit) : "";
     });
   }
   renderPlant();
