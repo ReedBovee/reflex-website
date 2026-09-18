@@ -385,9 +385,9 @@ gtag('config', 'G-FZNM994NKR');
       <tbody>
         <tr><td class="g">Regular 8mm</td><td>One edge, larger holes at the frame lines</td><td>Narrow film with sprocket holes down one side and small, nearly square frames. Kodak introduced it in 1932 as an affordable home format: 16mm stock was exposed down one half, flipped and run through again, then slit down the middle to yield two 8mm strips. It dominated home movies from the 1930s into the 1960s and usually turns up on 3-inch (50 ft) reels.</td></tr>
         <tr><td class="g">Super 8</td><td>One edge, smaller holes centered on each frame</td><td>The same 8mm width as Regular 8, but with much smaller perforations that freed up room for a frame about 50 percent larger. Kodak launched it in 1965 in an easy-load plastic cartridge, which is often the giveaway. It became the standard home-movie and student format through the 1970s, and many later cartridges carried a magnetic sound stripe.</td></tr>
-        <tr><td class="g">16mm</td><td>One edge (sound) or both edges (silent)</td><td>Twice the width of 8mm, introduced by Kodak in 1923 as a safer, cheaper alternative to 35mm. Silent 16mm has perforations on both edges; a sound print gives up one row for an optical or magnetic track, so perforations on only one edge signal sound. It was long the workhorse of documentary, newsreel, educational, and industrial filmmaking.</td></tr>
+        <tr><td class="g">16mm</td><td>One or both edges</td><td>Twice the width of 8mm, introduced by Kodak in 1923 as a safer, cheaper alternative to 35mm. Double-perforated 16mm (both edges) is normally silent. Single-perforated film may give up one row for an optical or magnetic soundtrack, but single-perf stock is also widely used for camera originals and is required for Super 16, so a single row alone does not prove sound. It was long the workhorse of documentary, newsreel, educational, and industrial filmmaking.</td></tr>
         <tr><td class="g">Super 16</td><td>One edge only</td><td>Standard 16mm stock exposed with a single row of perforations, letting the frame extend into the space the second row would use for a wider image of roughly 1.66. It is a camera origination format rather than a projection one, meant to be blown up to 35mm or finished for widescreen. A single perf row plus a frame reaching almost to the far edge is the tell.</td></tr>
-        <tr><td class="g">35mm</td><td>Both edges, four holes per frame</td><td>The theatrical standard since the birth of cinema, with perforations down both edges, usually four per frame. It is exactly the same width as a 35mm still-photography negative, because motion-picture film came first and the still format borrowed the stock. Its large frame and a century of infrastructure make it the benchmark other gauges are measured against.</td></tr>
+        <tr><td class="g">35mm</td><td>Both edges; commonly four holes per frame</td><td>The theatrical standard since the birth of cinema, with perforations down both edges, most commonly four per frame. Reduced pulldowns of 2-perf and 3-perf also exist, and VistaVision runs the film horizontally at eight perforations per frame. It is exactly the same width as a 35mm still-photography negative, because motion-picture film came first and the still format borrowed the stock. Its large frame and a century of infrastructure make it the benchmark other gauges are measured against.</td></tr>
       </tbody>
     </table>
   </div>
@@ -435,7 +435,7 @@ gtag('config', 'G-FZNM994NKR');
         </div>
       </div>
       <div>
-        <label for="fTime">Running time (mm:ss)</label>
+        <label for="fTime">Running time (mm:ss or h:mm:ss)</label>
         <div class="stepwrap">
           <input id="fTime" type="text" inputmode="numeric" placeholder="e.g. 27:47">
           <span class="stepper" data-for="fTime" data-step="time">
@@ -468,8 +468,8 @@ gtag('config', 'G-FZNM994NKR');
       <div><label for="stRes">Resolution</label>
         <select id="stRes">
           <option value="hd">HD (1920 x 1080)</option>
-          <option value="2k">2K (2048 x 1556)</option>
-          <option value="4k" selected>4K (4096 x 3112)</option>
+          <option value="2k">2K full-aperture scan (2048 x 1556)</option>
+          <option value="4k" selected>4K full-aperture scan (4096 x 3112)</option>
           <option value="8k">8K (8192 x 6224)</option>
           <option value="custom">Custom&hellip;</option>
         </select>
@@ -630,11 +630,12 @@ gtag('config', 'G-FZNM994NKR');
       </div>
       <div class="kk-out" id="kkOut">&nbsp;</div>
     </div>
+    <p style="margin-top:16px">Some Kodak film made from 2008 on carries a multi-year numeric stencil instead of a two-letter code, for example a run of years like <strong style="color:var(--ink);font-weight:600">12 11 10 9 8</strong>. The last (lowest) number in the sequence is the year of manufacture, so that example is 2008.</p>
   </div>
 
   <div class="ec-factory">
     <h3>Factory ID code: where the film was made</h3>
-    <p class="fac-lead">Alongside the date symbols, Kodak printed the word <strong style="color:var(--ink);font-weight:600">SAFETY</strong> on acetate stock, and a single dot above the word identified the factory that coated the film. The dot sits <em>between</em> two letters, not over one, and its position is what matters: read which pair of letters it falls between. Kodak began marking the Rochester plant around 1927 and the overseas plants in Canada and England around 1936.</p>
+    <p class="fac-lead">Alongside the date symbols, Kodak marked the plant that coated the film with a single dot placed <em>between</em> two letters, and the dot appears in both <strong style="color:var(--ink);font-weight:600">KODAK</strong> and <strong style="color:var(--ink);font-weight:600">SAFETY</strong>. The chart below shows the common <strong style="color:var(--ink);font-weight:600">SAFETY</strong> dot positions as a simplified quick reference. A full identification reads both words together with the dot's vertical placement: the two US plants, Rochester, New York and Windsor, Colorado, share the same SAFETY dot and are told apart only by the dot in KODAK and its height. Kodak began marking Rochester around 1927 and the overseas plants around 1936; some positions here, such as Australia, come from older preservation charts rather than Kodak's current list. For a definitive result, compare against Kodak's published plant-of-origin chart.</p>
     <div class="fac-grid">
       <div class="fac-item">
         <span class="fac-word" aria-label="SAFETY with a dot between the S and A">
@@ -741,16 +742,26 @@ gtag('config', 'G-FZNM994NKR');
     "pct":[1994],"pst":[1995],"xct":[1996],"xst":[1997],"xtt":[1998],"cxt":[1999],
     "sst":[2000],"ttc":[2001],"csc":[2002],"ctc":[2003],"tsc":[2004],"scc":[2005]
   };
+  // Regular 8 US. 1932-41 and 1954-64 are Kodak's established codes; the
+  // 1942-53 readings (tagged uncertain/possible/probable) are Kodak's own
+  // guidance table, reconstructed from film collections by the East Anglian
+  // Film Archive and reproduced in TI-2660. After 1964, Regular 8 follows the
+  // 16/35mm symbols (added automatically via M1635 from 1965 on).
   var M8={
-    "c":["1932"],"s":["1963","1933 (Jan-Jun)"],"t":["1933 (Jul-Dec)"],
-    "cc":["1964","1954","1934 (Jan-Jun)"],"ss":["1934 (Jul-Dec)"],
+    "c":["1932"],"s":["1963","1953 (probable)","1933 (Jan-Jun)"],"t":["1933 (Jul-Dec)"],
+    "cc":["1964","1954","1934 (Jan-Jun)"],"ss":["1944 (uncertain)","1934 (Jul-Dec)"],
     "tt":["1955","1935 (Jan-Jun)"],"cs":["1935 (Jul-Dec)"],
-    "ct":["1956","1936 (Jan-Jun)"],"ts":["1936 (Jul-Dec)"],
-    "sc":["1937 (Jul-Dec)"],"tc":["1957","1937 (Jan-Jun)"],
-    "st":["1958","1938 (Jan-Jun)"],"pp":["1938 (Jul-Dec)"],
-    "pc":["1959","1939 (Jan-Jun)"],"ps":["1939 (Jul-Dec)"],
-    "pt":["1960","1940 (Jan-Jun)"],"cp":["1940 (Jul-Dec)"],
-    "sp":["1961","1941 (Jan-Jun)"],"tp":["1941 (Jul-Dec)"],"p":["1962"]
+    "ct":["1956","1936 (Jan-Jun)"],"ts":["1946 (possible)","1936 (Jul-Dec)"],
+    "sc":["1947 (probable)","1937 (Jul-Dec)"],"tc":["1957","1947 (probable)","1937 (Jan-Jun)"],
+    "st":["1958","1948 (possible)","1938 (Jan-Jun)"],"pp":["1948 (possible)","1938 (Jul-Dec)"],
+    "pc":["1959","1949 (possible)","1939 (Jan-Jun)"],"ps":["1949 (possible)","1939 (Jul-Dec)"],
+    "pt":["1960","1940 (Jan-Jun)"],"cp":["1950 (possible)","1940 (Jul-Dec)"],
+    "sp":["1961","1951 (probable)","1941 (Jan-Jun)"],"tp":["1951 (possible)","1941 (Jul-Dec)"],
+    "p":["1962","1942 (uncertain)","1948 (probable)","1952 (probable)"],
+    "h":["1943 (possible)"],"lb":["1942 (possible)","1947 (probable)"],
+    "bb":["1945 (uncertain)"],"pb":["1945 (possible)"],
+    "hp":["1946 (possible)"],"hl":["1946 (possible)"],"hb":["1948 (possible)"],
+    "ph":["1949 (probable)"],"pl":["1950 (probable)"]
   };
   var MCA={
     "cl":[1947,1936,1925],"cb":[1948,1937,1926],"ch":[1949,1938,1927],
@@ -852,18 +863,24 @@ gtag('config', 'G-FZNM994NKR');
     var oldest=Math.min.apply(null,nums), newest=Math.max.apply(null,nums);
     if(nums.length===1){
       var y=oldest;
-      if(y>=1951) return y+" stock is acetate (or later polyester) safety film, which can develop vinegar syndrome as it ages.";
-      return y+" falls in the nitrate era: 35mm of this age runs on a flammable nitrate base and needs careful handling, while 8mm and 16mm were always safety film.";
+      if(y>=1951) return y+" stock is safety film. If the base is cellulose acetate it can develop vinegar syndrome as it ages; polyester base does not.";
+      return y+" 35mm may be on a flammable cellulose nitrate base and should be positively identified before handling or storage, particularly around 1948 to 1952 as Kodak converted 35mm to safety base. 8mm and 16mm were always safety film.";
     }
     if(oldest<1951 && newest>=1951)
-      return "These span the nitrate era ("+oldest+") and later safety film ("+newest+"), so the base and look of the film will tell you which.";
+      return "These span the years when 35mm may be nitrate ("+oldest+") and later safety film ("+newest+"). Any nitrate must be positively identified before handling or storage; 8mm and 16mm were always safety film.";
     if(newest<1951)
-      return "All of these fall in the nitrate era, when 35mm ran on a flammable nitrate base (8mm and 16mm were always safety film).";
-    return "All of these are acetate or polyester safety film, which can develop vinegar syndrome as it ages.";
+      return "35mm from these years may be on a flammable cellulose nitrate base, which must be positively identified before handling or storage (8mm and 16mm were always safety film).";
+    return "All of these are safety film. If the base is cellulose acetate it can develop vinegar syndrome as it ages; polyester base does not.";
   }
 
+  // US Regular 8 needs the half-circle, L and dash symbols the 1942-53 codes
+  // use (and X for post-1982, once it follows the 16/35mm system).
+  function symsFor(plant,gauge){
+    if(plant==="us") return gauge==="8" ? ["c","s","t","p","h","l","b","x"] : ["c","s","t","p","x"];
+    return PLANTSYM[plant];
+  }
   function buildOptions(){
-    var syms=PLANTSYM[plantEl.value];
+    var syms=symsFor(plantEl.value,gaugeEl.value);
     for(var pos=0;pos<pickerOpts.length;pos++){
       var html='<button type="button" class="ec-opt ec-none active" data-sym="">None</button>';
       for(var i=0;i<syms.length;i++){
@@ -875,7 +892,7 @@ gtag('config', 'G-FZNM994NKR');
     sel=["","",""];
   }
   function renderPlant(){
-    var plant=plantEl.value, syms=PLANTSYM[plant];
+    var plant=plantEl.value, syms=symsFor(plant,gaugeEl.value);
     gaugeWrap.style.display=(plant==="us"||plant==="uk")?"":"none";
     legendEl.innerHTML=syms.map(function(k){return "<li>"+svg(k,"ec-svg sym")+SNAME[k]+"</li>";}).join("");
     plantNote.textContent=PNOTE[plant];
@@ -893,7 +910,10 @@ gtag('config', 'G-FZNM994NKR');
       return;
     }
     out.textContent=years.join("  ·  ");
-    note.textContent=(years.length>1?"This code can point to more than one year. ":"")+eraNote(years);
+    var guidance=years.some(function(y){return /uncertain|possible|probable/.test(y);});
+    var msg=(years.length>1?"This code can point to more than one year. ":"");
+    if(guidance) msg+="Readings marked uncertain, possible or probable come from Kodak's reconstructed 1942 to 1953 Regular 8 guidance, not a definitive date. ";
+    note.textContent=msg+eraNote(years);
   }
 
   for(var pi=0;pi<pickerOpts.length;pi++){
@@ -909,7 +929,7 @@ gtag('config', 'G-FZNM994NKR');
     })(pickerOpts[pi],pi);
   }
   plantEl.addEventListener("change",renderPlant);
-  gaugeEl.addEventListener("change",calc);
+  gaugeEl.addEventListener("change",renderPlant);
   var kkSel=document.getElementById("kkSel"), kkOut=document.getElementById("kkOut");
   if(kkSel){
     Object.keys(KK).sort().forEach(function(code){
@@ -944,8 +964,17 @@ gtag('config', 'G-FZNM994NKR');
   function round1(v){var r=Math.round(v*10)/10;return r;}
   function parseTime(str){
     if(str==null)return NaN;str=String(str).trim();if(str==='')return NaN;
-    if(str.indexOf(':')>=0){var p=str.split(':'),s=0;for(var i=0;i<p.length;i++){var n=parseFloat(p[i]);if(isNaN(n))n=0;s=s*60+n;}return s;}
-    var m=parseFloat(str);return isNaN(m)?NaN:m*60;
+    if(str.indexOf(':')>=0){
+      var p=str.split(':');
+      if(p.length>3)return NaN;
+      for(var i=0;i<p.length;i++){if(!/^\d+$/.test(p[i]))return NaN;}
+      var n=p.map(Number);
+      var ss=n[n.length-1], mm=n.length>=2?n[n.length-2]:0, hh=n.length>=3?n[n.length-3]:0;
+      if(ss>=60||mm>=60)return NaN;
+      return hh*3600+mm*60+ss;
+    }
+    if(!/^\d+(\.\d+)?$/.test(str))return NaN;
+    return parseFloat(str)*60;
   }
   function curFps(){var custom=el('fps').value==='custom';el('fpsCustom').style.display=custom?'block':'none';return custom?parseFloat(el('fpsCustom').value):parseFloat(el('fps').value);}
   function clearOthers(anchor){if(anchor!=='feet')el('fFeet').value='';if(anchor!=='time')el('fTime').value='';if(anchor!=='frames')el('fFrames').value='';}
@@ -957,9 +986,9 @@ gtag('config', 'G-FZNM994NKR');
     var rate=fps*60/fpf;
     el('rate').textContent='At '+fps+' fps, '+NAME[g]+' runs '+rate.toFixed(1)+' feet per minute ('+(Math.round(fpf*100)/100)+' frames per foot).';
     var frames;
-    if(last==='feet'){var feet=parseFloat(el('fFeet').value);if(isNaN(feet)||feet<0){clearOthers('feet');return;}frames=feet*fpf;}
-    else if(last==='time'){var secs=parseTime(el('fTime').value);if(isNaN(secs)||secs<0){clearOthers('time');return;}frames=secs*fps;}
-    else{frames=parseFloat(el('fFrames').value);if(isNaN(frames)||frames<0){clearOthers('frames');return;}}
+    if(last==='feet'){var fv=el('fFeet').value.trim();var feet=/^\d+(\.\d+)?$/.test(fv)?parseFloat(fv):NaN;if(fv!==''&&(isNaN(feet)||feet<0))el('rate').textContent='Enter footage as a number of feet.';if(isNaN(feet)||feet<0){clearOthers('feet');return;}frames=feet*fpf;}
+    else if(last==='time'){var tv=el('fTime').value.trim();var secs=parseTime(tv);if(tv!==''&&(isNaN(secs)||secs<0))el('rate').textContent='Enter time as mm:ss or h:mm:ss, with minutes and seconds 0 to 59.';if(isNaN(secs)||secs<0){clearOthers('time');return;}frames=secs*fps;}
+    else{var qv=el('fFrames').value.trim();frames=/^\d+$/.test(qv)?parseInt(qv,10):NaN;if(qv!==''&&isNaN(frames))el('rate').textContent='Enter a whole number of frames.';if(isNaN(frames)||frames<0){clearOthers('frames');return;}}
     if(last!=='feet')el('fFeet').value=round1(frames/fpf);
     if(last!=='time')el('fTime').value=fmtTime(frames/fps);
     if(last!=='frames')el('fFrames').value=Math.round(frames);
@@ -986,8 +1015,8 @@ gtag('config', 'G-FZNM994NKR');
   function pad(n,w){n=String(n);while(n.length<w)n='0'+n;return n;}
   function curFps(){var c=el('tcFps').value==='custom';el('tcFpsCustom').style.display=c?'block':'none';return c?parseFloat(el('tcFpsCustom').value):parseFloat(el('tcFps').value);}
   function clearOthers(a){if(a!=='ff')el('tcFF').value='';if(a!=='tc')el('tcTC').value='';if(a!=='fr')el('tcFrames').value='';}
-  function parseFF(str,fpf){str=String(str).trim();if(str==='')return NaN;var p=str.split('+');var ft=parseFloat(p[0]);if(isNaN(ft))ft=0;var fr=p.length>1?parseFloat(p[1]):0;if(isNaN(fr))fr=0;return ft*fpf+fr;}
-  function parseTC(str,f){str=String(str).trim();if(str==='')return NaN;var p=str.split(':').map(function(x){var n=parseInt(x,10);return isNaN(n)?0:n;});while(p.length<4)p.unshift(0);return ((p[0]*3600+p[1]*60+p[2])*f)+p[3];}
+  function parseFF(str,fpf){str=String(str).trim();if(str==='')return NaN;var m=str.match(/^(\d+)(?:\s*\+\s*(\d+))?$/);if(!m)return NaN;var ft=parseInt(m[1],10),fr=m[2]!=null?parseInt(m[2],10):0;if(fr>=fpf)return NaN;return ft*fpf+fr;}
+  function parseTC(str,f){str=String(str).trim();if(str==='')return NaN;var p=str.split(':');if(p.length>4)return NaN;for(var i=0;i<p.length;i++){if(!/^\d+$/.test(p[i]))return NaN;}while(p.length<4)p.unshift('0');var h=+p[0],m=+p[1],s=+p[2],ff=+p[3];if(m>=60||s>=60||ff>=f)return NaN;return ((h*3600+m*60+s)*f)+ff;}
   function fmtFF(total,fpf){var ft=Math.floor(total/fpf);var fr=Math.round(total-ft*fpf);if(fr>=fpf){ft+=Math.floor(fr/fpf);fr=fr%fpf;}return ft+'+'+pad(fr,2);}
   function fmtTC(total,f){var whole=Math.floor(total/f),ff=total-whole*f;var h=Math.floor(whole/3600),m=Math.floor((whole%3600)/60),s=whole%60;return pad(h,2)+':'+pad(m,2)+':'+pad(s,2)+':'+pad(ff,2);}
   var last='tc';
@@ -997,11 +1026,18 @@ gtag('config', 'G-FZNM994NKR');
     if(isNaN(fps)||fps<=0){el('tcNote').textContent='Enter a frame rate above.';clearOthers(last);return;}
     var fnum=Math.round(fps);if(fnum<1)fnum=1;
     el('tcNote').textContent=NAME[g]+' at '+fps+' fps: '+fpf+' frames per foot, '+(fps*60/fpf).toFixed(1)+' feet per minute. Non-drop timecode.';
-    var frames;
-    if(last==='ff')frames=parseFF(el('tcFF').value,fpf);
-    else if(last==='tc')frames=parseTC(el('tcTC').value,fnum);
-    else frames=parseFloat(el('tcFrames').value);
-    if(isNaN(frames)||frames<0){clearOthers(last);return;}
+    var frames, raw;
+    if(last==='ff'){raw=el('tcFF').value;frames=parseFF(raw,fpf);}
+    else if(last==='tc'){raw=el('tcTC').value;frames=parseTC(raw,fnum);}
+    else{raw=el('tcFrames').value;frames=/^\d+$/.test(String(raw).trim())?parseInt(raw,10):NaN;}
+    if(isNaN(frames)||frames<0){
+      if(String(raw).trim()!==''){
+        el('tcNote').textContent = last==='tc' ? 'Enter timecode as HH:MM:SS:FF, with minutes and seconds 0 to 59 and frames 0 to '+(fnum-1)+'.'
+          : last==='ff' ? 'Enter feet+frames as feet+frames, with frames 0 to '+(fpf-1)+'.'
+          : 'Enter a whole number of frames.';
+      }
+      clearOthers(last);return;
+    }
     frames=Math.round(frames);
     if(last!=='ff')el('tcFF').value=fmtFF(frames,fpf);
     if(last!=='tc')el('tcTC').value=fmtTC(frames,fnum);
