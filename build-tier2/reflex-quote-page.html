@@ -397,11 +397,10 @@ gtag('config', 'G-FZNM994NKR');
   f.addEventListener("submit",function(e){
     e.preventDefault();
     if(f.querySelector('[name="_honey"]').value) return;
-    var fn=(f.elements["First name"].value||"").trim();
-    var em=(f.elements["Email"].value||"").trim();
-    var hp=(f.elements["How can we help"].value||"").trim();
-    if(!fn||!em){ setStatus("Please add your name and email so we can reply.","err"); return; }
-    if(!hp){ setStatus("Please tell us how we can help.","err"); return; }
+    if(!f.checkValidity()){ f.reportValidity(); return; }
+    var prefer=(f.elements["Preferred contact"].value||"");
+    var phone=(f.elements["Phone"].value||"").trim();
+    if(prefer==="Phone" && !phone){ setStatus("You chose phone as your preferred contact, so please add a phone number.","err"); f.elements["Phone"].focus(); return; }
     btn.disabled=true;
     setStatus("Sending…","");
     fetch(f.action,{method:"POST",body:new FormData(f),headers:{"Accept":"application/json"}})
