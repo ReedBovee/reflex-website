@@ -108,15 +108,6 @@ footer .social a{color:var(--muted);text-decoration:none}
 @media(prefers-reduced-motion:reduce){.fade{animation:none;opacity:1;transform:none}html{scroll-behavior:auto}}
 :focus-visible{outline:2px solid var(--teal);outline-offset:3px}
 
-.nav-dd{position:relative}
-.nav-dd>.nav-dd-btn{font-family:inherit;font-size:14px;color:var(--muted);background:none;border:0;cursor:pointer;padding:0;transition:.15s}
-.nav-dd>.nav-dd-btn:hover{color:var(--ink)}
-.nav-dd-btn .caret{font-size:.7em;transition:transform .2s}
-.nav-dd.open .nav-dd-btn .caret{transform:rotate(180deg)}
-.nav-dd-menu{position:absolute;top:calc(100% + 14px);right:0;min-width:242px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px;display:none;flex-direction:column;gap:2px;z-index:40;box-shadow:0 16px 40px rgba(0,0,0,.45)}
-.nav-dd.open .nav-dd-menu,.nav-dd:hover .nav-dd-menu{display:flex}
-.nav-dd-menu a{padding:11px 13px;border-radius:8px;white-space:nowrap}
-.nav-dd-menu a:hover{background:rgba(255,255,255,.06)}
 </style>
 <!-- ===== SEO metadata ===== -->
 <link rel="canonical" href="https://reflextechnologies.com/">
@@ -235,9 +226,10 @@ gtag('config', 'G-FZNM994NKR');
     <a class="btn btn-p" href="reflex-quote-page">Get in touch</a>
   </nav>
 </div></header>
+<main>
 
 <section class="hero">
-  <img class="hero-bg" src="images/178feb98c257.jpg" alt="Reflex color-grading and mastering suite with acoustic treatment, calibrated monitors showing video scopes, and a restored black-and-white film frame on the reference screen" fetchpriority="high" decoding="async">
+  <img width="1920" height="1080" class="hero-bg" src="images/178feb98c257.jpg" alt="Reflex color-grading and mastering suite with acoustic treatment, calibrated monitors showing video scopes, and a restored black-and-white film frame on the reference screen" fetchpriority="high" decoding="async">
   <div class="hero-in">
     <span class="eyebrow fade">Archival digitization / Burbank, CA / Serving Los Angeles</span>
     <h1 class="fade d1">Your media, <br>in any condition, <br>digitized beautifully.</h1>
@@ -260,7 +252,7 @@ gtag('config', 'G-FZNM994NKR');
 </div></section>
 
 <section class="band">
-  <div class="media"><img src="images/c83dd326d1b2.jpg" alt="The Reflex Technologies building, a blue-and-white three-story facility on a corner in Burbank" loading="lazy" decoding="async"><span class="tag">4100 West Burbank Blvd</span></div>
+  <div class="media"><img width="2400" height="1350" src="images/c83dd326d1b2.jpg" alt="The Reflex Technologies building, a blue-and-white three-story facility on a corner in Burbank" loading="lazy" decoding="async"><span class="tag">4100 West Burbank Blvd</span></div>
   <div class="copy">
     <span class="eyebrow">Where we work</span>
     <h2>A purpose-built facility in Burbank</h2>
@@ -287,11 +279,11 @@ gtag('config', 'G-FZNM994NKR');
   <a class="btn btn-p" href="reflex-quote-page">Get in touch</a>
 </div></section>
 
+</main>
 <footer><div class="wrap">
     <div class="nap">4100 West Burbank Blvd, Burbank, CA 91505<br>818-859-7770 &nbsp;/&nbsp; info@reflextechnologies.com<br>Serving clients in Los Angeles and worldwide</div>
     <div class="social"><a href="https://www.linkedin.com/company/90664175/" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.facebook.com/reflexburbank" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/reflexfilmscanning/" target="_blank" rel="noopener">Instagram</a></div>
   </div></footer>
 
 
-<script>/*navdd*/(function(){document.querySelectorAll(".nav-dd-btn").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var d=b.closest(".nav-dd");var o=d.classList.toggle("open");b.setAttribute("aria-expanded",o);});});document.addEventListener("click",function(){document.querySelectorAll(".nav-dd.open").forEach(function(d){d.classList.remove("open");var x=d.querySelector(".nav-dd-btn");if(x)x.setAttribute("aria-expanded","false");});});})();</script>
 </body></html>

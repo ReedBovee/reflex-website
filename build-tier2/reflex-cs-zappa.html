@@ -141,15 +141,6 @@ footer .social a{color:var(--muted);text-decoration:none}
 .article .pull{font-family:var(--d);font-weight:600;font-size:clamp(1.3rem,2.4vw,1.8rem);line-height:1.32;color:var(--ink);border-left:2px solid var(--teal);padding-left:24px;margin:32px 0}
 
 
-.nav-dd{position:relative}
-.nav-dd>.nav-dd-btn{font-family:inherit;font-size:14px;color:var(--muted);background:none;border:0;cursor:pointer;padding:0;transition:.15s}
-.nav-dd>.nav-dd-btn:hover{color:var(--ink)}
-.nav-dd-btn .caret{font-size:.7em;transition:transform .2s}
-.nav-dd.open .nav-dd-btn .caret{transform:rotate(180deg)}
-.nav-dd-menu{position:absolute;top:calc(100% + 14px);right:0;min-width:242px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px;display:none;flex-direction:column;gap:2px;z-index:40;box-shadow:0 16px 40px rgba(0,0,0,.45)}
-.nav-dd.open .nav-dd-menu,.nav-dd:hover .nav-dd-menu{display:flex}
-.nav-dd-menu a{padding:11px 13px;border-radius:8px;white-space:nowrap}
-.nav-dd-menu a:hover{background:rgba(255,255,255,.06)}
 
 .more{border-top:1px solid var(--line);padding:56px 0;background:var(--bg)}
 .more-in{max-width:1140px;margin:0 auto;padding:0 28px}
@@ -157,6 +148,7 @@ footer .social a{color:var(--muted);text-decoration:none}
 .more-grid a{display:block;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:6px;color:var(--ink);font-family:var(--d);font-weight:600;font-size:1.02rem;text-decoration:none;transition:.18s}
 .more-grid a:hover{border-color:var(--teal);color:var(--teal)}
 .more-grid a span{display:block;font-family:var(--b);font-weight:400;font-size:.85rem;color:var(--muted);margin-top:5px;line-height:1.35}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 </style>
 <!-- ===== SEO metadata ===== -->
 <link rel="canonical" href="https://reflextechnologies.com/reflex-cs-zappa">
@@ -275,9 +267,10 @@ gtag('config', 'G-FZNM994NKR');
     <a class="btn btn-p" href="reflex-quote-page">Get in touch</a>
   </nav>
 </div></header>
+<main>
 
 <section class="hero">
-  <img class="hero-bg" src="images/74b4d99b28d0.jpg" alt="Archivist in white gloves inspecting a strip of film with a loupe over a light box" fetchpriority="high" decoding="async">
+  <img width="1600" height="900" class="hero-bg" src="images/74b4d99b28d0.jpg" alt="Archivist in white gloves inspecting a strip of film with a loupe over a light box" fetchpriority="high" decoding="async">
   <div class="hero-in">
     <a class="backlink" href="reflex-our-work-page"><span class="ba">&larr;</span> Our Work</a>
     <span class="eyebrow fade">Case study</span>
@@ -287,6 +280,7 @@ gtag('config', 'G-FZNM994NKR');
 </section>
 
 <section class="csfacts"><div class="wrap">
+  <h2 class="sr-only">Project details</h2>
   <div class="specs">
     <div class="spec"><div class="n">Client</div><h3>Zappa Family Trust</h3></div>
     <div class="spec"><div class="n">Service</div><h3>Film &amp; film sound digitization</h3></div>
@@ -325,11 +319,11 @@ gtag('config', 'G-FZNM994NKR');
   <a class="btn btn-p" href="reflex-quote-page">Get in touch</a>
 </div></section>
 
+</main>
 <footer><div class="wrap">
     <div class="nap">4100 West Burbank Blvd, Burbank, CA 91505<br>818-859-7770 &nbsp;/&nbsp; info@reflextechnologies.com<br>Serving clients in Los Angeles and worldwide</div>
     <div class="social"><a href="https://www.linkedin.com/company/90664175/" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.facebook.com/reflexburbank" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/reflexfilmscanning/" target="_blank" rel="noopener">Instagram</a></div>
   </div></footer>
 
 
-<script>/*navdd*/(function(){document.querySelectorAll(".nav-dd-btn").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var d=b.closest(".nav-dd");var o=d.classList.toggle("open");b.setAttribute("aria-expanded",o);});});document.addEventListener("click",function(){document.querySelectorAll(".nav-dd.open").forEach(function(d){d.classList.remove("open");var x=d.querySelector(".nav-dd-btn");if(x)x.setAttribute("aria-expanded","false");});});})();</script>
 </body></html>
