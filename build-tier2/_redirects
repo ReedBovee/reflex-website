@@ -1,0 +1,18 @@
+# Cloudflare Pages redirects: force ONE canonical URL per page (extensionless).
+# .htaccess is ignored on Cloudflare Pages, so consolidation happens here.
+/index.html  /  301
+/reflex-cs-gene-kelly.html  /reflex-cs-gene-kelly  301
+/reflex-cs-iam.html  /reflex-cs-iam  301
+/reflex-cs-illusion-arts.html  /reflex-cs-illusion-arts  301
+/reflex-cs-moma.html  /reflex-cs-moma  301
+/reflex-cs-paramount.html  /reflex-cs-paramount  301
+/reflex-cs-zappa.html  /reflex-cs-zappa  301
+/reflex-film-page.html  /reflex-film-page  301
+/reflex-film-tools.html  /reflex-film-tools  301
+/reflex-our-work-page.html  /reflex-our-work-page  301
+/reflex-posters.html  /reflex-posters  301
+/reflex-quote-page.html  /reflex-quote-page  301
+/reflex-stills-page.html  /reflex-stills-page  301
+/reflex-thank-you.html  /reflex-thank-you  301
+/reflex-video-audio-page.html  /reflex-video-audio-page  301
+/shrunken-warped-vinegar-syndrome-film-scanning.html  /shrunken-warped-vinegar-syndrome-film-scanning  301
