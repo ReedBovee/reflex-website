@@ -299,7 +299,6 @@ gtag('config', 'G-FZNM994NKR');
         <input type="hidden" name="_subject" value="New inquiry from reflextechnologies.com">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
-        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 
         <div class="row">
           <div class="field">
@@ -391,7 +390,6 @@ gtag('config', 'G-FZNM994NKR');
   function setStatus(msg,kind){ statusEl.textContent=msg; statusEl.className="formstatus"+(kind?" "+kind:""); statusEl.style.display=msg?"block":"none"; }
   f.addEventListener("submit",function(e){
     e.preventDefault();
-    if(f.querySelector('[name="_honey"]').value) return;
     function val(n){ return ((f.elements[n] && f.elements[n].value) || "").trim(); }
     var fn=val("First name"), ln=val("Last name"), em=val("Email"), help=val("How can we help");
     var emailOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);
