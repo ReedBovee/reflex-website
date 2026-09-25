@@ -392,9 +392,13 @@ gtag('config', 'G-FZNM994NKR');
   f.addEventListener("submit",function(e){
     e.preventDefault();
     if(f.querySelector('[name="_honey"]').value) return;
-    if(!f.checkValidity()){ f.reportValidity(); return; }
-    var prefer=(f.elements["Preferred contact"].value||"");
-    var phone=(f.elements["Phone"].value||"").trim();
+    function val(n){ return ((f.elements[n] && f.elements[n].value) || "").trim(); }
+    var fn=val("First name"), ln=val("Last name"), em=val("Email"), help=val("How can we help");
+    var emailOk=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);
+    if(!fn||!ln){ setStatus("Please add your first and last name so we can reply.","err"); (f.elements[!fn?"First name":"Last name"]).focus(); return; }
+    if(!em||!emailOk){ setStatus("Please enter a valid email address so we can reply.","err"); f.elements["Email"].focus(); return; }
+    if(!help){ setStatus("Please choose how we can help from the list.","err"); f.elements["How can we help"].focus(); return; }
+    var prefer=val("Preferred contact"), phone=val("Phone");
     if(prefer==="Phone" && !phone){ setStatus("You chose phone as your preferred contact, so please add a phone number.","err"); f.elements["Phone"].focus(); return; }
     btn.disabled=true;
     setStatus("Sending…","");
