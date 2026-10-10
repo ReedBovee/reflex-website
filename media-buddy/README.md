@@ -41,7 +41,7 @@ size, date created, date modified, frame count, folder and full path.
   list every frame.
 - Skips Mac `._` resource-fork files, the Recycle Bin, System Volume
   Information and other OS clutter.
-- Recognizes about 400 extensions: consumer video, MPEG-TS/AVCHD/DVD VOB,
+- Recognizes 290 video and still-image extensions (plus 67 audio): consumer video, MPEG-TS/AVCHD/DVD VOB,
   DV/MXF tape captures, cinema camera (R3D, BRAW, ARRI), every camera RAW,
   DPX/Cineon/EXR, HEIC/AVIF/JPEG XL, PSD and more. The full list is in
   `mediabuddy/formats.py`.
